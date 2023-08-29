@@ -41,7 +41,7 @@ public class HomeFragment extends Fragment {
 
         fragmentHomeBinding.rvItems.setAdapter(itemsAdapter);
         fragmentHomeBinding.fabAdd.setOnClickListener(view -> {
-            AddPersonBottomSheet bottomSheet = new AddPersonBottomSheet(view.getContext());
+            AddPersonBottomSheet bottomSheet = new AddPersonBottomSheet();
             bottomSheet.setOnAddListener((name, age) -> {
                 assert homeFragmentViewModel.personList.getValue() != null;
                 List<Person> personList = new ArrayList<>(homeFragmentViewModel.personList.getValue());
@@ -49,7 +49,7 @@ public class HomeFragment extends Fragment {
                 index++;
                 homeFragmentViewModel.personList.setValue(personList);
             });
-            bottomSheet.show();
+            bottomSheet.show(getParentFragmentManager(), AddPersonBottomSheet.TAG);
 
         });
     }

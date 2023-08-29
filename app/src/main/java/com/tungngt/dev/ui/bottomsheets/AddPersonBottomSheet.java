@@ -2,16 +2,22 @@ package com.tungngt.dev.ui.bottomsheets;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
-import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.tungngt.dev.databinding.AddPersonBottomsheetBinding;
 
-public class AddPersonBottomSheet extends BottomSheetDialog {
+public class AddPersonBottomSheet extends BottomSheetDialogFragment {
     public AddPersonBottomsheetBinding bottomsheetBinding;
+
+    public static String TAG = "ModelBottomSheet";
 
     public interface OnAddListener {
         void onAdd(String name, Integer age);
@@ -19,19 +25,17 @@ public class AddPersonBottomSheet extends BottomSheetDialog {
 
     private OnAddListener onAddListener;
 
-    public AddPersonBottomSheet(@NonNull Context context) {
-        super(context);
-    }
 
     public void setOnAddListener(OnAddListener onAddListener) {
         this.onAddListener = onAddListener;
     }
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        bottomsheetBinding = AddPersonBottomsheetBinding.inflate(getLayoutInflater());
-        setContentView(bottomsheetBinding.getRoot());
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        bottomsheetBinding = AddPersonBottomsheetBinding.inflate(inflater);
 
         bottomsheetBinding.btnAddPerson.setOnClickListener(view -> {
             onClick();
@@ -46,6 +50,7 @@ public class AddPersonBottomSheet extends BottomSheetDialog {
             }
             return false;
         });
+        return bottomsheetBinding.getRoot();
     }
 
     private void onClick() {
