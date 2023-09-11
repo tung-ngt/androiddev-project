@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/homeFrag"
-        android:title="@string/home"
+        android:id="@+id/channelFrag"
+        android:title="@string/channels"
         android:enabled="true"
-        android:icon="@drawable/home_nav_icon" />
+        android:icon="@drawable/channel_nav_icon" />
     <item
-        android:id="@+id/profileFrag"
-        android:title="@string/profile"
+        android:id="@+id/peopleFrag"
+        android:title="@string/people"
         android:enabled="true"
-        android:icon="@drawable/profile_nav_icon" />
+        android:icon="@drawable/people_nav_icon" />
 </menu>

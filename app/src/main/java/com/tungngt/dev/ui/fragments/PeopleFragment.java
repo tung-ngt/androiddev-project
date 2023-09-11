@@ -8,23 +8,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.tungngt.dev.R;
-import com.tungngt.dev.databinding.FragmentProfileBinding;
+import com.tungngt.dev.databinding.FragmentPeopleBinding;
 
 
-public class ProfileFragment extends Fragment {
+public class PeopleFragment extends Fragment {
 
-    private FragmentProfileBinding fragmentProfileBinding;
+    private FragmentPeopleBinding fragmentPeopleBinding;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        fragmentProfileBinding = FragmentProfileBinding.inflate(getLayoutInflater());
+        fragmentPeopleBinding = FragmentPeopleBinding.inflate(getLayoutInflater());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return fragmentProfileBinding.getRoot();
+        return fragmentPeopleBinding.getRoot();
     }
 
 }
