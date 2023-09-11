@@ -4,14 +4,14 @@
     android:id="@+id/bottom_nav_graph"
     app:startDestination="@+id/channelFrag">
     <fragment android:id="@+id/channelFrag"
-        android:name="com.tungngt.dev.ui.fragments.ChannelFragment">
+        android:name="com.tungngt.dev.ui.fragment.ChannelFragment">
         <action
             android:id="@+id/action_homeFrag_to_peopleFrag"
             app:destination="@id/peopleFrag" />
     </fragment>
 
     <fragment android:id="@+id/peopleFrag"
-        android:name="com.tungngt.dev.ui.fragments.PeopleFragment">
+        android:name="com.tungngt.dev.ui.fragment.PeopleFragment">
         <action
             android:id="@+id/action_profileFrag_to_channelFrag"
             app:destination="@id/channelFrag" />

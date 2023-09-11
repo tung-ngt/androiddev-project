@@ -1,4 +1,4 @@
-package com.tungngt.dev.ui.fragments;
+package com.tungngt.dev.ui.fragment;
 
 import android.os.Bundle;
 
