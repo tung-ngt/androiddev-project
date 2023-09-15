@@ -4,4 +4,14 @@
     <string name="people">People</string>
     <string name="add_channel">Add channel</string>
     <string name="search_channels">Search for channels</string>
+    <string name="login_text">Login</string>
+    <string name="username_label">username</string>
+    <string name="password_label">password</string>
+    <string name="log_in">Log In</string>
+    <string name="sign_up_text">Sign Up</string>
+    <string name="input_username">Input Username</string>
+    <string name="input_password">Input Password</string>
+    <string name="confirm_password">confirm password</string>
+    <string name="nickname_label">Nickname(alias)</string>
+    <string name="input_nickname">your nickname</string>
 </resources>
