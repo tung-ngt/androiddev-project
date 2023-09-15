@@ -12,7 +12,7 @@
         android:theme="@style/Theme.XmlJavaApp"
         android:name=".MyApplication"
         tools:targetApi="31">
-        <!--
+
         <activity
             android:name=".ui.activity.MainActivity"
             android:exported="true">
@@ -22,7 +22,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        -->
         <activity
             android:name=".ui.activity.LoginActivity"
             android:exported="true">
