@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/authentication_nav_graph"
+    app:startDestination="@+id/LoginActivity">
+    <fragment android:id = "@+id/LoginActivity"
+        android:name="com.tungngt.dev.ui.fragment.LogInFragment">
+        <action
+            android:id="@+id/RegisterFragment"
+            app:destination="@id/RegisterFragment" />
+        <action
+            android:id="@+id/channelFrag"
+            app:destination="@id/channelFrag" />
+    </fragment>
+    <fragment android:id="@+id/RegisterFragment"
+        android:name="com.tungngt.dev.ui.fragment.RegisterFragment">
+        <action
+            android:id="@+id/channelFrag"
+            app:destination="@id/channelFrag" />
+    </fragment>
+    <fragment android:id="@+id/channelFrag"
+        android:name="com.tungngt.dev.ui.fragment.ChannelFragment">
+        <action
+            android:id="@+id/UserSettingsFragment"
+            app:destination="@id/UserSettingsFragment" />
+    </fragment>
+    <fragment android:id="@+id/UserSettingsFragment"
+        android:name="com.tungngt.dev.ui.fragment.UserSettingsFragment">
+        <action
+            android:id="@+id/channelFrag"
+            app:destination="@id/channelFrag" />
+    </fragment>
+
+
+
+</navigation>
