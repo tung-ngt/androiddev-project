@@ -6,6 +6,13 @@ import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
+import androidx.drawerlayout.widget.DrawerLayout;
+import android.content.Context;
+
+
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+
 
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +25,29 @@ import com.tungngt.dev.databinding.ActivityMainBinding;
 
 
 public class MainActivity extends AppCompatActivity {
+
+
+    private DrawerLayout mNavDrawer;
+    public void enableDrawer() {
+        mNavDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+    }
+
+    public void disableDrawer() {
+        mNavDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+    }
+
+    public void hideKeyboard(View view){
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
+    public void showKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+    }}
 
     private ActivityMainBinding activityMainBinding;
 
@@ -55,5 +85,6 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+
 
 }

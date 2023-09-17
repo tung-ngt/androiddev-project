@@ -50,4 +50,5 @@ public class ChannelFragment extends Fragment {
         return fragmentChannelBinding.getRoot();
     }
 
+
 }
