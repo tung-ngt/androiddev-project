@@ -9,26 +9,26 @@
             android:id="@+id/RegisterFragment"
             app:destination="@id/RegisterFragment" />
         <action
-            android:id="@+id/channelFrag"
-            app:destination="@id/channelFrag" />
+            android:id="@+id/MainActivity"
+            app:destination="@id/MainActivity" />
     </fragment>
     <fragment android:id="@+id/RegisterFragment"
         android:name="com.tungngt.dev.ui.fragment.RegisterFragment">
         <action
-            android:id="@+id/channelFrag"
-            app:destination="@id/channelFrag" />
+            android:id="@+id/MainActivity"
+            app:destination="@id/MainActivity" />
     </fragment>
-    <fragment android:id="@+id/channelFrag"
-        android:name="com.tungngt.dev.ui.fragment.ChannelFragment">
+    <activity android:id="@+id/MainActivity"
+        android:name="com.tungngt.dev.ui.activity.MainActivity">
         <action
             android:id="@+id/UserSettingsFragment"
             app:destination="@id/UserSettingsFragment" />
-    </fragment>
+    </activity>
     <fragment android:id="@+id/UserSettingsFragment"
         android:name="com.tungngt.dev.ui.fragment.UserSettingsFragment">
         <action
-            android:id="@+id/channelFrag"
-            app:destination="@id/channelFrag" />
+            android:id="@+id/MainActivity"
+            app:destination="@id/MainActivity" />
     </fragment>
 
 

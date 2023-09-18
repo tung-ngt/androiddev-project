@@ -12,7 +12,7 @@ import com.tungngt.dev.R;
 import com.tungngt.dev.databinding.FragmentRegisterBinding;
 
 
-public class RegisterFragment extends Fragment {
+public class RegisterFragment extends Fragment{
     private FragmentRegisterBinding fragmentRegisterBinding;
     @Override
     public void onCreate(Bundle savedInstanceState) {
