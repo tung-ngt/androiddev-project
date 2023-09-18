@@ -6,15 +6,14 @@
     <data>
 
         <variable
-            name="activeUser"
+            name="activeUserInServer"
             type="com.tungngt.dev.model.ActiveUser" />
     </data>
 
-    <RelativeLayout
-        android:layout_width="@dimen/active_user_width"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/active_user_margin"
-        android:layout_marginEnd="@dimen/active_user_margin"
+        android:padding="16dp"
         >
 
         <com.google.android.material.imageview.ShapeableImageView
@@ -28,19 +27,23 @@
             app:shapeAppearanceOverlay="@style/circle"
             ></com.google.android.material.imageview.ShapeableImageView>
 
+
         <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/profileImage"
-            android:layout_marginTop="@dimen/active_user_name_margin"
-            android:textSize="@dimen/active_user_text_size"
-            android:text="@{activeUser.username}"
+            android:layout_marginLeft="@dimen/active_user_name_margin"
             android:layout_centerHorizontal="true"
-            android:textAlignment="center"
             android:ellipsize="end"
-            android:scrollHorizontally = "true"
-            android:maxLines = "2"
+            android:maxLines="2"
+            android:scrollHorizontally="true"
+            android:text="@{activeUserInServer.username}"
+            android:textAlignment="center"
+            android:textSize="@dimen/active_user_text_size"
+            app:layout_constraintBottom_toBottomOf="@+id/profileImage"
+            app:layout_constraintStart_toEndOf="@+id/profileImage"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="Long user nameeeeeeeee" />
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
-    
