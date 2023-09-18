@@ -8,13 +8,22 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 
 import com.tungngt.dev.databinding.FragmentChannelBinding;
 import com.tungngt.dev.model.ActiveUser;
 import com.tungngt.dev.ui.adapter.ActiveUserAdapter;
-
+import com.tungngt.dev.R;
 import java.util.ArrayList;
 import java.util.List;
+import androidx.navigation.Navigation;
+import androidx.navigation.NavController;
+import com.google.android.material.textfield.TextInputEditText;
+
+
+
+
+
 
 
 public class ChannelFragment extends Fragment {
@@ -48,6 +57,7 @@ public class ChannelFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return fragmentChannelBinding.getRoot();
-    }
+    }}
 
-}
+
+
