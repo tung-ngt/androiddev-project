@@ -1,5 +1,6 @@
 package com.tungngt.dev.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -24,5 +25,15 @@ public class LoginActivity extends AppCompatActivity {
                 fragmentTransaction.replace(R.id.register_fragment, new RegisterFragment()).commit();
             }
         });
+        fragmentLogInBinding.loginButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                openMainActivity();
+            }
+        });
+    }
+    public void openMainActivity(){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }
