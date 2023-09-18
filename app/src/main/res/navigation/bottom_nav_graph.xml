@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottom_nav_graph"
     app:startDestination="@+id/channelFrag">
     <fragment android:id="@+id/channelFrag"
@@ -8,6 +9,10 @@
         <action
             android:id="@+id/action_homeFrag_to_peopleFrag"
             app:destination="@id/peopleFrag" />
+        <action
+            android:id="@+id/search_on"
+            app:destination="@id/search"
+            app:enterAnim="@anim/fragment_open_enter" />
     </fragment>
 
     <fragment android:id="@+id/peopleFrag"
@@ -16,5 +21,15 @@
             android:id="@+id/action_profileFrag_to_channelFrag"
             app:destination="@id/channelFrag" />
     </fragment>
-
+    <fragment
+        android:id="@+id/search"
+        android:name="com.tungngt.dev.ui.fragment.SearchFragment"
+        android:label="search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/search_off"
+            app:destination="@id/channelFrag"
+            app:enterAnim="@anim/fragment_close_enter"
+            app:exitAnim="@anim/fragment_close_exit" />
+    </fragment>
 </navigation>
