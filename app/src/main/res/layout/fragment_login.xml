@@ -33,9 +33,9 @@
         android:hint="@string/username_label"
         app:layout_constraintTop_toBottomOf="@id/login_icon">
         <com.google.android.material.textfield.TextInputEditText
+        android:id = "@+id/user_name"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/input_username"/>
+        android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
@@ -47,9 +47,9 @@
         app:layout_constraintTop_toBottomOf="@id/usernameTextField"
         app:endIconMode="password_toggle">
         <com.google.android.material.textfield.TextInputEditText
+            android:id = "@+id/user_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/input_password"
             android:inputType="textPassword"/>
 
     </com.google.android.material.textfield.TextInputLayout>
