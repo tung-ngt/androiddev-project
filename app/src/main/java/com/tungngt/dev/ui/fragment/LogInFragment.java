@@ -5,12 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.tungngt.dev.R;
 import com.tungngt.dev.databinding.FragmentLoginBinding;
-
 public class LogInFragment extends Fragment {
 
     private FragmentLoginBinding fragmentLogInBinding;
