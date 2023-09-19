@@ -1,7 +1,10 @@
 <resources>
-    <string name="app_name">Xml Java App</string>
-    <string name="channels">Channels</string>
-    <string name="people">People</string>
-    <string name="add_channel">Add channel</string>
-    <string name="search_channels">Search for channels</string>
+<string name="app_name">Xml Java App</string>
+<string name="channels">Channels</string>
+<string name="people">People</string>
+<string name="add_channel">Add channel</string>
+<string name="search_channels">Search for channels</string>
+<string name="search_hint">Search</string>
+<string name="edit_channel">Edit chanel</string>
+<string name="hint_chat">Aa</string>
 </resources>

@@ -11,6 +11,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.View;
+import android.widget.Button;
+import android.content.Intent;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.tungngt.dev.R;
@@ -24,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Button btnChannel;
         activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(activityMainBinding.getRoot());
 
@@ -39,6 +43,15 @@ public class MainActivity extends AppCompatActivity {
                 (navController, navDestination, bundle) -> {
                     onFragmentChange(navController, navDestination, bundle);
                 });
+        btnChannel = findViewById(R.id.go_to_chanel);
+        btnChannel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("TAG", "onClick: clicked.");
+                Intent intent = new Intent(MainActivity.this, ChatActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void onFragmentChange(NavController navController, NavDestination navDestination, Bundle bundle) {
@@ -54,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
             topAppBar.getMenu().clear();
 
         }
+
+
     }
+
 
 }
