@@ -25,30 +25,6 @@ import com.tungngt.dev.databinding.ActivityMainBinding;
 
 
 public class MainActivity extends AppCompatActivity {
-
-
-    private DrawerLayout mNavDrawer;
-    public void enableDrawer() {
-        mNavDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-    }
-
-    public void disableDrawer() {
-        mNavDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-    }
-
-    public void hideKeyboard(View view){
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        if (imm != null) {
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
-    }
-
-    public void showKeyboard() {
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        if (imm != null) {
-            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-        }}
-
     private ActivityMainBinding activityMainBinding;
 
     @Override
@@ -75,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         int fragmentId = navDestination.getId();
         MaterialToolbar topAppBar = activityMainBinding.topAppBar;
 
-        if (fragmentId == R.idn.channelFrag) {
+        if (fragmentId == R.id.channelFrag) {
             topAppBar.setTitle(R.string.channels);
             topAppBar.getMenu().clear();
             topAppBar.inflateMenu(R.menu.channels_top_menu);
@@ -86,5 +62,26 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private DrawerLayout mNavDrawer;
+    public void enableDrawer() {
+        mNavDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+    }
+
+    public void disableDrawer() {
+        mNavDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+    }
+
+    public void hideKeyboard(View view){
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
+    public void showKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+        }}
 
 }
