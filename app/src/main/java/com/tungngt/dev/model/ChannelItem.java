@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Objects;
 
 public class ChannelItem implements Comparable<ChannelItem> {
+    
     public String name;
     public String imageUrl;
     public String latestChatSender;
