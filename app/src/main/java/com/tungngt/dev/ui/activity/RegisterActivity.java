@@ -64,11 +64,11 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
                 first_password = register_password.getText().toString();
                 second_password = register_retype_password.getText().toString();
-                if(register_username.getText().toString().equals("")){
+                if(!first_password.equals(second_password)){
                     if(register_nickname.getText().toString().equals("")){
                         if(register_password.getText().toString().equals("")){
                             if(register_retype_password.getText().toString().equals("")){
-                                if(!first_password.equals(second_password)) {
+                                if(register_username.getText().toString().equals("")) {
                                     Toast.makeText(getApplicationContext(), "Information invalid", Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -76,10 +76,11 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 }
                 else {
-                    String text = register_username.getText().toString() + "\n"
-                            + register_nickname.getText().toString() + "\n"
-                            + register_password.getText().toString() + "\n"
-                            + register_retype_password.getText().toString();
+                    // get directory of user info and content txt file
+                    String text = " User: " + register_username.getText().toString() + " "
+                            +" Nickname: " +  register_nickname.getText().toString() + " "
+                            + " Password: " + register_password.getText().toString() + " "
+                            + " Retype password: " + register_retype_password.getText().toString();
                     writeToFile(text, getApplicationContext());
                     String directory = getDirectory(getApplicationContext(), "userInput.txt");
                     String content = readFile(getApplicationContext(), "userInput.txt");
