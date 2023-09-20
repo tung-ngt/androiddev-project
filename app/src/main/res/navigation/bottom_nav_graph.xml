@@ -22,10 +22,10 @@
             app:destination="@id/channelFrag" />
     </fragment>
     <fragment
-        android:id="@+id/search"
-        android:name="com.tungngt.dev.ui.fragment.SearchFragment"
-        android:label="search"
-        tools:layout="@layout/fragment_search" >
+            android:id="@+id/search"
+            android:name="com.tungngt.dev.ui.fragment.SearchFragment"
+            android:label="search"
+            tools:layout="@layout/fragment_search" >
         <action
             android:id="@+id/search_off"
             app:destination="@id/channelFrag"

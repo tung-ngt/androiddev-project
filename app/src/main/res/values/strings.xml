@@ -5,4 +5,5 @@
     <string name="add_channel">Add channel</string>
     <string name="search_channels">Search for channels</string>
     <string name="search_hint">Search</string>
+    <string name="search">Searching</string>
 </resources>
