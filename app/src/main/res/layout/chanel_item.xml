@@ -33,10 +33,11 @@
             android:layout_width="@dimen/active_user_image_size"
             android:layout_height="@dimen/active_user_image_size"
             android:layout_centerHorizontal="true"
-            android:background="@color/black"
+            android:src="@drawable/outline_forum_24"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/circle"
+            android:background="#CCCCCC"
             ></com.google.android.material.imageview.ShapeableImageView>
 
         <TextView
