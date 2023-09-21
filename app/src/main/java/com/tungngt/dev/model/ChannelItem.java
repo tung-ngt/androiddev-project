@@ -14,6 +14,8 @@ public class ChannelItem implements Comparable<ChannelItem>, Serializable {
     public String latestChat;
     public String latestChatTime;
 
+    public boolean isChannel;
+
     public ChannelItem(String id, String name, String imageUrl, String latestChatSender, String latestChat, String latestChatTime) {
         this.id = id;
         this.name = name;
@@ -21,6 +23,7 @@ public class ChannelItem implements Comparable<ChannelItem>, Serializable {
         this.latestChatSender = latestChatSender;
         this.latestChat = latestChat;
         this.latestChatTime = latestChatTime;
+        this.isChannel = true;
     }
 
     @Override

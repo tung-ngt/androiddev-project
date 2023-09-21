@@ -148,10 +148,12 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelAdapter.ChannelV
     }
 
     public void onClickToChatActivity(ChannelItem channelItem) {
-        Intent intent = new Intent(context, ChatActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("channelItem", channelItem);
-        intent.putExtras(bundle);
-        context.startActivity(intent);
+        if (channelItem.isChannel) {
+            Intent intent = new Intent(context, ChatActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("channelItem", channelItem);
+            intent.putExtras(bundle);
+            context.startActivity(intent);
+        }
     }
 }

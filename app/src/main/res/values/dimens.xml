@@ -11,4 +11,7 @@
     <dimen name="active_user_text_size">12sp</dimen>
     <dimen name="active_user_bar_spacing">10dp</dimen>
     <dimen name="chat_input_space">320dp</dimen>
+    <dimen name="channel_list_vertical_margin">10dp</dimen>
+    <dimen name="channel_list_image_margin">16dp</dimen>
+    <dimen name="activity_horizontal_user_vertical_padding">10dp</dimen>
 </resources>

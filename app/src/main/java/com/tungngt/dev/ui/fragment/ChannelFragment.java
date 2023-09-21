@@ -12,13 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.tungngt.dev.databinding.ActivityMainBinding;
-import com.tungngt.dev.databinding.ChatLayoutBinding;
 import com.tungngt.dev.databinding.FragmentChannelBinding;
 
 
 import com.tungngt.dev.model.ActiveUser;
-import com.tungngt.dev.ui.activity.ChatActivity;
 import com.tungngt.dev.ui.adapter.ActiveUserAdapter;
 
 import com.tungngt.dev.model.ChannelItem;
@@ -59,8 +56,14 @@ public class ChannelFragment extends Fragment {
         fragmentChannelBinding.channelList.setAdapter(channelAdapter);
 
         List<ChannelItem> channelItemList = new ArrayList<>();
-        channelItemList.add(new ChannelItem("1" ,"searchbar", "123", "Thanh Tung ", " something  ", "2 days"));
-        channelItemList.add(new ChannelItem("2" ,"activeUser", "123", "Thanh Tung:", "  something   ", "2 days"));
+        ChannelItem searchBar = new ChannelItem("1" ,"searchbar", "123", "Thanh Tung ", " something  ", "2 days");
+        searchBar.isChannel = false;
+        channelItemList.add(searchBar);
+
+        ChannelItem activeUser = new ChannelItem("1" ,"searchbar", "123", "Thanh Tung ", " something  ", "2 days");
+        activeUser.isChannel = false;
+        channelItemList.add(activeUser);
+
         channelItemList.add(new ChannelItem("3" ,"main", "123", "Thanh Tung: ", " something  ", "2 days"));
         channelItemList.add(new ChannelItem("4" ,"help", "123", "Viet Tung:", "  something   ", "2 days"));
         channelItemList.add(new ChannelItem("5" ,"resources", "123", "D. Thanh Tung:", "  something  ", "2 days"));
