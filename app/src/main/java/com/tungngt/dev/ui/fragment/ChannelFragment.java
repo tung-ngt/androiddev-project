@@ -1,5 +1,8 @@
 package com.tungngt.dev.ui.fragment;
 
+import static com.tungngt.dev.BR.channelItem;
+
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,10 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.tungngt.dev.databinding.ActivityMainBinding;
+import com.tungngt.dev.databinding.ChatLayoutBinding;
 import com.tungngt.dev.databinding.FragmentChannelBinding;
 
 
 import com.tungngt.dev.model.ActiveUser;
+import com.tungngt.dev.ui.activity.ChatActivity;
 import com.tungngt.dev.ui.adapter.ActiveUserAdapter;
 
 import com.tungngt.dev.model.ChannelItem;
@@ -48,7 +54,7 @@ public class ChannelFragment extends Fragment {
         activeUserList.add(new ActiveUser("Chu Bao Minh", "123"));
 
         ChannelAdapter channelAdapter = new ChannelAdapter(
-                activeUserAdapter
+                activeUserAdapter, getContext()
         );
         fragmentChannelBinding.channelList.setAdapter(channelAdapter);
 
@@ -84,6 +90,3 @@ public class ChannelFragment extends Fragment {
         return fragmentChannelBinding.getRoot();
     }
 }
-
-
-

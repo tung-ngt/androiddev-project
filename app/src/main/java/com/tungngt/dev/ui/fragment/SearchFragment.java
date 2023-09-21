@@ -32,17 +32,10 @@ public class SearchFragment extends Fragment {
 
         List<Searching> rcChannelList = new ArrayList<>();
         rcChannelList.add(new Searching("1", "Thanh Tung", "123"));
-        rcChannelList.add(new Searching("1", "Hoai Nhi", "123"));
-        rcChannelList.add(new Searching("1", "Viet Tung", "123"));
-        rcChannelList.add(new Searching("1", "Xuan Tung", "123"));
-        rcChannelList.add(new Searching("1", "Dang Son", "123"));
-        rcChannelList.add(new Searching("1", "Minh Tung ", "123"));
-        rcChannelList.add(new Searching("1", "Nguyen Phan Gia Bao", "123"));
-        rcChannelList.add(new Searching("1", "Ta Quang Sang", "123"));
-        rcChannelList.add(new Searching("1", "Duong", "123"));
-        rcChannelList.add(new Searching("1", "Minh Vu", "123"));
-        rcChannelList.add(new Searching("1", "Can Trung Hieu", "123"));
-        rcChannelList.add(new Searching("1", "Chu Bao Minh", "123"));
+        rcChannelList.add(new Searching("2", "Hoai Nhi", "123"));
+        rcChannelList.add(new Searching("3", "Viet Tung", "123"));
+        rcChannelList.add(new Searching("4", "Xuan Tung", "123"));
+        rcChannelList.add(new Searching("5", "Dang Son", "123"));
 
         SearchAdapter allChannelAdapter = new SearchAdapter(
                 searchAdapter

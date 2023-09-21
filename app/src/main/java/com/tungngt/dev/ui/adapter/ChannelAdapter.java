@@ -1,35 +1,44 @@
 package com.tungngt.dev.ui.adapter;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.AsyncListDiffer;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.tungngt.dev.R;
 import com.tungngt.dev.databinding.ActiveUserBarBinding;
 import com.tungngt.dev.databinding.ChannelItemBinding;
 import com.tungngt.dev.databinding.SearchBarBinding;
 import com.tungngt.dev.model.ChannelItem;
+import com.tungngt.dev.ui.activity.ChatActivity;
 
 public class ChannelAdapter extends RecyclerView.Adapter<ChannelAdapter.ChannelViewHolder> {
     public static int SEARCH_BAR = 0;
     public static int ACTIVE_USER_BAR = 1;
     public static int CHANNEL_ITEM = 2;
 
-
     public ActiveUserAdapter activeUserAdapter;
+    private Context context;
 
-    public ChannelAdapter(ActiveUserAdapter activeUserAdapter) {
+    public ChannelAdapter(ActiveUserAdapter activeUserAdapter, Context context) {
         this.activeUserAdapter = activeUserAdapter;
+        this.context = context;
     }
 
-
     public class ChannelViewHolder extends RecyclerView.ViewHolder {
+        public RelativeLayout relativeLayout;
+
         public ChannelViewHolder(@NonNull View itemView) {
             super(itemView);
+            relativeLayout = itemView.findViewById(R.id.channelList);
         }
     }
     public class SearchBarViewHolder extends ChannelViewHolder {
@@ -107,9 +116,10 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelAdapter.ChannelV
 
     @Override
     public void onBindViewHolder(@NonNull ChannelViewHolder holder, int position) {
+        ChannelItem channelItem = differ.getCurrentList().get(position);
+
         if (position == 0) {
             SearchBarViewHolder searchBarViewHolder = (SearchBarViewHolder) holder;
-
             return;
         }
         if (position == 1) {
@@ -123,10 +133,25 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelAdapter.ChannelV
 
         ChannelItemViewHolder channelItemViewHolder = (ChannelItemViewHolder) holder;
         channelItemViewHolder.channelItemBinding.setChannelItem(differ.getCurrentList().get(position));
+
+        channelItemViewHolder.channelItemBinding.getRoot().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickToChatActivity(channelItem);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return differ.getCurrentList().size();
+    }
+
+    public void onClickToChatActivity(ChannelItem channelItem) {
+        Intent intent = new Intent(context, ChatActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("channelItem", channelItem);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
     }
 }

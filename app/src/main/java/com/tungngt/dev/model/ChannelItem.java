@@ -2,10 +2,11 @@ package com.tungngt.dev.model;
 
 import androidx.annotation.Nullable;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-public class ChannelItem implements Comparable<ChannelItem> {
+public class ChannelItem implements Comparable<ChannelItem>, Serializable {
     public String id;
     public String name;
     public String imageUrl;
@@ -33,5 +34,17 @@ public class ChannelItem implements Comparable<ChannelItem> {
     public int compareTo(ChannelItem o) {
         // TODO: implement compare to
         return 0;
+    }
+
+    public String getChannelId() {
+        return id;
+    }
+
+    public String getUserName() {
+        return id;
+    }
+
+    public String getChannelName() {
+        return name;
     }
 }

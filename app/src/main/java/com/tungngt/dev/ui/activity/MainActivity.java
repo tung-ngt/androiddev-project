@@ -26,6 +26,10 @@ import com.tungngt.dev.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding activityMainBinding;
+    public void SearchButton (View view){
+        NavController navController = NavHostFragment.findNavController(getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment));
+        navController.navigate(R.id.search_on);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,10 +65,6 @@ public class MainActivity extends AppCompatActivity {
         } else if (fragmentId == R.id.search) {
             topAppBar.setTitle(R.string.search);
             topAppBar.getMenu().clear();
-        } else if (fragmentId == R.id.search_off) {
-            topAppBar.setTitle(R.string.channels);
-            topAppBar.getMenu().clear();
-            topAppBar.inflateMenu(R.menu.channels_top_menu);
         }
     }
 }
