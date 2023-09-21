@@ -39,7 +39,7 @@ public class ChatActivity extends AppCompatActivity{
 
 
         activityChatBinding.topAppBar.setNavigationOnClickListener((view) -> {
-                ChatActivity.this.finish();
+                onBackPressed();
             }
         );
     }

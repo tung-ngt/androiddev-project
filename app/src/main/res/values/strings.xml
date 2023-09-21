@@ -25,6 +25,6 @@
     <string name="new_nickname">New nickname</string>
     <string name="edit_nickname">Change nickname</string>
     <string name="edit_username">New username</string>
-    <string name="hint_chat">Aa</string>
-    <string name="edit_channel">Edit chanel</string>
+    <string name="channel_title_transition_name">channel_title_transistion_name</string>
+    <string name="channel_image_transition_name">channel_image_transition_name</string>
 </resources>

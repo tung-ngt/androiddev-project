@@ -22,7 +22,7 @@
         >
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/profileImage"
+            android:id="@+id/channel_image"
             android:layout_width="@dimen/active_user_image_size"
             android:layout_height="@dimen/active_user_image_size"
             android:layout_centerHorizontal="true"
@@ -30,10 +30,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/circle"
+            android:transitionName="@string/channel_image_transition_name"
             />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/channel_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -43,12 +44,15 @@
             android:scrollHorizontally="true"
             android:textAlignment="center"
             android:textSize="@dimen/active_user_text_size"
-            app:layout_constraintStart_toEndOf="@+id/profileImage"
+            app:layout_constraintStart_toEndOf="@id/channel_image"
             app:layout_constraintTop_toTopOf="parent"
             android:text="@{channelItem.name}"
-            tools:text="Channel nameeeeeeee" />
+            tools:text="Channel nameeeeeeee"
+            android:transitionName="@string/channel_title_transition_name"
+            />
 
         <TextView
+            android:id="@+id/last_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -58,8 +62,8 @@
             android:textAlignment="center"
             android:textSize="@dimen/active_user_text_size"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/profileImage"
-            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            app:layout_constraintStart_toEndOf="@id/channel_image"
+            app:layout_constraintTop_toBottomOf="@id/channel_title"
             tools:text="Username: String + Date"
             android:text="@{channelItem.latestChatSender + channelItem.latestChat + channelItem.latestChatTime}"
             />

@@ -1,24 +1,28 @@
 package com.tungngt.dev.ui.fragment;
 
-import static com.tungngt.dev.BR.channelItem;
 
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
+import androidx.core.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.tungngt.dev.R;
+import com.tungngt.dev.databinding.ChannelItemBinding;
 import com.tungngt.dev.databinding.FragmentChannelBinding;
 
 
 import com.tungngt.dev.model.ActiveUser;
+import com.tungngt.dev.ui.activity.ChatActivity;
 import com.tungngt.dev.ui.adapter.ActiveUserAdapter;
 
 import com.tungngt.dev.model.ChannelItem;
@@ -73,6 +77,32 @@ public class ChannelFragment extends Fragment {
             // TODO: implement click active user
         });
 
+
+        channelAdapter.setOnChannelItemClicked((channel, holder) -> {
+            ChannelItemBinding channelItemBinding = holder.channelItemBinding;
+            Intent intent = new Intent(getContext(), ChatActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("channelItem", channel);
+            intent.putExtras(bundle);
+
+            Pair<View, String>[] sharedTransitionPairs = new Pair[2];
+
+            sharedTransitionPairs[0] = new Pair<>(
+                    channelItemBinding.channelTitle,
+                    ViewCompat.getTransitionName(channelItemBinding.channelTitle)
+            );
+
+            sharedTransitionPairs[1] = new Pair<>(
+                    channelItemBinding.channelImage,
+                    ViewCompat.getTransitionName(channelItemBinding.channelImage)
+            );
+
+            ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    getActivity(),
+                    sharedTransitionPairs
+            );
+            startActivity(intent, optionsCompat.toBundle());
+        });
 
 
 

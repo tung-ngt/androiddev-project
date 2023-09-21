@@ -3,12 +3,15 @@ package com.tungngt.dev.ui.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.AsyncListDiffer;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
@@ -53,6 +56,17 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelAdapter.ChannelV
     public ChannelAdapter(ActiveUserAdapter activeUserAdapter, Context context) {
         this.activeUserAdapter = activeUserAdapter;
         this.context = context;
+    }
+
+
+    public interface OnChannelItemClicked {
+        void click(ChannelItem channel, ChannelItemViewHolder holder);
+    };
+
+    private OnChannelItemClicked onChannelItemClicked;
+
+    public void setOnChannelItemClicked(OnChannelItemClicked onChannelItemClicked) {
+        this.onChannelItemClicked = onChannelItemClicked;
     }
 
     public class ChannelViewHolder extends RecyclerView.ViewHolder {
@@ -157,7 +171,7 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelAdapter.ChannelV
         channelItemViewHolder.channelItemBinding.setChannelItem(differ.getCurrentList().get(position));
 
         channelItemViewHolder.channelItemBinding.getRoot().setOnClickListener( (view) -> {
-                onItemClicked(channelItem);
+                onItemClicked(channelItem, holder);
         });
     }
 
@@ -166,18 +180,13 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelAdapter.ChannelV
         return differ.getCurrentList().size();
     }
 
-    public void onItemClicked(ChannelItem channelItem) {
+    public void onItemClicked(ChannelItem channelItem, ChannelViewHolder holder) {
         if (channelItem.type == ChannelItem.CHANNEL) {
-            Intent intent = new Intent(context, ChatActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("channelItem", channelItem);
-            intent.putExtras(bundle);
-            context.startActivity(intent);
+            onChannelItemClicked.click(channelItem, (ChannelItemViewHolder) holder);
         }
         if (channelItem.type == ChannelItem.SEARCH_BAR) {
             onSearchBarClicked.click();
         }
-
         if (channelItem.type == ChannelItem.ACTIVE_USER_BAR) {
             onActiveUserBarClicked.click();
         }
