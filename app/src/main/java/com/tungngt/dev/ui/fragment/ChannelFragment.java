@@ -7,11 +7,14 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.tungngt.dev.R;
 import com.tungngt.dev.databinding.FragmentChannelBinding;
 
 
@@ -24,6 +27,7 @@ import com.tungngt.dev.ui.adapter.ChannelAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class ChannelFragment extends Fragment {
@@ -55,13 +59,30 @@ public class ChannelFragment extends Fragment {
         );
         fragmentChannelBinding.channelList.setAdapter(channelAdapter);
 
+        channelAdapter.setOnSearchBarClicked(() -> {
+
+            NavController navController = NavHostFragment.findNavController(
+                    Objects.requireNonNull(requireActivity().getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment))
+            );
+
+            navController.navigate(R.id.action_channelFrag_to_chatActivity);
+
+        });
+
+        channelAdapter.setOnActiveUserBarClicked(() -> {
+            // TODO: implement click active user
+        });
+
+
+
+
         List<ChannelItem> channelItemList = new ArrayList<>();
         ChannelItem searchBar = new ChannelItem("1" ,"searchbar", "123", "Thanh Tung ", " something  ", "2 days");
-        searchBar.isChannel = false;
+        searchBar.type = ChannelItem.SEARCH_BAR;
         channelItemList.add(searchBar);
 
         ChannelItem activeUser = new ChannelItem("1" ,"searchbar", "123", "Thanh Tung ", " something  ", "2 days");
-        activeUser.isChannel = false;
+        activeUser.type = ChannelItem.ACTIVE_USER_BAR;
         channelItemList.add(activeUser);
 
         channelItemList.add(new ChannelItem("3" ,"main", "123", "Thanh Tung: ", " something  ", "2 days"));
