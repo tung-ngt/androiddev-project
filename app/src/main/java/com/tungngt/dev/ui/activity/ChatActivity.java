@@ -44,3 +44,22 @@ public class ChatActivity extends AppCompatActivity{
         );
     }
 }
+        List<Message> messages = new ArrayList<>();
+        messages.add(new Message("Tung", "hello", "12:00", "1"));
+        messages.add(new Message("Tung", "how are you", "12:00", "1"));
+        messages.add(new Message("Tung", "hi", "12:00", "1"));
+        messages.add(new Message("Tung", "Feeder XD", "12:00", "1"));
+        ChatAdapter chatAdapter = new ChatAdapter();
+        chatAdapter.differ.submitList(messages);
+        chatLayoutBinding.chatRecyclerView.setAdapter(chatAdapter);
+
+        MaterialToolbar navIcon = findViewById(R.id.topAppBar);
+        navIcon.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ChatActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+}

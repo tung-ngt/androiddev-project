@@ -22,10 +22,12 @@
             android:layout_width="@dimen/active_user_image_size"
             android:layout_height="@dimen/active_user_image_size"
             android:layout_centerHorizontal="true"
-            android:background="@color/black"
+
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/circle"
+            android:src="@drawable/baseline_person_24"
+            android:background="#CCCCCC"
             ></com.google.android.material.imageview.ShapeableImageView>
 
         <TextView

@@ -31,7 +31,6 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelAdapter.ChannelV
     public static int CHANNEL_ITEM = 2;
 
     public ActiveUserAdapter activeUserAdapter;
-    private Context context;
 
     public interface OnSearchBarClicked {
         void click();
@@ -55,7 +54,6 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelAdapter.ChannelV
 
     public ChannelAdapter(ActiveUserAdapter activeUserAdapter, Context context) {
         this.activeUserAdapter = activeUserAdapter;
-        this.context = context;
     }
 
 

@@ -20,4 +20,5 @@
     <dimen name="padding_size_1">150dp</dimen>
     <dimen name="padding_size_2">240dp</dimen>
     <dimen name="padding_size_3">130dp</dimen>
+    <dimen name="message_holder_height">550dp</dimen>
 </resources>
