@@ -101,9 +101,11 @@ public class MainActivity extends AppCompatActivity {
             topAppBar.setSubtitle(R.string.server_url);
             topAppBar.getMenu().clear();
             topAppBar.inflateMenu(R.menu.channels_top_menu);
+            activityMainBinding.appbar.setLiftOnScrollTargetViewId(R.id.channelList);
         } else if (fragmentId == R.id.peopleFrag) {
             topAppBar.setTitle("6" + " " + getResources().getString(R.string.online));
             topAppBar.getMenu().clear();
+            activityMainBinding.appbar.setLiftOnScrollTargetViewId(R.id.rcActiveUserInServer);
         }
     }
 
