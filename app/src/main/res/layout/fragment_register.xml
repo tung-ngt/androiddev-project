@@ -1,86 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/register_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context = "ui.fragment.RegisterFragment"
-    android:id = "@+id/register_fragment">
+    android:paddingStart="@dimen/activity_horizontal_margin"
+    android:paddingEnd="@dimen/activity_horizontal_margin"
+    >
+
     <TextView
-        android:id ="@+id/text_signup"
+        android:id="@+id/text_signup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/sign_up_title"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:textAlignment="center"
-        android:textSize="@dimen/login_title_size"/>
+        android:textSize="@dimen/login_title_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/usernameTextField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:startIconDrawable="@drawable/outline_person_24"
-        app:endIconMode="clear_text"
+        android:layout_marginTop="@dimen/padding_size_1"
         android:hint="@string/username_label"
+        app:endIconMode="clear_text"
         app:layout_constraintTop_toBottomOf="@id/text_signup"
-        android:layout_marginTop="@dimen/padding_size_1">
+        app:startIconDrawable="@drawable/outline_person_24">
+
         <com.google.android.material.textfield.TextInputEditText
-            android:id = "@+id/username_register"
+            android:id="@+id/username_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/nicknameTextField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:startIconDrawable="@drawable/outline_person_24"
-        app:endIconMode="clear_text"
         android:hint="@string/nickname_label"
-        app:layout_constraintTop_toBottomOf="@id/usernameTextField">
+        app:endIconMode="clear_text"
+        app:layout_constraintTop_toBottomOf="@id/usernameTextField"
+        app:startIconDrawable="@drawable/outline_person_24">
+
         <com.google.android.material.textfield.TextInputEditText
-            android:id = "@+id/nickname_register"
+            android:id="@+id/nickname_register"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/password_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:startIconDrawable="@drawable/outline_lock_24"
         android:hint="@string/password_label"
+        app:endIconMode="password_toggle"
         app:layout_constraintTop_toBottomOf="@id/nicknameTextField"
-        app:endIconMode="password_toggle">
+        app:startIconDrawable="@drawable/outline_lock_24">
+
         <com.google.android.material.textfield.TextInputEditText
-            android:id = "@+id/password_register"
+            android:id="@+id/password_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/password_retype"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:startIconDrawable="@drawable/outline_lock_24"
         android:hint="@string/confirm_password"
+        app:endIconMode="password_toggle"
         app:layout_constraintTop_toBottomOf="@id/password_text"
-        app:endIconMode="password_toggle">
+        app:startIconDrawable="@drawable/outline_lock_24">
+
         <com.google.android.material.textfield.TextInputEditText
-            android:id = "@+id/retypePassword_register"
+            android:id="@+id/retypePassword_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
     <Button
         android:id="@+id/signup_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/password_retype"
         android:layout_marginTop="@dimen/padding_size_2"
-        android:text="@string/sign_up_text" />
+        android:text="@string/sign_up_text"
+        app:layout_constraintTop_toBottomOf="@id/password_retype" />
 </androidx.constraintlayout.widget.ConstraintLayout>
