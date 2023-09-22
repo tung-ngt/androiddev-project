@@ -4,14 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.tungngt.dev.databinding.FragmentUserSettingsBinding;
+import com.tungngt.dev.databinding.ActivityUserSettingsBinding;
 
 public class UserSettingActivity extends AppCompatActivity {
-    FragmentUserSettingsBinding fragmentUserSettingsBinding;
+    ActivityUserSettingsBinding activityUserSettingsBinding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        fragmentUserSettingsBinding = FragmentUserSettingsBinding.inflate(getLayoutInflater());
-        setContentView(fragmentUserSettingsBinding.getRoot());
+        activityUserSettingsBinding = ActivityUserSettingsBinding.inflate(getLayoutInflater());
+        setContentView(activityUserSettingsBinding.getRoot());
     }
 }

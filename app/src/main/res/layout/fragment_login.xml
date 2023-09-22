@@ -51,6 +51,7 @@
         android:layout_height="wrap_content"
         app:startIconDrawable="@drawable/outline_lock_24"
         android:hint="@string/password_label"
+        android:layout_marginTop="@dimen/textfield_margin"
         app:layout_constraintTop_toBottomOf="@id/username_text_field"
         app:endIconMode="password_toggle">
 
