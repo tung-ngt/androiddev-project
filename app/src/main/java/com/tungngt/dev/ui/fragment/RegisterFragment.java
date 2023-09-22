@@ -29,9 +29,21 @@ public class RegisterFragment extends Fragment{
         fragmentRegisterBinding = FragmentRegisterBinding.inflate(getLayoutInflater());
 
         fragmentRegisterBinding.signupButton.setOnClickListener(this::signup);
+        fragmentRegisterBinding.cancelButton.setOnClickListener(this::cancel);
     }
 
     private void signup(View view) {
+        NavController navController = NavHostFragment.findNavController(
+                Objects.requireNonNull(
+                        requireActivity()
+                                .getSupportFragmentManager()
+                                .findFragmentById(R.id.nav_host_fragment_container)
+                )
+        );
+        navController.popBackStack();
+    }
+
+    private void cancel(View view) {
         NavController navController = NavHostFragment.findNavController(
                 Objects.requireNonNull(
                         requireActivity()
