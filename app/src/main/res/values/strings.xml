@@ -30,4 +30,8 @@
     <string name="server_title">Servers</string>
     <string name="search_server">Search server</string>
     <string name="search_servers">Search servers</string>
+    <string name="edit_server">Edit server</string>
+    <string name="server_name">Server name</string>
+    <string name="server_url">irc.freenode.net</string>
+    <string name="online">online</string>
 </resources>

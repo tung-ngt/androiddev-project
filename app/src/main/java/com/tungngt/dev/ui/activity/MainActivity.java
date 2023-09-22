@@ -56,14 +56,12 @@ public class MainActivity extends AppCompatActivity {
         MaterialToolbar topAppBar = activityMainBinding.topAppBar;
 
         if (fragmentId == R.id.channelFrag) {
-            topAppBar.setTitle(R.string.channels);
+            topAppBar.setTitle(R.string.server_name);
+            topAppBar.setSubtitle(R.string.server_url);
             topAppBar.getMenu().clear();
             topAppBar.inflateMenu(R.menu.channels_top_menu);
         } else if (fragmentId == R.id.peopleFrag) {
-            topAppBar.setTitle(R.string.people);
-            topAppBar.getMenu().clear();
-        } else if (fragmentId == R.id.search) {
-            topAppBar.setTitle(R.string.search);
+            topAppBar.setTitle("6" + " " + getResources().getString(R.string.online));
             topAppBar.getMenu().clear();
         }
     }

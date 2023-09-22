@@ -1,8 +1,9 @@
 package com.tungngt.dev.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Server implements Comparable<Server> {
+public class Server implements Comparable<Server>, Serializable {
         public String name;
         public String image_irl;
         public Server(String name, String image_irl){

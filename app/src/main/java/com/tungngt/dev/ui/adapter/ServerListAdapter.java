@@ -12,6 +12,17 @@ import com.tungngt.dev.databinding.ServerItemBinding;
 import com.tungngt.dev.model.Server;
 
 public class ServerListAdapter extends RecyclerView.Adapter<ServerListAdapter.ServerListViewHolder> {
+
+    public interface OnServerClicked {
+        void click(Server server, ServerListViewHolder holder);
+    };
+
+    private OnServerClicked onServerClicked;
+
+    public void setOnServerClicked(OnServerClicked onServerClicked) {
+        this.onServerClicked = onServerClicked;
+    }
+
     public class ServerListViewHolder extends RecyclerView.ViewHolder {
         public ServerItemBinding serverItemBinding;
         public ServerListViewHolder(@NonNull ServerItemBinding serverItemBinding) {
@@ -49,7 +60,12 @@ public class ServerListAdapter extends RecyclerView.Adapter<ServerListAdapter.Se
 
     @Override
     public void onBindViewHolder(@NonNull ServerListViewHolder holder, int position) {
-        holder.serverItemBinding.setServer(differ.getCurrentList().get(position));
+        Server server = differ.getCurrentList().get(position);
+        holder.serverItemBinding.setServer(server);
+
+        holder.serverItemBinding.getRoot().setOnClickListener((view) -> {
+            onServerClicked.click(server, holder);
+        });
     }
 
     @Override
