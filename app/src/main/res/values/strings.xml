@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Timber</string>
+    <string name="app_name">Xml Java App</string>
     <string name="channels">Channels</string>
     <string name="people">People</string>
     <string name="add_channel">Add channel</string>
@@ -27,4 +27,7 @@
     <string name="edit_username">New username</string>
     <string name="channel_title_transition_name">channel_title_transistion_name</string>
     <string name="channel_image_transition_name">channel_image_transition_name</string>
+    <string name="server_title">Servers</string>
+    <string name="search_server">Search server</string>
+    <string name="search_servers">Search servers</string>
 </resources>
