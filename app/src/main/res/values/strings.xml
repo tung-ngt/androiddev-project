@@ -42,4 +42,8 @@
     <string name="add_server">Add Server</string>
     <string name="serverName">Server Name</string>
     <string name="cancel">Cancel</string>
+    <string name="serverUrl">Server URL</string>
+    <string name="serverPort">Port</string>
+    <string name="channelDescription">Channel Description</string>
+    <string name="channelCustom">Custom Name</string>
 </resources>
