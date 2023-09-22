@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Xml Java App</string>
+    <string name="app_name">Timber</string>
     <string name="channels">Channels</string>
     <string name="people">People</string>
     <string name="add_channel">Add channel</string>
@@ -9,23 +9,23 @@
     <string name="hint_chat">Aa</string>
     <string name="edit_channel">Edit chanel</string>
     <string name="login_text">Login</string>
-    <string name="username_label">username</string>
-    <string name="password_label">password</string>
+    <string name="username_label">Username</string>
+    <string name="password_label">Password</string>
     <string name="log_in">Log In</string>
     <string name="sign_up_text">Sign Up</string>
     <string name="sign_up_title">Sign up</string>
     <string name="input_username">Input Username</string>
     <string name="input_password">Input Password</string>
-    <string name="confirm_password">confirm password</string>
+    <string name="confirm_password">Confirm password</string>
     <string name="nickname_label">Nickname(alias)</string>
-    <string name="input_nickname">your nickname</string>
+    <string name="input_nickname">Your nickname</string>
     <string name="new_password">New password</string>
     <string name="old_password">Old password</string>
     <string name="username_new">New username</string>
     <string name="new_nickname">New nickname</string>
     <string name="edit_nickname">Change nickname</string>
     <string name="edit_username">New username</string>
-    <string name="channel_title_transition_name">channel_title_transistion_name</string>
+    <string name="channel_title_transition_name">channel_title_transition_name</string>
     <string name="channel_image_transition_name">channel_image_transition_name</string>
     <string name="server_title">Servers</string>
     <string name="search_server">Search server</string>
@@ -33,7 +33,7 @@
     <string name="edit_server">Edit server</string>
     <string name="server_name">Server name</string>
     <string name="server_url">irc.freenode.net</string>
-    <string name="online">online</string>
+    <string name="online">Online</string>
     <string name="servers">Servers</string>
     <string name="see_more">See more</string>
     <string name="user_setting">User settings</string>
@@ -41,4 +41,7 @@
     <string name="apply_changes">Apply changes</string>
     <string name="cancel">Cancel</string>
     <string name="channelName">Channel Name</string>
+    <string name="add_server">Add Server</string>
+    <string name="serverName">Server Name</string>
+    <string name="cancel">Cancel</string>
 </resources>
