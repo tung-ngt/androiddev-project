@@ -11,4 +11,11 @@
     <dimen name="active_user_text_size">12sp</dimen>
     <dimen name="active_user_bar_spacing">10dp</dimen>
     <dimen name="chat_input_space">320dp</dimen>
+
+    <!--Authentication-->
+    <dimen name="person_icon_size">300dp</dimen>
+    <dimen name="login_title_size">30sp</dimen>
+    <dimen name="padding_size_1">150dp</dimen>
+    <dimen name="padding_size_2">240dp</dimen>
+    <dimen name="padding_size_3">130dp</dimen>
 </resources>
