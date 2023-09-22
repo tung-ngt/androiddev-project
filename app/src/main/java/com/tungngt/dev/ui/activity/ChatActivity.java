@@ -10,8 +10,14 @@ import android.view.View;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.tungngt.dev.R;
 import com.tungngt.dev.databinding.ActivityChatBinding;
 import com.tungngt.dev.model.ChannelItem;
+import com.tungngt.dev.model.Message;
+import com.tungngt.dev.ui.adapter.ChatAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ChatActivity extends AppCompatActivity{
     private static final String TAG = "ChatActivity";
@@ -42,8 +48,7 @@ public class ChatActivity extends AppCompatActivity{
                 onBackPressed();
             }
         );
-    }
-}
+
         List<Message> messages = new ArrayList<>();
         messages.add(new Message("Tung", "hello", "12:00", "1"));
         messages.add(new Message("Tung", "how are you", "12:00", "1"));
@@ -51,15 +56,6 @@ public class ChatActivity extends AppCompatActivity{
         messages.add(new Message("Tung", "Feeder XD", "12:00", "1"));
         ChatAdapter chatAdapter = new ChatAdapter();
         chatAdapter.differ.submitList(messages);
-        chatLayoutBinding.chatRecyclerView.setAdapter(chatAdapter);
-
-        MaterialToolbar navIcon = findViewById(R.id.topAppBar);
-        navIcon.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ChatActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
+        activityChatBinding.chatRecyclerView.setAdapter(chatAdapter);
     }
 }

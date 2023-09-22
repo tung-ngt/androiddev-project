@@ -43,7 +43,6 @@ public class ChannelFragment extends Fragment {
         fragmentChannelBinding = FragmentChannelBinding.inflate(getLayoutInflater());
 
         ActiveUserAdapter activeUserAdapter = new ActiveUserAdapter();
-        fragmentChannelBinding.rcActiveUser.setAdapter(activeUserAdapter);
 
         List<ActiveUser> activeUserList = new ArrayList<>();
         activeUserList.add(new ActiveUser("Thanh Tung", "123"));
