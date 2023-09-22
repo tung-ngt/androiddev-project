@@ -57,5 +57,13 @@ public class ChatActivity extends AppCompatActivity{
         ChatAdapter chatAdapter = new ChatAdapter();
         chatAdapter.differ.submitList(messages);
         activityChatBinding.chatRecyclerView.setAdapter(chatAdapter);
+
+        activityChatBinding.topAppBar.setOnMenuItemClickListener(item -> {
+            if (item.getItemId() == R.id.editChanel) {
+                Intent intent = new Intent(this, ChatSettingActivity.class);
+                startActivity(intent);
+            }
+            return true;
+        });
     }
 }

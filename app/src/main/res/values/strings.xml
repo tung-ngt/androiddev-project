@@ -39,9 +39,11 @@
     <string name="user_setting">User settings</string>
     <string name="username">Username</string>
     <string name="apply_changes">Apply changes</string>
-    <string name="cancel">Cancel</string>
     <string name="channelName">Channel Name</string>
     <string name="add_server">Add Server</string>
     <string name="serverName">Server Name</string>
     <string name="cancel">Cancel</string>
+    <string name="channel_info">Channel infomation</string>
+    <string name="setting">Setting</string>
+    <string name="channel_handle">Channel handle</string>
 </resources>
