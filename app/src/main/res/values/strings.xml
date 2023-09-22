@@ -34,4 +34,8 @@
     <string name="server_name">Server name</string>
     <string name="server_url">irc.freenode.net</string>
     <string name="online">online</string>
+    <string name="servers">Servers</string>
+    <string name="see_more">See more</string>
+    <string name="user_setting">User settings</string>
+    <string name="username">Username</string>
 </resources>

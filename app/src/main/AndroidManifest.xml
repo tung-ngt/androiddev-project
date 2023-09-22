@@ -40,6 +40,12 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".ui.activity.UserSettingActivity"
+            android:exported="true">
+
+        </activity>
+
     </application>
 
 </manifest>

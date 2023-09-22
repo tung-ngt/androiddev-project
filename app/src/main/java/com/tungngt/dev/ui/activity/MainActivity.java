@@ -7,9 +7,12 @@ import androidx.navigation.NavDestination;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.content.Context;
 
 
+import android.content.Intent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
@@ -18,10 +21,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.widget.Button;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.tungngt.dev.R;
 import com.tungngt.dev.databinding.ActivityMainBinding;
+import com.tungngt.dev.model.Server;
+import com.tungngt.dev.ui.adapter.ServerListAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -49,6 +58,38 @@ public class MainActivity extends AppCompatActivity {
                 (navController, navDestination, bundle) -> {
                     onFragmentChange(navController, navDestination, bundle);
                 });
+
+
+
+
+        // Drawer
+        List<Server> serverList = new ArrayList<>();
+        ServerListAdapter serverListAdapter = new ServerListAdapter();
+
+
+
+        RecyclerView recyclerView = (RecyclerView) activityMainBinding.drawer.getHeaderView(0)
+                .findViewById(R.id.rcServers);
+
+        recyclerView.setAdapter(serverListAdapter);
+
+        serverListAdapter.setOnServerClicked(this::connectToServer);
+
+        serverList.add(new Server("Server 1", "123"));
+        serverList.add(new Server("Server 2", "123"));
+        serverList.add(new Server("Server 3", "123"));
+        serverList.add(new Server("Server 4", "123"));
+        serverList.add(new Server("Server 5", "123"));
+        serverList.add(new Server("Server 6", "123"));
+        serverList.add(new Server("Server 7", "123"));
+        serverList.add(new Server("Server 8", "123"));
+
+        serverListAdapter.differ.submitList(serverList);
+
+        Button button = (Button) activityMainBinding.drawer.getHeaderView(0).findViewById(R.id.seeMore);
+        button.setOnClickListener(v -> {
+           seeAllServer();
+        });
     }
 
     private void onFragmentChange(NavController navController, NavDestination navDestination, Bundle bundle) {
@@ -64,5 +105,19 @@ public class MainActivity extends AppCompatActivity {
             topAppBar.setTitle("6" + " " + getResources().getString(R.string.online));
             topAppBar.getMenu().clear();
         }
+    }
+
+    private void connectToServer(Server server, ServerListAdapter.ServerListViewHolder holder) {
+        Intent intent = new Intent(this, AuthenticationActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("server", server);
+        intent.putExtras(bundle);
+        intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
+        startActivity(intent);
+    }
+
+    private void seeAllServer() {
+        Intent intent = new Intent(this, ServerListActivity.class);
+        startActivity(intent);
     }
 }
