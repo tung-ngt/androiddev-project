@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button button = (Button) activityMainBinding.drawer.getHeaderView(0).findViewById(R.id.seeMore);
         button.setOnClickListener(v -> {
-           seeAllServer();
+            seeAllServer();
         });
     }
 

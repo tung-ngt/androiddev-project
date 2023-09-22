@@ -38,7 +38,6 @@
     <string name="see_more">See more</string>
     <string name="user_setting">User settings</string>
     <string name="username">Username</string>
-    <string name="apply_changes">Apply changes</string>
     <string name="channelName">Channel Name</string>
     <string name="add_server">Add Server</string>
     <string name="serverName">Server Name</string>
@@ -46,4 +45,9 @@
     <string name="channel_info">Channel infomation</string>
     <string name="setting">Setting</string>
     <string name="channel_handle">Channel handle</string>
+    <string name="serverUrl">Server URL</string>
+    <string name="serverPort">Port</string>
+    <string name="channelDescription">Channel Description</string>
+    <string name="channelCustom">Custom Name</string>
+    <string name="apply_changes">Apply changes</string>
 </resources>
