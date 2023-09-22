@@ -27,6 +27,7 @@ import com.tungngt.dev.ui.adapter.ActiveUserAdapter;
 
 import com.tungngt.dev.model.ChannelItem;
 import com.tungngt.dev.ui.adapter.ChannelAdapter;
+import com.tungngt.dev.ui.bottomsheets.AddChannelBottomSheet;
 
 
 import java.util.ArrayList;
@@ -141,6 +142,22 @@ public class ChannelFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View addChannelView = fragmentChannelBinding.addChannel;
+        addChannelView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Open the bottom sheet when "addChannel" is clicked
+                showAddChannelBottomSheet();
+            }
+        });
         return fragmentChannelBinding.getRoot();
+    }
+
+    private void showAddChannelBottomSheet() {
+        AddChannelBottomSheet addChannelBottomSheet = new AddChannelBottomSheet();
+        addChannelBottomSheet.show(
+                requireActivity().getSupportFragmentManager(),
+                AddChannelBottomSheet.TAG
+        );
     }
 }

@@ -38,4 +38,5 @@
     <string name="see_more">See more</string>
     <string name="user_setting">User settings</string>
     <string name="username">Username</string>
+    <string name="channelName">Channel Name</string>
 </resources>
