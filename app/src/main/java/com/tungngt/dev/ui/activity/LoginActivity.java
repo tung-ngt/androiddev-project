@@ -28,17 +28,16 @@ public class LoginActivity extends AppCompatActivity  {
             TextInputEditText pass_Word = (TextInputEditText) findViewById(R.id.user_password);
             @Override
             public void onClick(View view) {
-                if(user_Name.getText().toString().matches("")){
-                    if(pass_Word.getText().toString().matches("")){
-                        Toast.makeText(getApplicationContext(), "Username and password not valid.", Toast.LENGTH_SHORT).show();
+                if(user_Name.getText().toString().matches("Admin")){
+                    if(pass_Word.getText().toString().matches("Admin")){
+                        openMainActivity();
                     }
                 }
                 else{
-                    if(user_Name.getText().toString().matches("Admin")){
-                        if(pass_Word.getText().toString().matches("Admin")){
-                            openMainActivity();
-                        }
+                    if(user_Name.getText().toString().matches("") && pass_Word.getText().toString().matches("")){
+                        Toast.makeText(getApplicationContext(), "Please fill in the field", Toast.LENGTH_SHORT).show();
                     }
+                    Toast.makeText(getApplicationContext(), "Username or Password not correct", Toast.LENGTH_SHORT).show();
                 }
             }
         });

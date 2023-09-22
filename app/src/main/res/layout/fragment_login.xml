@@ -15,27 +15,34 @@
         android:textAlignment="center"
         android:textSize="@dimen/login_title_size"
         tools:ignore="VisualLintOverlap" />
+
     <ImageView
-        android:id = "@+id/login_icon"
+        android:id="@+id/login_icon"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/person_icon_size"
+        android:layout_height="150dp"
+
+        android:layout_marginTop="48dp"
+        android:src="@drawable/app_icon"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_login"
-        android:src = "@drawable/outline_person_pin">
-    </ImageView>
+        app:layout_constraintTop_toBottomOf="@id/text_login"></ImageView>
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/usernameTextField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:startIconDrawable="@drawable/outline_person_24"
+        android:layout_marginTop="48dp"
         app:endIconMode="clear_text"
         android:hint="@string/username_label"
         app:layout_constraintTop_toBottomOf="@id/login_icon">
         <com.google.android.material.textfield.TextInputEditText
-        android:id = "@+id/user_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+            android:id = "@+id/user_name"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
@@ -50,25 +57,34 @@
             android:id = "@+id/user_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:inputType="textPassword"/>
 
     </com.google.android.material.textfield.TextInputLayout>
+
     <Button
-        style="?attr/materialButtonOutlinedStyle"
         android:id="@+id/login_button"
+        style="?attr/materialButtonOutlinedStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/password_text"
-        android:layout_marginTop="@dimen/padding_size_1"
+        android:layout_marginTop="72dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/log_in"
-        tools:ignore="VisualLintOverlap" />
+        app:layout_constraintTop_toBottomOf="@id/password_text"
+        tools:ignore="VisualLintOverlap"
+        tools:layout_editor_absoluteX="0dp" />
+
     <Button
         android:id="@+id/signup_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/login_button"
         android:onClick="this"
         android:text="@string/sign_up_text"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintTop_toBottomOf="@id/login_button"
         tools:ignore="OnClick,VisualLintOverlap" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
