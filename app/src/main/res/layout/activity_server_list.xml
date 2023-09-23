@@ -21,7 +21,7 @@
             app:subtitleCentered="true"
             app:title="@string/server_title"
             app:titleCentered="true"
-            app:menu="@menu/servers_top_menu"/>
+            />
     </com.google.android.material.appbar.AppBarLayout>
 
 

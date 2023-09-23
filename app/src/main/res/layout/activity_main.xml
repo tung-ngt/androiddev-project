@@ -24,7 +24,8 @@
                 app:layout_scrollFlags="enterAlways"
                 app:navigationIcon="@drawable/baseline_menu_24"
                 app:subtitleCentered="true"
-                app:titleCentered="true" />
+                app:titleCentered="true"
+                />
 
         </com.google.android.material.appbar.AppBarLayout>
 
