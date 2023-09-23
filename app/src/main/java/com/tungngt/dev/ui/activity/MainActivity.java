@@ -2,6 +2,9 @@ package com.tungngt.dev.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.MenuBuilder;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.util.Pair;
+import androidx.core.view.ViewCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.fragment.NavHostFragment;
@@ -90,6 +93,28 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(v -> {
             seeAllServer();
         });
+
+        Button editUserButton = (Button) activityMainBinding.drawer.getHeaderView(0).findViewById(R.id.editUser);
+        editUserButton.setOnClickListener(v -> {
+            goToUserSetting();
+        });
+    }
+
+    private void goToUserSetting() {
+        Intent intent = new Intent(this, UserSettingActivity.class);
+
+        Pair<View, String>[] sharedTransitionPairs = new Pair[1];
+        View profile = activityMainBinding.drawer.getHeaderView(0).findViewById(R.id.shapeableImageView);
+        sharedTransitionPairs[0] = new Pair<>(
+                profile,
+                ViewCompat.getTransitionName(profile)
+        );
+
+        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                this,
+                sharedTransitionPairs
+        );
+        startActivity(intent, optionsCompat.toBundle());
     }
 
     private void onFragmentChange(NavController navController, NavDestination navDestination, Bundle bundle) {

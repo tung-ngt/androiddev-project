@@ -3,6 +3,9 @@ package com.tungngt.dev.ui.activity;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.util.Pair;
+import androidx.core.view.ViewCompat;
 
 import android.content.Context;
 import android.content.Intent;
@@ -65,7 +68,18 @@ public class ServerListActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putSerializable("server", server);
         intent.putExtras(bundle);
-        startActivity(intent);
+
+        Pair<View, String>[] sharedElementsPairs = new Pair[1];
+        sharedElementsPairs[0] = new Pair<>(
+                holder.serverItemBinding.serverName,
+                ViewCompat.getTransitionName(holder.serverItemBinding.serverName)
+        );
+
+        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                this,
+                sharedElementsPairs
+        );
+        startActivity(intent, optionsCompat.toBundle());
     }
 
     private void showAddServerBottomSheet() {
