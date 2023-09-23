@@ -68,7 +68,19 @@ public class ServerListActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putSerializable("server", server);
         intent.putExtras(bundle);
-        startActivity(intent);
+
+        Pair<View, String>[] sharedTransitionPairs = new Pair[1];
+
+        sharedTransitionPairs[0] = new Pair<>(
+                holder.serverItemBinding.serverName,
+                ViewCompat.getTransitionName(holder.serverItemBinding.serverName)
+        );
+
+        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                this,
+                sharedTransitionPairs
+        );
+        startActivity(intent, optionsCompat.toBundle());
     }
 
     private void showAddServerBottomSheet() {
