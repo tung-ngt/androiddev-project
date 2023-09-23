@@ -5,10 +5,12 @@ import java.util.Objects;
 public class ActiveUser implements Comparable<ActiveUser> {
     public String username;
     public String imageUrl;
+    public Integer color;
 
-    public ActiveUser(String username, String imageUrl) {
+    public ActiveUser(String username, String imageUrl, Integer color) {
         this.username = username;
         this.imageUrl = imageUrl;
+        this.color = color;
     }
 
     @Override

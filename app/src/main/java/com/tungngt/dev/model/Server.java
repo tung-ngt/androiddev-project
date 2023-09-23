@@ -6,9 +6,11 @@ import java.util.Objects;
 public class Server implements Comparable<Server>, Serializable {
         public String name;
         public String image_irl;
-        public Server(String name, String image_irl){
+        public Integer color;
+        public Server(String name, String image_irl, Integer color){
             this.name = name;
             this.image_irl = image_irl;
+            this.color = color;
         }
         @Override
         public boolean equals(Object o) {

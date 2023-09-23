@@ -11,13 +11,19 @@ public class ChannelItem implements Comparable<ChannelItem>, Serializable {
     public String latestChat;
     public String latestChatTime;
 
+    public Integer color;
+
     public int type;
 
     public static int CHANNEL = 0;
     public static int SEARCH_BAR = 1;
     public static int ACTIVE_USER_BAR = 2;
 
-    public ChannelItem(String id, String name, String imageUrl, String latestChatSender, String latestChat, String latestChatTime) {
+    public ChannelItem(String id, String name,
+                       String imageUrl, String latestChatSender,
+                       String latestChat, String latestChatTime,
+                       Integer color
+    ) {
         this.id = id;
         this.name = name;
         this.imageUrl = imageUrl;
@@ -25,6 +31,7 @@ public class ChannelItem implements Comparable<ChannelItem>, Serializable {
         this.latestChat = latestChat;
         this.latestChatTime = latestChatTime;
         this.type = CHANNEL;
+        this.color = color;
     }
 
     @Override

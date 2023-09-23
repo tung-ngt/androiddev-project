@@ -26,7 +26,8 @@
             android:layout_width="@dimen/active_user_image_size"
             android:layout_height="@dimen/active_user_image_size"
             android:layout_centerHorizontal="false"
-            android:background="@color/black"
+            tools:background="@color/black"
+            android:background="@{server.color}"
             app:shapeAppearanceOverlay="@style/circle"
             />
 
