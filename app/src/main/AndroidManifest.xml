@@ -3,18 +3,34 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
+        android:enableOnBackInvokedCallback="true"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.XmlJavaApp"
-        android:name=".MyApplication"
-        tools:targetApi="31">
+        tools:targetApi="33">
         <activity
             android:name=".ui.activity.MainActivity"
+            android:exported="true">
+
+        </activity>
+        <activity
+            android:name=".ui.activity.ChatActivity"
+            android:exported="true"></activity>
+        <activity
+            android:name=".ui.activity.AuthenticationActivity"
+            android:exported="true">
+
+        </activity>
+
+        <activity
+            android:name=".ui.activity.ServerListActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,6 +38,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ui.activity.UserSettingActivity"
+            android:exported="true">
+
+        </activity>
+
+        <activity
+            android:name=".ui.activity.ChatSettingActivity"
+            android:exported="true"></activity>
+
+        <activity
+            android:name=".ui.activity.SearchActivity"
+            android:exported="true"></activity>
+
     </application>
 
 </manifest>

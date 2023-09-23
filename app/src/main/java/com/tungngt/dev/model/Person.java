@@ -1,6 +1,7 @@
 package com.tungngt.dev.model;
 
 public class Person implements Comparable<Person> {
+    public String id;
     public String name;
     public Integer age;
 

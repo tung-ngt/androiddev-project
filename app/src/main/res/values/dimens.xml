@@ -9,4 +9,20 @@
     <dimen name="active_user_name_margin">4dp</dimen>
     <dimen name="active_user_margin">10dp</dimen>
     <dimen name="active_user_text_size">12sp</dimen>
+    <dimen name="active_user_bar_spacing">10dp</dimen>
+    <dimen name="chat_input_space">320dp</dimen>
+    <dimen name="channel_list_vertical_margin">10dp</dimen>
+    <dimen name="channel_list_image_margin">16dp</dimen>
+    <dimen name="activity_horizontal_user_vertical_padding">10dp</dimen>
+    <!--Authentication-->
+    <dimen name="person_icon_size">300dp</dimen>
+    <dimen name="login_title_size">30sp</dimen>
+    <dimen name="padding_size_1">150dp</dimen>
+    <dimen name="padding_size_2">240dp</dimen>
+    <dimen name="padding_size_3">130dp</dimen>
+    <dimen name="message_holder_height">550dp</dimen>
+    <dimen name="profile_image">150dp</dimen>
+    <dimen name="profile_username_margin">10dp</dimen>
+    <dimen name="max_username_width">200dp</dimen>
+    <dimen name="textfield_margin">16dp</dimen>
 </resources>

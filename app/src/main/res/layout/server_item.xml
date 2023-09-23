@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="server"
+            type="com.tungngt.dev.model.Server" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/server_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/channel_list_vertical_margin"
+        android:paddingBottom="@dimen/channel_list_vertical_margin"
+        android:clickable="true"
+        >
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/profileImage"
+            android:layout_width="@dimen/active_user_image_size"
+            android:layout_height="@dimen/active_user_image_size"
+            android:layout_centerHorizontal="false"
+            tools:background="@color/black"
+            android:background="@{server.color}"
+            app:shapeAppearanceOverlay="@style/circle"
+            />
+
+        <TextView
+            android:id="@+id/serverName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/profileImage"
+            android:layout_marginStart="@dimen/channel_list_image_margin"
+            android:layout_marginTop="5px"
+            android:textSize="@dimen/active_user_text_size"
+            android:layout_centerHorizontal="true"
+            android:textAlignment="center"
+            android:ellipsize="end"
+            android:scrollHorizontally = "true"
+            android:maxLines = "2"
+            android:text="@{server.name}"
+            tools:text="Server name" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/profileImage"
+            android:layout_marginTop="6dp"
+            android:layout_below="@id/serverName"
+            android:layout_marginStart="@dimen/channel_list_image_margin"
+            android:textSize="@dimen/active_user_text_size"
+            android:layout_centerHorizontal="true"
+            android:textAlignment="center"
+            android:ellipsize="end"
+            android:scrollHorizontally = "true"
+            android:maxLines = "2"
+            android:text="@{server.name}"
+            tools:text="irc.freenode.net" />
+    </RelativeLayout>
+</layout>

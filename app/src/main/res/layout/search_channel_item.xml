@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="activeChannel"
+            type="com.tungngt.dev.model.Searching" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="@dimen/active_user_width"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/active_user_margin"
+        android:layout_marginEnd="@dimen/active_user_margin"
+        >
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/profileImage"
+            android:layout_width="@dimen/active_user_image_size"
+            android:layout_height="@dimen/active_user_image_size"
+            android:layout_centerHorizontal="true"
+            android:background="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/circle"
+            ></com.google.android.material.imageview.ShapeableImageView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/profileImage"
+            android:layout_marginTop="@dimen/active_user_name_margin"
+            android:textSize="@dimen/active_user_text_size"
+            android:text="@{activeChannel.chnName}"
+            android:layout_centerHorizontal="true"
+            android:textAlignment="center"
+            android:ellipsize="end"
+            android:scrollHorizontally = "true"
+            android:maxLines = "2"
+            tools:text="Channel name" />
+    </RelativeLayout>
+</layout>
