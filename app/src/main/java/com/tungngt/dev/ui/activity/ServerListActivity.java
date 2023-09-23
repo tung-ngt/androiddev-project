@@ -53,6 +53,11 @@ public class ServerListActivity extends AppCompatActivity {
                 showAddServerBottomSheet();
             }
         });
+
+        activityServerListBinding.searchBar.setOnClickListener((view) -> {
+            Intent intent = new Intent(this, SearchActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void connectToServer(Server server, ServerListAdapter.ServerListViewHolder holder) {

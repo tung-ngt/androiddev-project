@@ -3,6 +3,7 @@ package com.tungngt.dev.ui.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -154,6 +155,9 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelAdapter.ChannelV
 
         if (position == 0) {
             SearchBarViewHolder searchBarViewHolder = (SearchBarViewHolder) holder;
+            searchBarViewHolder.searchBarBinding.searchBar.setOnClickListener( (view) -> {
+                onItemClicked(channelItem, holder);
+            });
             return;
         }
         if (position == 1) {
@@ -162,6 +166,10 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelAdapter.ChannelV
             activeUserBarViewHolder.activeUserBarBinding.rcActiveUser.setAdapter(
                     activeUserAdapter
             );
+
+            activeUserBarViewHolder.activeUserBarBinding.rcActiveUser.setOnClickListener( (view) -> {
+                onItemClicked(channelItem, holder);
+            });
             return;
         }
 
@@ -179,9 +187,14 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelAdapter.ChannelV
     }
 
     public void onItemClicked(ChannelItem channelItem, ChannelViewHolder holder) {
+
+        Log.i("Search bar", "channel: ");
+
         if (channelItem.type == ChannelItem.CHANNEL) {
             onChannelItemClicked.click(channelItem, (ChannelItemViewHolder) holder);
         }
+
+
         if (channelItem.type == ChannelItem.SEARCH_BAR) {
             onSearchBarClicked.click();
         }

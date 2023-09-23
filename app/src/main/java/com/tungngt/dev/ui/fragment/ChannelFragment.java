@@ -23,6 +23,7 @@ import com.tungngt.dev.databinding.FragmentChannelBinding;
 
 import com.tungngt.dev.model.ActiveUser;
 import com.tungngt.dev.ui.activity.ChatActivity;
+import com.tungngt.dev.ui.activity.SearchActivity;
 import com.tungngt.dev.ui.adapter.ActiveUserAdapter;
 
 import com.tungngt.dev.model.ChannelItem;
@@ -66,11 +67,8 @@ public class ChannelFragment extends Fragment {
 
         channelAdapter.setOnSearchBarClicked(() -> {
 
-            NavController navController = NavHostFragment.findNavController(
-                    Objects.requireNonNull(requireActivity().getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment))
-            );
-
-            navController.navigate(R.id.action_channelFrag_to_chatActivity);
+            Intent intent = new Intent(requireContext(), SearchActivity.class);
+            startActivity(intent);
 
         });
 
@@ -143,13 +141,11 @@ public class ChannelFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View addChannelView = fragmentChannelBinding.addChannel;
-        addChannelView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        addChannelView.setOnClickListener((view) -> {
                 // Open the bottom sheet when "addChannel" is clicked
                 showAddChannelBottomSheet();
-            }
         });
+
         return fragmentChannelBinding.getRoot();
     }
 

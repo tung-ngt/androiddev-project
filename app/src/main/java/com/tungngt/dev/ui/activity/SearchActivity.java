@@ -6,6 +6,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.tungngt.dev.databinding.ActivitySearchBinding;
+import com.tungngt.dev.model.Searching;
+import com.tungngt.dev.ui.adapter.SearchAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
     private ActivitySearchBinding activitySearchBinding;
@@ -18,5 +23,6 @@ public class SearchActivity extends AppCompatActivity {
         activitySearchBinding.topAppBar.setNavigationOnClickListener(v -> {
             onBackPressed();
         });
+
     }
 }
