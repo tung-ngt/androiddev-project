@@ -13,5 +13,12 @@ public class UserSettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         activityUserSettingsBinding = ActivityUserSettingsBinding.inflate(getLayoutInflater());
         setContentView(activityUserSettingsBinding.getRoot());
+
+        activityUserSettingsBinding.applyChanges.setOnClickListener(v -> {
+            onBackPressed();
+        });
+        activityUserSettingsBinding.cancelButton.setOnClickListener(v -> {
+            onBackPressed();
+        });
     }
 }

@@ -9,22 +9,28 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     >
 
-    <ImageView
-        android:id="@+id/login_icon"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/person_icon_size"
-        android:src="@drawable/outline_person_pin"
+    <com.google.android.material.imageview.ShapeableImageView
+        android:layout_marginTop="60dp"
+        android:id="@+id/shapeableImageView"
+        android:layout_width="@dimen/profile_image"
+        android:layout_height="@dimen/profile_image"
+        android:src="@drawable/outline_person_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/circle"
+        android:background="#FF679289"
+        android:transitionName="@string/user_profile_transition_name"
+        />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/usernameTextField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/edit_username"
+        android:layout_marginTop="50dp"
         app:endIconMode="clear_text"
-        app:layout_constraintTop_toBottomOf="@id/login_icon"
+        app:layout_constraintTop_toBottomOf="@id/shapeableImageView"
         app:startIconDrawable="@drawable/outline_person_24">
 
         <com.google.android.material.textfield.TextInputEditText

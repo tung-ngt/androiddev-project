@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/login_icon"
+        android:id="@+id/shapeableImageView"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_marginTop="48dp"
@@ -39,7 +39,7 @@
         android:layout_marginTop="16dp"
         android:hint="@string/username_label"
         app:endIconMode="clear_text"
-        app:layout_constraintTop_toBottomOf="@id/login_icon"
+        app:layout_constraintTop_toBottomOf="@id/shapeableImageView"
         app:startIconDrawable="@drawable/outline_person_24">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -101,20 +101,22 @@
 
     <Button
         android:id="@+id/signup_button"
-        style="?attr/materialButtonOutlinedStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:text="@string/sign_up_text"
-        app:layout_constraintTop_toBottomOf="@id/password_retype"
+        app:layout_constraintBottom_toTopOf="@+id/cancel_button"
         tools:ignore="VisualLintOverlap"
         tools:layout_editor_absoluteX="0dp" />
 
     <Button
         android:id="@+id/cancel_button"
+        style="?attr/materialButtonOutlinedStyle"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
         android:text="@string/cancel"
-        app:layout_constraintTop_toBottomOf="@id/password_retype" />
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

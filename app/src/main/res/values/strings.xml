@@ -50,4 +50,6 @@
     <string name="channelDescription">Channel Description</string>
     <string name="channelCustom">Custom Name</string>
     <string name="apply_changes">Apply changes</string>
+    <string name="user_profile_transition_name">user_profile_transition_name</string>
+    <string name="server_name_transition_name">server_name_transition_name</string>
 </resources>
