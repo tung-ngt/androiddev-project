@@ -19,7 +19,7 @@ public class AddServerBottomSheet extends BottomSheetDialogFragment {
     public static String TAG = "ModelBottomSheet";
 
     public interface OnAddListener {
-        void onAdd(String channelName);
+        void onAdd(String serverName);
     }
 
     private OnAddListener onAddListener;
@@ -42,11 +42,40 @@ public class AddServerBottomSheet extends BottomSheetDialogFragment {
         return serverBottomSheetBinding.getRoot();
     }
 
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof OnAddListener) {
+            onAddListener = (OnAddListener) context;
+        } else {
+            throw new ClassCastException(context.toString() + " must implement OnAddListener");
+        }
+    }
+
     private void onClick() {
         EditText serverName = serverBottomSheetBinding.tilName.getEditText();
-        assert serverName != null;
+        EditText serverUrl = serverBottomSheetBinding.tilUrl.getEditText();
+        EditText serverPort = serverBottomSheetBinding.tilPort.getEditText();
+
         String name = serverName.getText().toString();
+        String url = serverUrl.getText().toString();
+        String port = serverPort.getText().toString();
+
+        if (name.trim().isEmpty()) {
+            serverBottomSheetBinding.tilName.setError("Please fill in the server name");
+            return;
+        }
+
+        if (url.trim().isEmpty() || port.trim().isEmpty()) {
+            serverBottomSheetBinding.tilUrl.setError("Please fill in the URL");
+            serverBottomSheetBinding.tilPort.setError("Please fill in the port");
+            return;
+        }
+
+        // If all fields are filled, add the server
         onAddListener.onAdd(name);
         dismiss();
     }
+
 }

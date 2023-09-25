@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.Button;
 
 import com.tungngt.dev.databinding.ActivityServerListBinding;
 import com.tungngt.dev.ui.adapter.ServerListAdapter;
@@ -22,9 +23,11 @@ import java.util.List;
 import com.tungngt.dev.model.Server;
 import com.tungngt.dev.ui.bottomsheets.AddServerBottomSheet;
 
-public class ServerListActivity extends AppCompatActivity {
-    private ActivityServerListBinding activityServerListBinding;
+public class ServerListActivity extends AppCompatActivity implements AddServerBottomSheet.OnAddListener {
 
+    private ActivityServerListBinding activityServerListBinding;
+    private List<Server> serverList; // Declare serverList at the class level
+    private ServerListAdapter serverListAdapter; // Declare serverListAdapter at the class level
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,20 +35,16 @@ public class ServerListActivity extends AppCompatActivity {
         activityServerListBinding = ActivityServerListBinding.inflate(getLayoutInflater());
         setContentView(activityServerListBinding.getRoot());
 
-
-
-        List<Server> serverList = new ArrayList<>();
-        ServerListAdapter serverListAdapter = new ServerListAdapter();
+        // Initialize serverList and serverListAdapter
+        serverList = new ArrayList<>();
+        serverListAdapter = new ServerListAdapter();
         serverListAdapter.setOnServerClicked(this::connectToServer);
 
+        // Add initial servers
         serverList.add(new Server("Server 1", "123", 0xFF78281F));
         serverList.add(new Server("Server 2", "123", 0xFFFF4E50));
-        serverList.add(new Server("Server 3", "123", 0xFF07575B));
-        serverList.add(new Server("Server 4", "123", 0xFF727077));
-        serverList.add(new Server("Server 5", "123", 0xFFE99787));
-        serverList.add(new Server("Server 6", "123", 0xFF90AFC5));
-        serverList.add(new Server("Server 7", "123", 0xFF76448A));
-        serverList.add(new Server("Server 8", "123", 0xFF943128));
+        // Add more servers as needed...
+
         serverListAdapter.differ.submitList(serverList);
 
         activityServerListBinding.rcServer.setAdapter(serverListAdapter);
@@ -62,6 +61,21 @@ public class ServerListActivity extends AppCompatActivity {
             startActivity(intent);
         });
     }
+
+    @Override
+    public void onAdd(String serverName) {
+        // Create a new Server object with the provided name
+        Server newServer = new Server(serverName, "", 0xFF000000); // Replace with appropriate parameters
+
+        // Add the new server to your data source (serverList)
+        serverList.add(newServer);
+
+        // Notify the adapter that the data set has changed
+        serverListAdapter.notifyDataSetChanged();
+    }
+
+
+
 
     private void connectToServer(Server server, ServerListAdapter.ServerListViewHolder holder) {
         Intent intent = new Intent(this, AuthenticationActivity.class);
