@@ -11,6 +11,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import android.content.Context;
 
@@ -28,8 +29,13 @@ import android.widget.Button;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.tungngt.dev.R;
+import com.tungngt.dev.data.dao.ChannelDao;
+import com.tungngt.dev.data.domain.ChannelEntity;
+import com.tungngt.dev.data.local.AppDatabase;
 import com.tungngt.dev.databinding.ActivityMainBinding;
 import com.tungngt.dev.model.Server;
+import com.tungngt.dev.service.IRCService;
+import com.tungngt.dev.service.impl.IRCServiceImpl;
 import com.tungngt.dev.ui.adapter.ServerListAdapter;
 
 import java.util.ArrayList;
@@ -98,6 +104,33 @@ public class MainActivity extends AppCompatActivity {
         editUserButton.setOnClickListener(v -> {
             goToUserSetting();
         });
+
+
+//        AppDatabase appDatabase = Room
+//                .databaseBuilder(this, AppDatabase.class, "timber_db")
+//                .allowMainThreadQueries()
+//                .build();
+//
+//        ChannelDao channelDao = appDatabase.getChannelDao();
+//        channelDao.insertAll(
+//                new ChannelEntity("test", "test_channel", 0xFFFFFFFF),
+//                new ChannelEntity("test2", "test_channel2", 0xFFFFFFFF)
+//        );
+//
+//
+//        Log.i("TESTDB", "onCreate: " + channelDao.getAll().toString());
+
+
+        IRCService ircService = IRCServiceImpl.getInstance();
+
+        ircService.connectServer("irc.libera.chat", 6667);
+//        ircService.login("tungngt", "Tung");
+//        ircService.joinChannel("#usth");
+//        ircService.sendMessage("test message", "#usth");
+//        ircService.leaveServer();
+
+
+
     }
 
     private void goToUserSetting() {

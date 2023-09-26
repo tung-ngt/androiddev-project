@@ -10,5 +10,7 @@ public class MyApplication extends Application {
         super.onCreate();
         // Enable dynamic color
         DynamicColors.applyToActivitiesIfAvailable(this);
+
+        
     }
 }
