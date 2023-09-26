@@ -29,14 +29,17 @@ import android.widget.Button;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.tungngt.dev.R;
 import com.tungngt.dev.databinding.ActivityMainBinding;
+import com.tungngt.dev.databinding.ChannelItemBinding;
+import com.tungngt.dev.model.ChannelItem;
 import com.tungngt.dev.model.Server;
 import com.tungngt.dev.ui.adapter.ServerListAdapter;
+import com.tungngt.dev.ui.bottomsheets.AddChannelBottomSheet;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity {
+public  class MainActivity extends AppCompatActivity  {
     private ActivityMainBinding activityMainBinding;
     public void SearchButton (View view){
         NavController navController = NavHostFragment.findNavController(getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment));
@@ -147,4 +150,5 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ServerListActivity.class);
         startActivity(intent);
     }
+
 }

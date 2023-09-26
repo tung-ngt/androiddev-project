@@ -32,6 +32,7 @@
 
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id = "@+id/channel_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName" />
@@ -52,6 +53,7 @@
 
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id = "@+id/channel_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName" />
@@ -71,6 +73,7 @@
 
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id = "@+id/custom_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName" />
