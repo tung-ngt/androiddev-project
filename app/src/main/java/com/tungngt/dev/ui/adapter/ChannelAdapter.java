@@ -1,18 +1,13 @@
 package com.tungngt.dev.ui.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityOptionsCompat;
-import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.AsyncListDiffer;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,7 +17,6 @@ import com.tungngt.dev.databinding.ActiveUserBarBinding;
 import com.tungngt.dev.databinding.ChannelItemBinding;
 import com.tungngt.dev.databinding.SearchBarBinding;
 import com.tungngt.dev.model.ChannelItem;
-import com.tungngt.dev.ui.activity.ChatActivity;
 
 public class ChannelAdapter extends RecyclerView.Adapter<ChannelAdapter.ChannelViewHolder> {
 

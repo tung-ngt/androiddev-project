@@ -29,7 +29,7 @@ public class AddChannelBottomSheet extends BottomSheetDialogFragment  {
 
     public static String TAG = "ModelBottomSheet";
     public interface OnAddListener {
-        void onAdd(String channelName);
+        void onAdd(String channelName, String channel_Desc, String channel_custom_text);
     }
 
     private OnAddListener onAddListener;
@@ -52,12 +52,20 @@ public class AddChannelBottomSheet extends BottomSheetDialogFragment  {
         });
         return bottomSheetBinding.getRoot();
     }
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof OnAddListener) {
+            onAddListener = (OnAddListener) context;
+        } else {
+            throw new ClassCastException(context.toString() + " must implement OnAddListener");
+        }
+    }
     private void onClick() {
-        EditText channelName = bottomSheetBinding.tilName.getEditText();
+        EditText channelName_1 = bottomSheetBinding.tilName.getEditText();
         EditText channelDescription = bottomSheetBinding.tilDescription.getEditText();
         EditText channelCustomText = bottomSheetBinding.tilCustom.getEditText();
 
-        String name = channelName.getText().toString();
+        String name = channelName_1.getText().toString();
         String description = channelDescription.getText().toString();
         String custom_text = channelCustomText.getText().toString();
 
@@ -73,9 +81,7 @@ public class AddChannelBottomSheet extends BottomSheetDialogFragment  {
             bottomSheetBinding.tilCustom.setError("Please fill in the channel custom field");
             return;
         }
-        if(onAddListener != null){
-            onAddListener.onAdd(name);
-        }
+        onAddListener.onAdd(name, description, custom_text);
 
         dismiss();
     }

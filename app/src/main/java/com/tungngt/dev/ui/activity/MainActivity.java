@@ -5,12 +5,14 @@ import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.util.Pair;
 import androidx.core.view.ViewCompat;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
+
 
 import android.content.Context;
 
@@ -32,15 +34,22 @@ import com.tungngt.dev.databinding.ActivityMainBinding;
 import com.tungngt.dev.databinding.ChannelItemBinding;
 import com.tungngt.dev.model.ChannelItem;
 import com.tungngt.dev.model.Server;
+import com.tungngt.dev.ui.adapter.ActiveUserAdapter;
+import com.tungngt.dev.ui.adapter.ChannelAdapter;
 import com.tungngt.dev.ui.adapter.ServerListAdapter;
 import com.tungngt.dev.ui.bottomsheets.AddChannelBottomSheet;
+import com.tungngt.dev.ui.fragment.ChannelFragment;
 
+import java.util.AbstractCollection;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public  class MainActivity extends AppCompatActivity  {
+public  class MainActivity extends AppCompatActivity implements AddChannelBottomSheet.OnAddListener {
     private ActivityMainBinding activityMainBinding;
+    private List<ChannelItem> channelItemList_GET ;
+
+    private ChannelAdapter channelListAdapter;
     public void SearchButton (View view){
         NavController navController = NavHostFragment.findNavController(getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment));
         navController.navigate(R.id.search_on);
@@ -51,7 +60,10 @@ public  class MainActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(activityMainBinding.getRoot());
-
+        ActiveUserAdapter activeUserAdapter = new ActiveUserAdapter();
+        channelListAdapter= new ChannelAdapter(
+                activeUserAdapter,  getBaseContext()
+        );
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(activityMainBinding.bottomNavView, navHostFragment.getNavController());
 
@@ -130,6 +142,8 @@ public  class MainActivity extends AppCompatActivity  {
 //            topAppBar.getMenu().clear();
 //            topAppBar.inflateMenu(R.menu.channels_top_menu);
             activityMainBinding.appbar.setLiftOnScrollTargetViewId(R.id.channelList);
+
+
         } else if (fragmentId == R.id.peopleFrag) {
             topAppBar.setTitle("6" + " " + getResources().getString(R.string.online));
             topAppBar.getMenu().clear();
@@ -151,4 +165,15 @@ public  class MainActivity extends AppCompatActivity  {
         startActivity(intent);
     }
 
+    public void onAdd(String channelName, String channel_Desc, String channel_custom_text) {
+        // Create a new Channel object with the provided name
+        channelItemList_GET = new ArrayList<>();
+        ChannelFragment channel_frag = (ChannelFragment) getSupportFragmentManager().findFragmentById(R.id.toolbar);
+        if (channel_frag != null) {
+            channel_frag.updateList(channelItemList_GET);
+        }
+        ChannelItem newChannel = new ChannelItem("21" ,channelName, "123", channel_Desc, channel_custom_text, "2 days", 0xFFFECEAB); // Replace with appropriate parameters
+        // Add the new server to your data source (channelItemList)
+        channelItemList_GET.add(newChannel);
+    }
 }
