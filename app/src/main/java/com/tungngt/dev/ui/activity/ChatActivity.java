@@ -75,30 +75,15 @@ public class ChatActivity extends AppCompatActivity{
 
         IRCService ircService = IRCServiceImpl.getInstance();
 
-        ircService.connectServer("irc.freenode.net", 6667);
+        ircService.connectServer("chat.freenode.net", 6669);
+        ircService.login("tungnguyen123", "Tung");
+        ircService.joinChannel("#usth");
+        ircService.sendMessage("test message", "#usth");
 
 //        ircService.setOnReceivedMessageListener((sender, receiver, message) -> {
 //            messages.add(new Message(sender, message, "12:00", "1"));
 //            chatAdapter.differ.submitList(messages);
 //            Log.i(TAG, "onCreate: " + sender + " " + receiver + " " + message);
 //        });
-
-
-        int SDK_INT = android.os.Build.VERSION.SDK_INT;
-        if (SDK_INT > 8)
-        {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-                    .permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-            sendButton = findViewById(R.id.sendButton);
-            chatTxt = findViewById(R.id.chatTxt);
-            sendButton.setOnClickListener(v -> {
-                ircService.sendMessage(chatTxt.getText().toString(), "#usth");
-                messages.add(new Message("Tung", chatTxt.getText().toString(), "12:00", "1"));
-                chatAdapter.differ.submitList(messages);
-                chatTxt.setText("");
-            });
-
-        }
     }
 }

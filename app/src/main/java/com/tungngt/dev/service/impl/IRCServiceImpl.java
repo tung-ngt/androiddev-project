@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class IRCServiceImpl implements IRCService {
     private static IRCServiceImpl instance;
@@ -32,46 +34,46 @@ public class IRCServiceImpl implements IRCService {
     private BufferedReader reader;
 
     private Thread messageListenerThread;
-    private Boolean isListening;
+    private Thread processSendMessageThread;
+    private Boolean isConnected;
+
+    private final Queue<String> sendQueue = new LinkedList<>();
 
 
     @Override
     public void login(String username, String realName) {
-        writeLine("NICK " + username);
-        writeLine("USER " + username + " 8 * : " + realName);
-        Log.i(TAG, "Login OK");
+        addToSendQueue("NICK " + username);
+        addToSendQueue("USER " + username + " 8 * : " + realName);
     }
 
     @Override
     public void sendMessage(String message, String receiver) {
-        if (message == "/disconnect"){
-            leaveServer();
-        }
-        writeLine("PRIVMSG " + receiver + " :" + message);
-        Log.i(TAG, "SEND nudes");
+        addToSendQueue("PRIVMSG " + receiver + " :" + message);
     }
 
     @Override
     public void connectServer(String url, Integer port) {
+
         new Thread(() -> {
             try {
+                Log.i(TAG, "connectServer: hi");
                 socket = new Socket(url, port);
+                Log.i(TAG, "connectServer: hi");
+
                 writer = new BufferedWriter(new PrintWriter(socket.getOutputStream()));
                 reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             } catch (Exception e) {
-                Log.i(TAG, "connectServer: "  + e.toString());
+                Log.i(TAG, "connectServer: "  + e);
             }
 
 
-            isListening = true;
-            messageListenerThread = new Thread(() -> {
-                listenForMessage();
-            });
+            isConnected = true;
+            messageListenerThread = new Thread(this::listenForMessage);
             messageListenerThread.start();
 
-            login("tungnguyen123", "Tung");
-            joinChannel("#usth");
-            sendMessage("test message", "#usth");
+            processSendMessageThread = new Thread(this::processSendQueue);
+            processSendMessageThread.start();
+
         }).start();
     }
 
@@ -81,18 +83,23 @@ public class IRCServiceImpl implements IRCService {
             writer.write("disconnect");
             Log.i(TAG, "Disconnect from server");
             writer.flush();
-            isListening = false;
+            isConnected = false;
+            sendQueue.clear();
             writer.close();
             reader.close();
             socket.close();
+            writer = null;
+            reader = null;
+            socket = null;
+            messageListenerThread = null;
         } catch (Exception e) {
-
+            Log.i(TAG, "leaveServer: " + e);
         }
     }
 
     @Override
     public void joinChannel(String channelHandle) {
-        writeLine("JOIN " + channelHandle);
+        addToSendQueue("JOIN " + channelHandle);
     }
 
     @Override
@@ -118,7 +125,7 @@ public class IRCServiceImpl implements IRCService {
     private void listenForMessage() {
         String line;
         try {
-            while (isListening) {
+            while (isConnected) {
                 if ((line = reader.readLine()) == null)
                     break;
 
@@ -126,9 +133,6 @@ public class IRCServiceImpl implements IRCService {
 
                 if (line.contains("PING")) {
                     writeLine("PONG " + line.substring(5));
-                    login("tungnguyen123", "Tung");
-                    joinChannel("#usth");
-                    sendMessage("test message", "#usth");
                 }
 
                 if (line.contains("PRIVMSG")) {
@@ -136,16 +140,41 @@ public class IRCServiceImpl implements IRCService {
 
             }
         } catch (Exception e) {
+            Log.i(TAG, "leaveServer: " + e);
+
+        }
+    }
+
+    private void addToSendQueue(String line) {
+        sendQueue.add(line);
+    }
+
+    private void processSendQueue() {
+        try {
+            while (isConnected) {
+                if (sendQueue.isEmpty()) {
+                   continue;
+                }
+
+                String line = sendQueue.remove();
+
+                writeLine(line);
+
+                notify();
+            }
+        } catch (Exception e) {
+            Log.i(TAG, "leaveServer: " + e);
 
         }
     }
 
     private void writeLine(String line) {
         try {
-            Log.i(TAG, "writer: " + writer.toString());
+            Log.i(TAG, "writeLine: " + line);
             writer.write(line + "\r\n");
             writer.flush();
         } catch (IOException e) {
+            Log.i(TAG, "leaveServer: " + e);
 
         }
     }
