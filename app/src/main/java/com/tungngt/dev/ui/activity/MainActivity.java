@@ -84,14 +84,14 @@ public class MainActivity extends AppCompatActivity {
 
         serverListAdapter.setOnServerClicked(this::connectToServer);
 
-        serverList.add(new Server("Server 1", "123", 0xFF78281F));
-        serverList.add(new Server("Server 2", "123", 0xFFFF4E50));
-        serverList.add(new Server("Server 3", "123", 0xFF07575B));
-        serverList.add(new Server("Server 4", "123", 0xFF727077));
-        serverList.add(new Server("Server 5", "123", 0xFFE99787));
-        serverList.add(new Server("Server 6", "123", 0xFF90AFC5));
-        serverList.add(new Server("Server 7", "123", 0xFF76448A));
-        serverList.add(new Server("Server 8", "123", 0xFF943128));
+        serverList.add(new Server("Libera", "123", "192.168.141.128", "6667", 0xFF78281F));
+//        serverList.add(new Server("Server 2", "123", 0xFFFF4E50));
+//        serverList.add(new Server("Server 3", "123", 0xFF07575B));
+//        serverList.add(new Server("Server 4", "123", 0xFF727077));
+//        serverList.add(new Server("Server 5", "123", 0xFFE99787));
+//        serverList.add(new Server("Server 6", "123", 0xFF90AFC5));
+//        serverList.add(new Server("Server 7", "123", 0xFF76448A));
+//        serverList.add(new Server("Server 8", "123", 0xFF943128));
 
         serverListAdapter.differ.submitList(serverList);
 
@@ -121,9 +121,7 @@ public class MainActivity extends AppCompatActivity {
 //        Log.i("TESTDB", "onCreate: " + channelDao.getAll().toString());
 
 
-        IRCService ircService = IRCServiceImpl.getInstance();
 
-        ircService.connectServer("irc.libera.chat", 6667);
 //        ircService.login("tungngt", "Tung");
 //        ircService.joinChannel("#usth");
 //        ircService.sendMessage("test message", "#usth");

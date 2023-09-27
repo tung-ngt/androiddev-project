@@ -44,6 +44,9 @@ public class IRCServiceImpl implements IRCService {
 
     @Override
     public void sendMessage(String message, String receiver) {
+        if (message == "/disconnect"){
+            leaveServer();
+        }
         writeLine("PRIVMSG " + receiver + " :" + message);
         Log.i(TAG, "SEND nudes");
     }
@@ -66,7 +69,7 @@ public class IRCServiceImpl implements IRCService {
             });
             messageListenerThread.start();
 
-            login("tungngt", "Tung");
+            login("tungnguyen123", "Tung");
             joinChannel("#usth");
             sendMessage("test message", "#usth");
         }).start();
@@ -75,6 +78,9 @@ public class IRCServiceImpl implements IRCService {
     @Override
     public void leaveServer() {
         try {
+            writer.write("disconnect");
+            Log.i(TAG, "Disconnect from server");
+            writer.flush();
             isListening = false;
             writer.close();
             reader.close();
@@ -117,6 +123,17 @@ public class IRCServiceImpl implements IRCService {
                     break;
 
                 Log.i(TAG, "listenForMessage: " + line);
+
+                if (line.contains("PING")) {
+                    writeLine("PONG " + line.substring(5));
+                    login("tungnguyen123", "Tung");
+                    joinChannel("#usth");
+                    sendMessage("test message", "#usth");
+                }
+
+                if (line.contains("PRIVMSG")) {
+                }
+
             }
         } catch (Exception e) {
 

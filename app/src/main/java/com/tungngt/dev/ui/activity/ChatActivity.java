@@ -4,16 +4,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 import android.content.Intent;
-import android.view.View;
-
 
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.tungngt.dev.R;
 import com.tungngt.dev.databinding.ActivityChatBinding;
 import com.tungngt.dev.model.ChannelItem;
 import com.tungngt.dev.model.Message;
+import com.tungngt.dev.service.IRCService;
+import com.tungngt.dev.service.impl.IRCServiceImpl;
 import com.tungngt.dev.ui.adapter.ChatAdapter;
 
 import java.util.ArrayList;
@@ -21,7 +24,8 @@ import java.util.List;
 
 public class ChatActivity extends AppCompatActivity{
     private static final String TAG = "ChatActivity";
-
+    private EditText chatTxt;
+    private Button sendButton;
     private ActivityChatBinding activityChatBinding;
 
     @Override
@@ -41,6 +45,9 @@ public class ChatActivity extends AppCompatActivity{
                 activityChatBinding.setChannel(channelItem);
 
             }
+        }
+        else {
+            activityChatBinding.setChannel(new ChannelItem("USTH", "usth.edu.vn", "123", "123", "123", "123", 0xFF78281F));
         }
 
 
@@ -65,5 +72,33 @@ public class ChatActivity extends AppCompatActivity{
             }
             return true;
         });
+
+        IRCService ircService = IRCServiceImpl.getInstance();
+
+        ircService.connectServer("irc.freenode.net", 6667);
+
+//        ircService.setOnReceivedMessageListener((sender, receiver, message) -> {
+//            messages.add(new Message(sender, message, "12:00", "1"));
+//            chatAdapter.differ.submitList(messages);
+//            Log.i(TAG, "onCreate: " + sender + " " + receiver + " " + message);
+//        });
+
+
+        int SDK_INT = android.os.Build.VERSION.SDK_INT;
+        if (SDK_INT > 8)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                    .permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            sendButton = findViewById(R.id.sendButton);
+            chatTxt = findViewById(R.id.chatTxt);
+            sendButton.setOnClickListener(v -> {
+                ircService.sendMessage(chatTxt.getText().toString(), "#usth");
+                messages.add(new Message("Tung", chatTxt.getText().toString(), "12:00", "1"));
+                chatAdapter.differ.submitList(messages);
+                chatTxt.setText("");
+            });
+
+        }
     }
 }

@@ -3,7 +3,7 @@ package com.tungngt.dev.service;
 public interface IRCService {
 
     interface OnReceivedMessageListener {
-
+        void onReceivedMessage(String sender, String receiver, String message);
     };
 
 
