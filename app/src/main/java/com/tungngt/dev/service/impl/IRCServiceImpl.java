@@ -73,6 +73,10 @@ public class IRCServiceImpl implements IRCService {
 
             processSendMessageThread = new Thread(this::processSendQueue);
             processSendMessageThread.start();
+//
+//            login("tungnguyen123", "Tung");
+//            joinChannel("#usth");
+//            sendMessage("test message", "#usth");
 
         }).start();
     }
@@ -133,9 +137,19 @@ public class IRCServiceImpl implements IRCService {
 
                 if (line.contains("PING")) {
                     writeLine("PONG " + line.substring(5));
+                    continue;
                 }
 
-                if (line.contains("PRIVMSG")) {
+                String[] parts = line.split(" ");
+                String sendFrom = parts[0];
+                String command = parts[1];
+
+                if (command.equals("PRIVMSG")) {
+                    String sender = sendFrom.split("!~")[0].substring(1);
+                    String receiver = parts[2];
+                    int secondColonIndex = line.indexOf(":", line.indexOf(":") + 1);
+                    String message = line.substring( secondColonIndex + 1);;
+                    onReceivedMessageListener.onReceivedMessage(sender, receiver, message);
                 }
 
             }
@@ -159,8 +173,6 @@ public class IRCServiceImpl implements IRCService {
                 String line = sendQueue.remove();
 
                 writeLine(line);
-
-                notify();
             }
         } catch (Exception e) {
             Log.i(TAG, "leaveServer: " + e);
@@ -170,8 +182,8 @@ public class IRCServiceImpl implements IRCService {
 
     private void writeLine(String line) {
         try {
-            Log.i(TAG, "writeLine: " + line);
             writer.write(line + "\r\n");
+            Log.i(TAG, "writeLine: " + line);
             writer.flush();
         } catch (IOException e) {
             Log.i(TAG, "leaveServer: " + e);

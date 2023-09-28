@@ -1,6 +1,7 @@
 package com.tungngt.dev.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 
 import android.content.Intent;
@@ -18,6 +19,7 @@ import com.tungngt.dev.model.Message;
 import com.tungngt.dev.service.IRCService;
 import com.tungngt.dev.service.impl.IRCServiceImpl;
 import com.tungngt.dev.ui.adapter.ChatAdapter;
+import com.tungngt.dev.ui.viewmodel.ChatViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,12 +29,15 @@ public class ChatActivity extends AppCompatActivity{
     private EditText chatTxt;
     private Button sendButton;
     private ActivityChatBinding activityChatBinding;
+    private ChatViewModel chatViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityChatBinding = ActivityChatBinding.inflate(getLayoutInflater());
         setContentView(activityChatBinding.getRoot());
+
+        chatViewModel = new ViewModelProvider(this).get(ChatViewModel.class);
 
 
         // Process intent when clicked on a channel
@@ -56,13 +61,11 @@ public class ChatActivity extends AppCompatActivity{
             }
         );
 
-        List<Message> messages = new ArrayList<>();
-        messages.add(new Message("Tung", "hello", "12:00", "1"));
-        messages.add(new Message("Tung", "how are you", "12:00", "1"));
-        messages.add(new Message("Tung", "hi", "12:00", "1"));
-        messages.add(new Message("Tung", "Feeder XD", "12:00", "1"));
         ChatAdapter chatAdapter = new ChatAdapter();
-        chatAdapter.differ.submitList(messages);
+
+        chatViewModel.getMessages().observe(this, messageList -> {
+            chatAdapter.differ.submitList(new ArrayList<>(messageList));
+        });
         activityChatBinding.chatRecyclerView.setAdapter(chatAdapter);
 
         activityChatBinding.topAppBar.setOnMenuItemClickListener(item -> {
@@ -74,16 +77,26 @@ public class ChatActivity extends AppCompatActivity{
         });
 
         IRCService ircService = IRCServiceImpl.getInstance();
+        ircService.connectServer("irc.libera.chat", 6667);
 
-        ircService.connectServer("chat.freenode.net", 6669);
-        ircService.login("tungnguyen123", "Tung");
+        ircService.login("timber", "Tung");
         ircService.joinChannel("#usth");
         ircService.sendMessage("test message", "#usth");
 
-//        ircService.setOnReceivedMessageListener((sender, receiver, message) -> {
-//            messages.add(new Message(sender, message, "12:00", "1"));
-//            chatAdapter.differ.submitList(messages);
-//            Log.i(TAG, "onCreate: " + sender + " " + receiver + " " + message);
-//        });
+        ircService.setOnReceivedMessageListener((sender, receiver, message) -> {
+            chatViewModel.postMessage(new Message(sender, message, "12:00", "1"));
+            Log.i(TAG, "onCreate: " + sender + " " + receiver + " " + message);
+        });
+
+
+
+        activityChatBinding.sendButton.setOnClickListener(v -> {
+            String text = activityChatBinding.chatTxt.getText().toString();
+            ircService.sendMessage(text, "#usth");
+            chatViewModel.addMessage(new Message("You", text, "12:00", "1"));
+            activityChatBinding.chatTxt.setText("");
+        });
+
+
     }
 }
