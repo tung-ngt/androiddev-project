@@ -8,7 +8,6 @@ import androidx.room.Room;
 import android.content.Intent;
 
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,7 +24,7 @@ import com.tungngt.dev.ui.adapter.ChatAdapter;
 import com.tungngt.dev.ui.viewmodel.ChatViewModel;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
 public class ChatActivity extends AppCompatActivity{
     private static final String TAG = "ChatActivity";
@@ -82,12 +81,12 @@ public class ChatActivity extends AppCompatActivity{
         IRCService ircService = IRCServiceImpl.getInstance();
         ircService.connectServer("irc.libera.chat", 6667);
 
-        ircService.login("timberTung", "Tung");
+        ircService.login("novete", "Tung");
         ircService.joinChannel("#usth");
         ircService.sendMessage("test message", "#usth");
 
-        ircService.setOnReceivedMessageListener((sender, receiver, message) -> {
-            chatViewModel.postMessage(new Message(sender, message, "12:00", "1"));
+        ircService.setOnReceivedMessageListener((sender, receiver, message, time) -> {
+            chatViewModel.postMessage(new Message(sender, message, time, "1"));
             Log.i(TAG, "onCreate: " + sender + " " + receiver + " " + message);
         });
 
@@ -95,8 +94,10 @@ public class ChatActivity extends AppCompatActivity{
 
         activityChatBinding.sendButton.setOnClickListener(v -> {
             String text = activityChatBinding.chatTxt.getText().toString();
+            Date date = new Date();
+            String time = date.getHours() + ":" + date.getMinutes()+ ":" + date.getSeconds();
             ircService.sendMessage(text, "#usth");
-            chatViewModel.addMessage(new Message("You", text, "12:00", "1"));
+            chatViewModel.addMessage(new Message("You", text, time, "1"));
             activityChatBinding.chatTxt.setText("");
         });
 
