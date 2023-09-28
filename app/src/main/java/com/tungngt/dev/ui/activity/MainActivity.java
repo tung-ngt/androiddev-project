@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
         serverListAdapter.setOnServerClicked(this::connectToServer);
 
-        serverList.add(new Server("Libera", "123", "192.168.141.128", "6667", 0xFF78281F));
+        serverList.add(new Server("Libera", "123", "irc.libera.chat", "6667", 0xFF78281F));
 //        serverList.add(new Server("Server 2", "123", 0xFFFF4E50));
 //        serverList.add(new Server("Server 3", "123", 0xFF07575B));
 //        serverList.add(new Server("Server 4", "123", 0xFF727077));

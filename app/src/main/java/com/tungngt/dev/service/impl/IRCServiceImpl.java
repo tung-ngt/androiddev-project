@@ -12,6 +12,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Date;
 
 public class IRCServiceImpl implements IRCService {
     private static IRCServiceImpl instance;
@@ -148,8 +149,10 @@ public class IRCServiceImpl implements IRCService {
                     String sender = sendFrom.split("!~")[0].substring(1);
                     String receiver = parts[2];
                     int secondColonIndex = line.indexOf(":", line.indexOf(":") + 1);
-                    String message = line.substring( secondColonIndex + 1);;
-                    onReceivedMessageListener.onReceivedMessage(sender, receiver, message);
+                    String message = line.substring(line.indexOf(":", line.indexOf(" ") + 3) + 1);
+                    Date date = new Date();
+                    String time = date.getHours() + ":" + date.getMinutes()+ ":" + date.getSeconds();
+                    onReceivedMessageListener.onReceivedMessage(sender, receiver, message, time);
                 }
 
             }
