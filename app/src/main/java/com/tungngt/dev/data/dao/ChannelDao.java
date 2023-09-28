@@ -16,4 +16,7 @@ public interface ChannelDao {
 
     @Insert
     void insertAll(ChannelEntity... channels);
+
+    @Query("DELETE FROM channel_entity")
+    void clearTable();
 }

@@ -16,4 +16,7 @@ public interface ServerDao {
 
     @Insert
     void insertAll(ServerEntity... servers);
+
+    @Query("DELETE FROM server_entity")
+    void clearTable();
 }

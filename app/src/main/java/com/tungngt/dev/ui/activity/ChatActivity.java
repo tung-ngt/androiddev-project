@@ -2,6 +2,7 @@ package com.tungngt.dev.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.room.Room;
 
 
 import android.content.Intent;
@@ -13,6 +14,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.tungngt.dev.R;
+import com.tungngt.dev.data.domain.ChannelEntity;
+import com.tungngt.dev.data.local.AppDatabase;
 import com.tungngt.dev.databinding.ActivityChatBinding;
 import com.tungngt.dev.model.ChannelItem;
 import com.tungngt.dev.model.Message;
@@ -98,5 +101,18 @@ public class ChatActivity extends AppCompatActivity{
         });
 
 
+        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, "timber-db").build();
+        new Thread(() -> {
+
+
+           db.clearAllTables();
+
+
+        }).start();
+
+        db.getChannelDao().getAll().observe(this, channelEntities -> {
+            Log.d(TAG, "onCreate: " + channelEntities);
+        });
     }
 }

@@ -16,4 +16,7 @@ public interface ChatDao {
 
     @Insert
     void insertAll(ChatEntity... chatEntities);
+
+    @Query("DELETE FROM chat_entity")
+    void clearTable();
 }

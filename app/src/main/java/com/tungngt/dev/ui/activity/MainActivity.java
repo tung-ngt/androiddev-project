@@ -31,7 +31,6 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.tungngt.dev.R;
 import com.tungngt.dev.data.dao.ChannelDao;
 import com.tungngt.dev.data.domain.ChannelEntity;
-import com.tungngt.dev.data.local.AppDatabase;
 import com.tungngt.dev.databinding.ActivityMainBinding;
 import com.tungngt.dev.model.Server;
 import com.tungngt.dev.service.IRCService;
