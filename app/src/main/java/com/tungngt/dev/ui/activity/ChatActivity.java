@@ -79,7 +79,7 @@ public class ChatActivity extends AppCompatActivity{
         IRCService ircService = IRCServiceImpl.getInstance();
         ircService.connectServer("irc.libera.chat", 6667);
 
-        ircService.login("timber", "Tung");
+        ircService.login("timberTung", "Tung");
         ircService.joinChannel("#usth");
         ircService.sendMessage("test message", "#usth");
 

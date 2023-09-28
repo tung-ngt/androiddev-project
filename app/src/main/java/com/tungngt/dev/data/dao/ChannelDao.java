@@ -1,5 +1,6 @@
 package com.tungngt.dev.data.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -11,7 +12,7 @@ import java.util.List;
 @Dao
 public interface ChannelDao {
     @Query("SELECT * FROM channel_entity")
-    List<ChannelEntity> getAll();
+    LiveData<List<ChannelEntity>> getAll();
 
     @Insert
     void insertAll(ChannelEntity... channels);
