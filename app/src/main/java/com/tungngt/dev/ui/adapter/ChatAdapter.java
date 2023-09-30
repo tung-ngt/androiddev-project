@@ -35,12 +35,12 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
     private DiffUtil.ItemCallback<Message> differCallback = new DiffUtil.ItemCallback<Message>() {
         @Override
         public boolean areItemsTheSame(@NonNull Message oldItem, @NonNull Message newItem) {
-            return oldItem.equals(newItem);
+            return oldItem.messageId.equals(newItem.messageId);
         }
 
         @Override
         public boolean areContentsTheSame(@NonNull Message oldItem, @NonNull Message newItem) {
-            return oldItem.compareTo(newItem) == 0;
+            return oldItem.equals(newItem);
         }
     };
 

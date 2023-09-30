@@ -6,66 +6,63 @@
     <data>
 
         <variable
-            name="channelItem"
-            type="com.tungngt.dev.model.ChannelItem" />
+            name="channel"
+            type="com.tungngt.dev.model.MainRecyclerViewItem.Channel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="@dimen/channel_list_vertical_margin"
-        android:paddingBottom="@dimen/channel_list_vertical_margin"
-        android:paddingStart="@dimen/activity_horizontal_margin"
-        android:paddingEnd="@dimen/activity_horizontal_margin"
         android:clickable="true"
-        >
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/channel_list_vertical_margin"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
+        android:paddingBottom="@dimen/channel_list_vertical_margin">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/channel_image"
             android:layout_width="@dimen/active_user_image_size"
             android:layout_height="@dimen/active_user_image_size"
             android:layout_centerHorizontal="true"
-            android:background="@{channelItem.color}"
+            android:background="@{channel.channelEntity.color}"
+            android:transitionName="@string/channel_image_transition_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/circle"
-            android:transitionName="@string/channel_image_transition_name"
-            />
+            tools:background="#FF000000" />
 
         <TextView
             android:id="@+id/channel_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="@dimen/channel_list_image_margin"
             android:layout_centerHorizontal="true"
+            android:layout_marginStart="@dimen/channel_list_image_margin"
+            android:layout_marginTop="5dp"
             android:ellipsize="end"
             android:scrollHorizontally="true"
+            android:text="@{channel.channelEntity.name}"
             android:textAlignment="center"
             android:textSize="@dimen/active_user_text_size"
+            android:transitionName="@string/channel_title_transition_name"
             app:layout_constraintStart_toEndOf="@id/channel_image"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="@{channelItem.name}"
-            tools:text="Channel nameeeeeeee"
-            android:transitionName="@string/channel_title_transition_name"
-            />
+            tools:text="Channel nameeeeeeee" />
 
         <TextView
             android:id="@+id/last_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
+            android:layout_marginStart="@dimen/channel_list_image_margin"
             android:ellipsize="end"
             android:scrollHorizontally="true"
-            android:layout_marginStart="@dimen/channel_list_image_margin"
+            android:text="@{channel.channelEntity.handle}"
             android:textAlignment="center"
             android:textSize="@dimen/active_user_text_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/channel_image"
             app:layout_constraintTop_toBottomOf="@id/channel_title"
-            tools:text="Username: String + Date"
-            android:text="@{channelItem.latestChatSender + channelItem.latestChat + channelItem.latestChatTime}"
-            />
+            tools:text="#handle" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

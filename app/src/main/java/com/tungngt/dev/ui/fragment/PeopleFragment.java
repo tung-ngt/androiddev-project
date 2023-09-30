@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class PeopleFragment extends Fragment {
+public class PeopleFragment extends BaseMainFragment {
 
     private FragmentPeopleBinding fragmentPeopleBinding;
     @Override

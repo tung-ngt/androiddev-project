@@ -1,18 +1,13 @@
 package com.tungngt.dev.ui.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityOptionsCompat;
-import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.AsyncListDiffer;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,62 +16,57 @@ import com.tungngt.dev.R;
 import com.tungngt.dev.databinding.ActiveUserBarBinding;
 import com.tungngt.dev.databinding.ChannelItemBinding;
 import com.tungngt.dev.databinding.SearchBarBinding;
-import com.tungngt.dev.model.ChannelItem;
-import com.tungngt.dev.ui.activity.ChatActivity;
+import com.tungngt.dev.domain.ChannelEntity;
+import com.tungngt.dev.model.MainRecyclerViewItem;
 
-public class ChannelAdapter extends RecyclerView.Adapter<ChannelAdapter.ChannelViewHolder> {
-
-
-    public static int SEARCH_BAR = 0;
-    public static int ACTIVE_USER_BAR = 1;
-    public static int CHANNEL_ITEM = 2;
-
+public class MainRecyclerViewAdapter
+        extends RecyclerView.Adapter<MainRecyclerViewAdapter.MainItemViewHolder>
+{
+    // ActiveUserBarAdapter
     public ActiveUserAdapter activeUserAdapter;
 
-    public interface OnSearchBarClicked {
-        void click();
-    };
-
-    private OnSearchBarClicked onSearchBarClicked;
-
-    public void setOnSearchBarClicked(OnSearchBarClicked onSearchBarClicked) {
-        this.onSearchBarClicked = onSearchBarClicked;
-    }
-
+    // ActiveUserBarClick handler
     public interface OnActiveUserBarClicked {
         void click();
     };
-
     private OnActiveUserBarClicked onActiveUserBarClicked;
-
     public void setOnActiveUserBarClicked(OnActiveUserBarClicked onActiveUserBarClicked) {
         this.onActiveUserBarClicked = onActiveUserBarClicked;
     }
-
-    public ChannelAdapter(ActiveUserAdapter activeUserAdapter, Context context) {
+    public MainRecyclerViewAdapter(ActiveUserAdapter activeUserAdapter) {
         this.activeUserAdapter = activeUserAdapter;
     }
 
 
-    public interface OnChannelItemClicked {
-        void click(ChannelItem channel, ChannelItemViewHolder holder);
+
+    // SearchBar click handler
+    public interface OnSearchBarClicked {
+        void click();
     };
+    private OnSearchBarClicked onSearchBarClicked;
+    public void setOnSearchBarClicked(OnSearchBarClicked onSearchBarClicked) {
+        this.onSearchBarClicked = onSearchBarClicked;
+    }
 
+
+
+    // Channel click handler
+    public interface OnChannelItemClicked {
+        void click(ChannelEntity channel, ChannelItemViewHolder holder);
+    };
     private OnChannelItemClicked onChannelItemClicked;
-
     public void setOnChannelItemClicked(OnChannelItemClicked onChannelItemClicked) {
         this.onChannelItemClicked = onChannelItemClicked;
     }
 
-    public class ChannelViewHolder extends RecyclerView.ViewHolder {
-        public RelativeLayout relativeLayout;
 
-        public ChannelViewHolder(@NonNull View itemView) {
+
+    public class MainItemViewHolder extends RecyclerView.ViewHolder {
+        public MainItemViewHolder(@NonNull View itemView) {
             super(itemView);
-            relativeLayout = itemView.findViewById(R.id.channelList);
         }
     }
-    public class SearchBarViewHolder extends ChannelViewHolder {
+    public class SearchBarViewHolder extends MainItemViewHolder {
         public SearchBarBinding searchBarBinding;
         public SearchBarViewHolder(@NonNull SearchBarBinding searchBarBinding) {
             super(searchBarBinding.getRoot());
@@ -84,7 +74,7 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelAdapter.ChannelV
         }
     }
 
-    public class ActiveUserBarViewHolder extends ChannelViewHolder {
+    public class ActiveUserBarViewHolder extends MainItemViewHolder {
         public ActiveUserBarBinding activeUserBarBinding;
         public ActiveUserBarViewHolder(@NonNull ActiveUserBarBinding activeUserBarBinding) {
             super(activeUserBarBinding.getRoot());
@@ -92,7 +82,7 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelAdapter.ChannelV
         }
     }
 
-    public class ChannelItemViewHolder extends ChannelViewHolder {
+    public class ChannelItemViewHolder extends MainItemViewHolder {
         public ChannelItemBinding channelItemBinding;
         public ChannelItemViewHolder(@NonNull ChannelItemBinding channelItemBinding) {
             super(channelItemBinding.getRoot());
@@ -100,24 +90,38 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelAdapter.ChannelV
         }
     }
 
-    private DiffUtil.ItemCallback<ChannelItem> differCallback = new DiffUtil.ItemCallback<ChannelItem>() {
+
+
+    // DiffUtil setup
+    private DiffUtil.ItemCallback<MainRecyclerViewItem> differCallback = new DiffUtil.ItemCallback<MainRecyclerViewItem>() {
         @Override
-        public boolean areItemsTheSame(@NonNull ChannelItem oldItem, @NonNull ChannelItem newItem) {
-            return oldItem.equals(newItem);
+        public boolean areItemsTheSame(@NonNull MainRecyclerViewItem oldItem, @NonNull MainRecyclerViewItem newItem) {
+            boolean sameType = oldItem.sameType(newItem);
+            if (!sameType) return false;
+
+            if (oldItem.getViewType() == MainRecyclerViewItem.CHANNEL) {
+                MainRecyclerViewItem.Channel oldChannel = (MainRecyclerViewItem.Channel) oldItem;
+                MainRecyclerViewItem.Channel newChannel = (MainRecyclerViewItem.Channel) newItem;
+                return oldChannel.channelEntity.getId().equals(newChannel.channelEntity.getId());
+            }
+
+            return true;
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull ChannelItem oldItem, @NonNull ChannelItem newItem) {
-            return oldItem.compareTo(newItem) == 0;
+        public boolean areContentsTheSame(@NonNull MainRecyclerViewItem oldItem, @NonNull MainRecyclerViewItem newItem) {
+            return oldItem.equals(newItem);
         }
     };
 
-    public AsyncListDiffer<ChannelItem> differ = new AsyncListDiffer<ChannelItem>(this, differCallback);
+    public AsyncListDiffer<MainRecyclerViewItem> differ = new AsyncListDiffer<MainRecyclerViewItem>(this, differCallback);
+
+
 
     @NonNull
     @Override
-    public ChannelViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (viewType == SEARCH_BAR) return new SearchBarViewHolder(
+    public MainItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if (viewType == MainRecyclerViewItem.SEARCH_BAR) return new SearchBarViewHolder(
                 SearchBarBinding.inflate(
                         LayoutInflater.from(parent.getContext()),
                         parent,
@@ -125,7 +129,7 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelAdapter.ChannelV
                 )
         );
 
-        if (viewType == ACTIVE_USER_BAR) return new ActiveUserBarViewHolder(
+        if (viewType == MainRecyclerViewItem.ACTIVE_USER_BAR) return new ActiveUserBarViewHolder(
                 ActiveUserBarBinding.inflate(
                         LayoutInflater.from(parent.getContext()),
                         parent,
@@ -144,14 +148,14 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelAdapter.ChannelV
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 0) return SEARCH_BAR;
-        if (position == 1) return ACTIVE_USER_BAR;
-        return CHANNEL_ITEM;
+        if (position == 0) return MainRecyclerViewItem.SEARCH_BAR;
+        if (position == 1) return MainRecyclerViewItem.ACTIVE_USER_BAR;
+        return MainRecyclerViewItem.CHANNEL;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ChannelViewHolder holder, int position) {
-        ChannelItem channelItem = differ.getCurrentList().get(position);
+    public void onBindViewHolder(@NonNull MainItemViewHolder holder, int position) {
+        MainRecyclerViewItem channelItem = differ.getCurrentList().get(position);
 
         if (position == 0) {
             SearchBarViewHolder searchBarViewHolder = (SearchBarViewHolder) holder;
@@ -174,7 +178,9 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelAdapter.ChannelV
         }
 
         ChannelItemViewHolder channelItemViewHolder = (ChannelItemViewHolder) holder;
-        channelItemViewHolder.channelItemBinding.setChannelItem(differ.getCurrentList().get(position));
+        channelItemViewHolder.channelItemBinding.setChannel(
+                (MainRecyclerViewItem.Channel) differ.getCurrentList().get(position)
+        );
 
         channelItemViewHolder.channelItemBinding.getRoot().setOnClickListener( (view) -> {
                 onItemClicked(channelItem, holder);
@@ -186,19 +192,24 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelAdapter.ChannelV
         return differ.getCurrentList().size();
     }
 
-    public void onItemClicked(ChannelItem channelItem, ChannelViewHolder holder) {
+
+
+    public void onItemClicked(MainRecyclerViewItem channelItem, MainItemViewHolder holder) {
 
         Log.i("Search bar", "channel: ");
 
-        if (channelItem.type == ChannelItem.CHANNEL) {
-            onChannelItemClicked.click(channelItem, (ChannelItemViewHolder) holder);
+        if (channelItem.getViewType() == MainRecyclerViewItem.CHANNEL) {
+            onChannelItemClicked.click(
+                    ((MainRecyclerViewItem.Channel) channelItem).channelEntity,
+                    (ChannelItemViewHolder) holder
+            );
         }
 
-
-        if (channelItem.type == ChannelItem.SEARCH_BAR) {
+        if (channelItem.getViewType() == MainRecyclerViewItem.SEARCH_BAR) {
             onSearchBarClicked.click();
         }
-        if (channelItem.type == ChannelItem.ACTIVE_USER_BAR) {
+
+        if (channelItem.getViewType() == MainRecyclerViewItem.ACTIVE_USER_BAR) {
             onActiveUserBarClicked.click();
         }
 

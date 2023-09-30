@@ -6,10 +6,14 @@ import java.util.Objects;
 public class Server implements Comparable<Server>, Serializable {
         public String name;
         public String image_irl;
+        public String server_url;
+        public String server_port;
         public Integer color;
-        public Server(String name, String image_irl, Integer color){
+        public Server(String name, String image_irl, String server_url, String server_port, Integer color){
             this.name = name;
             this.image_irl = image_irl;
+            this.server_url = server_url;
+            this.server_port = server_port;
             this.color = color;
         }
         @Override

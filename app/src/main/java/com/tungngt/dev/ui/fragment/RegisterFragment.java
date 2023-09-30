@@ -15,7 +15,7 @@ import com.tungngt.dev.databinding.FragmentRegisterBinding;
 import java.util.Objects;
 
 
-public class RegisterFragment extends Fragment{
+public class RegisterFragment extends BaseAuthenticationFragment{
     private FragmentRegisterBinding fragmentRegisterBinding;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

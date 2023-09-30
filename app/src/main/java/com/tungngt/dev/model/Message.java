@@ -1,30 +1,65 @@
 package com.tungngt.dev.model;
+import androidx.room.ColumnInfo;
+
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
+
 public class Message implements Comparable<Message>{
-    public String sender;
+    public Long messageId;
+    public String username;
     public String message;
-    public String time;
-    public String imageUrl;
 
-    public Message(String sender, String message, String time, String imageUrl) {
-        this.sender = sender;
-        this.message = message;
-        this.time = time;
-        this.imageUrl = imageUrl;
+    @ColumnInfo(name = "channel_id")
+    public Long channelId;
+    @ColumnInfo(name = "send_time")
+    public Date sendTime;
+    @ColumnInfo(name = "color")
+    public Integer userColor;
 
-    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Message that = (Message) o;
-        return Objects.equals(message, that.message);
+        Message message1 = (Message) o;
+        return Objects.equals(messageId, message1.messageId)
+                && Objects.equals(username, message1.username)
+                && Objects.equals(message, message1.message)
+                && Objects.equals(channelId, message1.channelId)
+                && Objects.equals(sendTime, message1.sendTime)
+                && Objects.equals(userColor, message1.userColor);
     }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "messageId=" + messageId +
+                ", username='" + username + '\'' +
+                ", message='" + message + '\'' +
+                ", channelId=" + channelId +
+                ", sendTime=" + sendTime +
+                ", userColor=" + userColor +
+                '}';
+    }
+
     @Override
     public int compareTo(Message o) {
-        if (this.message.compareTo(o.message) == 0) {
-            return this.imageUrl.compareTo(o.imageUrl);
+        if (this.sendTime.compareTo(o.sendTime) == 0) {
+            return this.username.compareTo(o.username);
         }
 
-        return this.message.compareTo(o.message);
+        return this.sendTime.compareTo(o.sendTime);
+    }
+
+    public String getSendTimeRepresentation() {
+        if (sendTime == null) return "...";
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(sendTime);
+        int month = calendar.get(Calendar.MONTH) + 1; // Note: zero based!
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+        return String.format("%02dh%02d (%02d/%02d)", hour, minute, month, day);
     }
 }

@@ -6,81 +6,96 @@
     android:layout_height="match_parent"
     android:paddingStart="@dimen/activity_horizontal_margin"
     android:paddingEnd="@dimen/activity_horizontal_margin">
-    <TextView
-        android:id = "@+id/text_login"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/login_text"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:textAlignment="center"
-        android:textSize="@dimen/login_title_size"
-        tools:ignore="VisualLintOverlap" />
-
-    <ImageView
-        android:id="@+id/shapeableImageView"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginTop="48dp"
-        android:src="@drawable/ic_launcher_foreground"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_login"
-        />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/username_text_field"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:startIconDrawable="@drawable/outline_person_24"
-        android:layout_marginTop="48dp"
-        app:endIconMode="clear_text"
-        android:hint="@string/username_label"
-        app:layout_constraintTop_toBottomOf="@id/shapeableImageView">
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/password_text_field"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:startIconDrawable="@drawable/outline_lock_24"
-        android:hint="@string/password_label"
-        android:layout_marginTop="@dimen/textfield_margin"
-        app:layout_constraintTop_toBottomOf="@id/username_text_field"
-        app:endIconMode="password_toggle">
-
-        <com.google.android.material.textfield.TextInputEditText
+        app:layout_constraintEnd_toEndOf="parent">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"/>
+            android:orientation="vertical"
+            >
+        <TextView
+            android:id = "@+id/text_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/login_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textAlignment="center"
+            android:textSize="@dimen/login_title_size"
+            tools:ignore="VisualLintOverlap" />
 
-    </com.google.android.material.textfield.TextInputLayout>
+        <ImageView
+            android:id="@+id/shapeableImageView"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="48dp"
+            android:src="@drawable/ic_launcher_foreground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_login"
+            />
 
-    <Button
-        android:id="@+id/login_button"
-        style="?attr/materialButtonOutlinedStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/log_in"
-        app:layout_constraintBottom_toTopOf="@+id/signup_button"
-        tools:ignore="VisualLintOverlap"
-        tools:layout_editor_absoluteX="0dp"
-        />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/username_text_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:startIconDrawable="@drawable/outline_person_24"
+            android:layout_marginTop="48dp"
+            app:endIconMode="clear_text"
+            android:hint="@string/username_label"
+            app:layout_constraintTop_toBottomOf="@id/shapeableImageView">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/signup_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/sign_up_text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:ignore="OnClick,VisualLintOverlap"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/password_text_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:startIconDrawable="@drawable/outline_lock_24"
+            android:hint="@string/password_label"
+            android:layout_marginTop="@dimen/textfield_margin"
+            app:layout_constraintTop_toBottomOf="@id/username_text_field"
+            app:endIconMode="password_toggle">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/login_button"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/log_in"
+            android:layout_marginTop="32dp"
+            app:layout_constraintBottom_toTopOf="@+id/signup_button"
+            tools:ignore="VisualLintOverlap"
+            tools:layout_editor_absoluteX="0dp"
+            />
+
+        <Button
+            android:id="@+id/signup_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sign_up_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:ignore="OnClick,VisualLintOverlap"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            />
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
