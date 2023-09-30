@@ -20,4 +20,10 @@ public class MainViewModel extends ViewModel {
         return mainRepository.loadSavedRcChannels(server.getId());
     }
 
+    public void addChannel(Long serverId, String handle, String name, Integer color, String description) {
+        new Thread(() -> {
+            mainRepository.addChannel(serverId, handle, name, color, description);
+        }).start();
+    }
+
 }

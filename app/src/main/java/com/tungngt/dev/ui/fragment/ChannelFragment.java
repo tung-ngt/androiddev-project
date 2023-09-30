@@ -44,8 +44,7 @@ public class ChannelFragment extends BaseMainFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         fragmentChannelBinding = FragmentChannelBinding.inflate(inflater);
-        View addChannelView = fragmentChannelBinding.addChannel;
-        addChannelView.setOnClickListener((view) -> {
+        fragmentChannelBinding.addChannel.setOnClickListener((view) -> {
                 // Open the bottom sheet when "addChannel" is clicked
                 showAddChannelBottomSheet();
         });
@@ -87,7 +86,7 @@ public class ChannelFragment extends BaseMainFragment {
 
         getMainViewModel()
                 .loadSavedRcChannels(getAppContainer().getCurrentServer())
-                .observe(this, channels -> {
+                .observe(getViewLifecycleOwner(), channels -> {
                     List<MainRecyclerViewItem> list = new ArrayList<>();
                     list.add(new MainRecyclerViewItem.SearchBar());
                     list.add(new MainRecyclerViewItem.ActiveUserBar());
@@ -104,6 +103,7 @@ public class ChannelFragment extends BaseMainFragment {
 
     private void showAddChannelBottomSheet() {
         AddChannelBottomSheet addChannelBottomSheet = new AddChannelBottomSheet();
+        addChannelBottomSheet.setOnAddListener(this::onAdd);
         addChannelBottomSheet.show(
                 requireActivity().getSupportFragmentManager(),
                 AddChannelBottomSheet.TAG
@@ -138,11 +138,13 @@ public class ChannelFragment extends BaseMainFragment {
         );
         startActivity(intent, optionsCompat.toBundle());
     }
-    public void onAdd(String channelName, String channel_Desc, String channel_custom_text) {
-        ChannelItem newChannel = new ChannelItem("21", channelName, "123", channel_Desc, channel_custom_text, "2 days", 0xFFFECEAB); // Replace with appropriate parameters
-        // Add the new server to your data source (channelItemList)
-        channelItemList.add(newChannel);
-
-        channelListAdapter.notifyDataSetChanged();
+    public void onAdd(String handle, String name, Integer color, String description) {
+        getMainViewModel().addChannel(
+                getAppContainer().getCurrentServer().getId(),
+                handle,
+                name,
+                color,
+                description
+        );
     }
 }

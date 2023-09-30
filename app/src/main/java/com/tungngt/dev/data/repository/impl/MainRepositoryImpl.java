@@ -5,6 +5,7 @@ import androidx.lifecycle.Transformations;
 
 import com.tungngt.dev.data.repository.MainRepository;
 import com.tungngt.dev.database.dao.ChannelDao;
+import com.tungngt.dev.domain.ChannelEntity;
 import com.tungngt.dev.model.MainRecyclerViewItem;
 import com.tungngt.dev.network.service.IRCService;
 
@@ -29,5 +30,16 @@ public class MainRepositoryImpl implements MainRepository {
                                 .map(channel -> new MainRecyclerViewItem.Channel(channel))
                                 .collect(Collectors.toList())
         );
+    }
+
+    @Override
+    public void addChannel(Long serverId, String handle, String name, Integer color, String description) {
+        channelDao.insertAll(new ChannelEntity(
+                serverId,
+                handle,
+                name,
+                color,
+                description
+        ));
     }
 }
