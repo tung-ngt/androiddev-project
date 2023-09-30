@@ -70,6 +70,17 @@ public class ServerListActivity extends AppCompatActivity {
         });
     }
 
+    public void onAdd(String serverName) {
+        // Create a new Server object with the provided name
+        Server newServer = new Server(serverName, "", 0xFF000000); // Replace with appropriate parameters
+
+        // Add the new server to your data source (serverList)
+        serverList.add(newServer);
+
+        // Notify the adapter that the data set has changed
+        serverListAdapter.notifyDataSetChanged();
+    }
+
     private void connectToServer(ServerEntity server, ServerListAdapter.ServerListViewHolder holder) {
         appContainer.setCurrentServer(server);
         serverListViewModel.connectToServer(server);
