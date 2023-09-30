@@ -138,4 +138,11 @@ public class ChannelFragment extends BaseMainFragment {
         );
         startActivity(intent, optionsCompat.toBundle());
     }
+    public void onAdd(String channelName, String channel_Desc, String channel_custom_text) {
+        ChannelItem newChannel = new ChannelItem("21", channelName, "123", channel_Desc, channel_custom_text, "2 days", 0xFFFECEAB); // Replace with appropriate parameters
+        // Add the new server to your data source (channelItemList)
+        channelItemList.add(newChannel);
+
+        channelListAdapter.notifyDataSetChanged();
+    }
 }

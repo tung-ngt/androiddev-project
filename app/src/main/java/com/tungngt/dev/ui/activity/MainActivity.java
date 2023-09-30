@@ -25,7 +25,6 @@ import com.tungngt.dev.R;
 import com.tungngt.dev.data.container.AppContainer;
 import com.tungngt.dev.databinding.ActivityMainBinding;
 import com.tungngt.dev.domain.ServerEntity;
-import com.tungngt.dev.model.Server;
 import com.tungngt.dev.ui.adapter.ServerListAdapter;
 import com.tungngt.dev.viewmodel.MainViewModel;
 
@@ -120,6 +119,8 @@ public class MainActivity extends AppCompatActivity {
 //            topAppBar.getMenu().clear();
 //            topAppBar.inflateMenu(R.menu.channels_top_menu);
             activityMainBinding.appbar.setLiftOnScrollTargetViewId(R.id.channelList);
+
+
         } else if (fragmentId == R.id.peopleFrag) {
             topAppBar.setTitle("6" + " " + getResources().getString(R.string.online));
             topAppBar.getMenu().clear();
