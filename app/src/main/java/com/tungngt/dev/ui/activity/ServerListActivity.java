@@ -70,15 +70,8 @@ public class ServerListActivity extends AppCompatActivity {
         });
     }
 
-    public void onAdd(String serverName) {
-        // Create a new Server object with the provided name
-        Server newServer = new Server(serverName, "", 0xFF000000); // Replace with appropriate parameters
-
-        // Add the new server to your data source (serverList)
-        serverList.add(newServer);
-
-        // Notify the adapter that the data set has changed
-        serverListAdapter.notifyDataSetChanged();
+    public void onAdd(String url, Integer port, String name, Integer color) {
+        serverListViewModel.addServer(url, port, name, color);
     }
 
     private void connectToServer(ServerEntity server, ServerListAdapter.ServerListViewHolder holder) {
@@ -106,6 +99,7 @@ public class ServerListActivity extends AppCompatActivity {
 
     private void showAddServerBottomSheet() {
         AddServerBottomSheet addServerBottomSheet = new AddServerBottomSheet();
+        addServerBottomSheet.setOnAddListener(this::onAdd);
         addServerBottomSheet.show(
                 getSupportFragmentManager(),
                 AddServerBottomSheet.TAG

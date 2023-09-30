@@ -22,8 +22,10 @@ public class ServerListViewModel extends ViewModel {
     }
 
     public void addServer(String url, Integer port, String name, Integer color) {
-        serverRepository.addServer(
-                new ServerEntity(url, port, name, color)
-        );
+        new Thread(() -> {
+            serverRepository.addServer(
+                    new ServerEntity(url, port, name, color)
+            );
+        }).start();
     }
 }

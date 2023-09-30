@@ -52,4 +52,6 @@
     <string name="apply_changes">Apply changes</string>
     <string name="user_profile_transition_name">user_profile_transition_name</string>
     <string name="server_name_transition_name">server_name_transition_name</string>
+    <string name="confirm">Confirm</string>
+    <string name="choose_color">Choose color</string>
 </resources>
