@@ -1,37 +1,33 @@
 package com.tungngt.dev.ui.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.room.Room;
-
-
 import android.content.Intent;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+
+import com.tungngt.dev.MyApplication;
 import com.tungngt.dev.R;
-import com.tungngt.dev.data.domain.ChannelEntity;
-import com.tungngt.dev.data.local.AppDatabase;
+import com.tungngt.dev.data.container.AppContainer;
 import com.tungngt.dev.databinding.ActivityChatBinding;
-import com.tungngt.dev.model.ChannelItem;
-import com.tungngt.dev.model.Message;
-import com.tungngt.dev.service.IRCService;
-import com.tungngt.dev.service.impl.IRCServiceImpl;
+import com.tungngt.dev.domain.ChannelEntity;
+import com.tungngt.dev.domain.ServerEntity;
+import com.tungngt.dev.domain.UserEntity;
+import com.tungngt.dev.network.service.IRCService;
+import com.tungngt.dev.network.service.impl.IRCServiceImpl;
 import com.tungngt.dev.ui.adapter.ChatAdapter;
-import com.tungngt.dev.ui.viewmodel.ChatViewModel;
+import com.tungngt.dev.viewmodel.ChatViewModel;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class ChatActivity extends AppCompatActivity{
     private static final String TAG = "ChatActivity";
-    private EditText chatTxt;
-    private Button sendButton;
     private ActivityChatBinding activityChatBinding;
     private ChatViewModel chatViewModel;
+    private AppContainer appContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,36 +35,43 @@ public class ChatActivity extends AppCompatActivity{
         activityChatBinding = ActivityChatBinding.inflate(getLayoutInflater());
         setContentView(activityChatBinding.getRoot());
 
-        chatViewModel = new ViewModelProvider(this).get(ChatViewModel.class);
+        appContainer = ((MyApplication) getApplication()).appContainer;
+
+        chatViewModel = new ViewModelProvider(this,
+                appContainer.getChatViewModelFactory()
+        ).get(ChatViewModel.class);
+
+
 
 
         // Process intent when clicked on a channel
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            ChannelItem channelItem = (ChannelItem) extras.getSerializable("channelItem");
+            ChannelEntity channel = (ChannelEntity) extras.getSerializable("channel");
 
-            if (channelItem != null) {
-
-                activityChatBinding.setChannel(channelItem);
-
+            if (channel != null) {
+                activityChatBinding.setChannel(channel);
+                appContainer.setCurrentChannel(channel);
             }
         }
         else {
-            activityChatBinding.setChannel(new ChannelItem("USTH", "usth.edu.vn", "123", "123", "123", "123", 0xFF78281F));
+           // TODO: implement back if not have intent
         }
 
+        // Setup navigation press
+        activityChatBinding.topAppBar.setNavigationOnClickListener((view) -> {onBackPressed();});
 
-        activityChatBinding.topAppBar.setNavigationOnClickListener((view) -> {
-                onBackPressed();
-            }
-        );
-
+        // Setup adapter
         ChatAdapter chatAdapter = new ChatAdapter();
-
-        chatViewModel.getMessages().observe(this, messageList -> {
-            chatAdapter.differ.submitList(new ArrayList<>(messageList));
-        });
+        chatViewModel
+                .getMessages(appContainer.getCurrentChannel())
+                .observe(this, chatlist -> {
+                    chatAdapter.differ.submitList(new ArrayList<>(chatlist));
+                    activityChatBinding.chatRecyclerView
+                            .smoothScrollToPosition(chatAdapter.getItemCount());
+                });
         activityChatBinding.chatRecyclerView.setAdapter(chatAdapter);
+
 
         activityChatBinding.topAppBar.setOnMenuItemClickListener(item -> {
             if (item.getItemId() == R.id.editChanel) {
@@ -78,42 +81,24 @@ public class ChatActivity extends AppCompatActivity{
             return true;
         });
 
-        IRCService ircService = IRCServiceImpl.getInstance();
-        ircService.connectServer("irc.libera.chat", 6667);
-
-        ircService.login("novete", "Tung");
-        ircService.joinChannel("#usth");
-        ircService.sendMessage("test message", "#usth");
-
-        ircService.setOnReceivedMessageListener((sender, receiver, message, time) -> {
-            chatViewModel.postMessage(new Message(sender, message, time, "1"));
-            Log.i(TAG, "onCreate: " + sender + " " + receiver + " " + message);
-        });
-
-
+        chatViewModel.joinChannel(appContainer.getCurrentChannel());
+        chatViewModel.listenForMessage(appContainer.getCurrentChannel());
 
         activityChatBinding.sendButton.setOnClickListener(v -> {
-            String text = activityChatBinding.chatTxt.getText().toString();
-            Date date = new Date();
-            String time = date.getHours() + ":" + date.getMinutes()+ ":" + date.getSeconds();
-            ircService.sendMessage(text, "#usth");
-            chatViewModel.addMessage(new Message("You", text, time, "1"));
+            String message = activityChatBinding.chatTxt.getText().toString();
+            chatViewModel.sendMessage(
+                    message,
+                    appContainer.getCurrentChannel(),
+                    appContainer.getLoggedInUser()
+            );
             activityChatBinding.chatTxt.setText("");
         });
 
+    }
 
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "timber-db").build();
-        new Thread(() -> {
-
-
-           db.clearAllTables();
-
-
-        }).start();
-
-        db.getChannelDao().getAll().observe(this, channelEntities -> {
-            Log.d(TAG, "onCreate: " + channelEntities);
-        });
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        chatViewModel.unListenForMessage(appContainer.getCurrentChannel());
     }
 }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +17,14 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.tungngt.dev.R;
 import com.tungngt.dev.databinding.FragmentLoginBinding;
+import com.tungngt.dev.domain.ServerEntity;
+import com.tungngt.dev.ui.activity.AuthenticationActivity;
 import com.tungngt.dev.ui.activity.MainActivity;
 
 import java.util.Objects;
 
-public class LoginFragment extends Fragment {
-
+public class LoginFragment extends BaseAuthenticationFragment {
+    private static final String TAG = "LoginFragment";
     private FragmentLoginBinding fragmentLoginBinding;
 
     @Override
@@ -78,12 +81,27 @@ public class LoginFragment extends Fragment {
             fragmentLoginBinding.passwordTextField.setError("Please fill in the field");
         }
 
+        // TODO: implement login with password
+        new Thread(() -> {
+            Log.i(TAG, "connectToServer: " + getAppContainer());
+            Log.i(TAG, "connectToServer: " + getAuthenticationViewModel());
 
-        if(usernameText.matches("Admin") && passwordText.matches("Admin")) {
+            getAppContainer().setLoggedInUser(
+                getAuthenticationViewModel().login(
+                        getAppContainer().getCurrentServer().getId(),
+                        usernameText,
+                        usernameText
+                )
+            );
             openMainActivity();
-        } else {
-            Toast.makeText(getContext(), "Username or Password not correct", Toast.LENGTH_SHORT).show();
-        }
+        }).start();
+
+
+//        if(usernameText.matches("Admin") && passwordText.matches("Admin")) {
+//            openMainActivity();
+//        } else {
+//            Toast.makeText(getContext(), "Username or Password not correct", Toast.LENGTH_SHORT).show();
+//        }
 
     }
 
@@ -101,6 +119,10 @@ public class LoginFragment extends Fragment {
 
     private void openMainActivity() {
         Intent intent = new Intent(getContext(), MainActivity.class);
+        ServerEntity server = getAppContainer().getCurrentServer();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("server", server);
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 

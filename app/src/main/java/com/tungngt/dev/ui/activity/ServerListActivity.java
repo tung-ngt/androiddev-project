@@ -6,14 +6,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.util.Pair;
 import androidx.core.view.ViewCompat;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
+import com.tungngt.dev.MyApplication;
+import com.tungngt.dev.data.container.AppContainer;
 import com.tungngt.dev.databinding.ActivityServerListBinding;
+import com.tungngt.dev.domain.ServerEntity;
 import com.tungngt.dev.ui.adapter.ServerListAdapter;
 
 import java.util.ArrayList;
@@ -21,9 +26,13 @@ import java.util.List;
 
 import com.tungngt.dev.model.Server;
 import com.tungngt.dev.ui.bottomsheets.AddServerBottomSheet;
+import com.tungngt.dev.viewmodel.ServerListViewModel;
 
 public class ServerListActivity extends AppCompatActivity {
+    private static final String TAG = "ServerListActivity";
     private ActivityServerListBinding activityServerListBinding;
+    private AppContainer appContainer;
+    private ServerListViewModel serverListViewModel;
 
 
     @Override
@@ -32,29 +41,27 @@ public class ServerListActivity extends AppCompatActivity {
         activityServerListBinding = ActivityServerListBinding.inflate(getLayoutInflater());
         setContentView(activityServerListBinding.getRoot());
 
+        appContainer =  ((MyApplication) getApplication()).appContainer;
+
+        serverListViewModel = new ViewModelProvider(
+                this,
+                appContainer.getServerListViewModelFactory()
+        ).get(ServerListViewModel.class);
 
 
-        List<Server> serverList = new ArrayList<>();
+
+
         ServerListAdapter serverListAdapter = new ServerListAdapter();
         serverListAdapter.setOnServerClicked(this::connectToServer);
 
-        serverList.add(new Server("Libera", "123", "irc.libera.chat", "6667", 0xFF78281F));
-//        serverList.add(new Server("Server 2", "123", 0xFFFF4E50));
-//        serverList.add(new Server("Server 3", "123", 0xFF07575B));
-//        serverList.add(new Server("Server 4", "123", 0xFF727077));
-//        serverList.add(new Server("Server 5", "123", 0xFFE99787));
-//        serverList.add(new Server("Server 6", "123", 0xFF90AFC5));
-//        serverList.add(new Server("Server 7", "123", 0xFF76448A));
-//        serverList.add(new Server("Server 8", "123", 0xFF943128));
-        serverListAdapter.differ.submitList(serverList);
+        serverListViewModel.loadServers().observe(this, servers -> {
+            serverListAdapter.differ.submitList(new ArrayList<>(servers));
+        });
 
         activityServerListBinding.rcServer.setAdapter(serverListAdapter);
 
-        activityServerListBinding.addServer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        activityServerListBinding.addServer.setOnClickListener((view) -> {
                 showAddServerBottomSheet();
-            }
         });
 
         activityServerListBinding.searchBar.setOnClickListener((view) -> {
@@ -63,7 +70,10 @@ public class ServerListActivity extends AppCompatActivity {
         });
     }
 
-    private void connectToServer(Server server, ServerListAdapter.ServerListViewHolder holder) {
+    private void connectToServer(ServerEntity server, ServerListAdapter.ServerListViewHolder holder) {
+        appContainer.setCurrentServer(server);
+        serverListViewModel.connectToServer(server);
+
         Intent intent = new Intent(this, AuthenticationActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("server", server);

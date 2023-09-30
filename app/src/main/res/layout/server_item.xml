@@ -7,7 +7,7 @@
 
         <variable
             name="server"
-            type="com.tungngt.dev.model.Server" />
+            type="com.tungngt.dev.domain.ServerEntity" />
     </data>
 
     <RelativeLayout
@@ -62,7 +62,7 @@
             android:ellipsize="end"
             android:scrollHorizontally = "true"
             android:maxLines = "2"
-            android:text="@{server.name}"
-            tools:text="irc.freenode.net" />
+            android:text="@{server.address}"
+            tools:text="irc.freenode.net (6667)" />
     </RelativeLayout>
 </layout>

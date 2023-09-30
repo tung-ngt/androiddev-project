@@ -8,13 +8,13 @@ import androidx.recyclerview.widget.AsyncListDiffer;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.tungngt.dev.domain.ServerEntity;
 import com.tungngt.dev.databinding.ServerItemBinding;
-import com.tungngt.dev.model.Server;
 
 public class ServerListAdapter extends RecyclerView.Adapter<ServerListAdapter.ServerListViewHolder> {
 
     public interface OnServerClicked {
-        void click(Server server, ServerListViewHolder holder);
+        void click(ServerEntity server, ServerListViewHolder holder);
     };
 
     private OnServerClicked onServerClicked;
@@ -31,19 +31,19 @@ public class ServerListAdapter extends RecyclerView.Adapter<ServerListAdapter.Se
         }
     }
 
-    private DiffUtil.ItemCallback<Server> differCallback = new DiffUtil.ItemCallback<Server>() {
+    private DiffUtil.ItemCallback<ServerEntity> differCallback = new DiffUtil.ItemCallback<ServerEntity>() {
         @Override
-        public boolean areItemsTheSame(@NonNull Server oldItem, @NonNull Server newItem) {
-            return oldItem.equals(newItem);
+        public boolean areItemsTheSame(@NonNull ServerEntity oldItem, @NonNull ServerEntity newItem) {
+            return oldItem.getId().equals(newItem.getId());
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull Server oldItem, @NonNull Server newItem) {
-            return oldItem.compareTo(newItem) == 0;
+        public boolean areContentsTheSame(@NonNull ServerEntity oldItem, @NonNull ServerEntity newItem) {
+            return oldItem.equals(newItem);
         }
     };
 
-    public AsyncListDiffer<Server> differ = new AsyncListDiffer<Server>(this, differCallback);
+    public AsyncListDiffer<ServerEntity> differ = new AsyncListDiffer<ServerEntity>(this, differCallback);
 
 
     @NonNull
@@ -60,7 +60,7 @@ public class ServerListAdapter extends RecyclerView.Adapter<ServerListAdapter.Se
 
     @Override
     public void onBindViewHolder(@NonNull ServerListViewHolder holder, int position) {
-        Server server = differ.getCurrentList().get(position);
+        ServerEntity server = differ.getCurrentList().get(position);
         holder.serverItemBinding.setServer(server);
 
         holder.serverItemBinding.getRoot().setOnClickListener((view) -> {

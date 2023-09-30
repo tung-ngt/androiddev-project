@@ -24,7 +24,8 @@
             android:layout_width="@dimen/active_user_image_size"
             android:layout_height="@dimen/active_user_image_size"
             android:layout_centerHorizontal="true"
-            android:background="#CCCCCC"
+            android:background="@{message.userColor}"
+            tools:background="#FFCCCCCC"
             android:src="@drawable/baseline_person_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +40,7 @@
             android:layout_marginTop="5dp"
             android:ellipsize="end"
             android:scrollHorizontally="true"
-            android:text="@{message.sender}"
+            android:text="@{message.username}"
             android:textAlignment="center"
             android:textSize="@dimen/active_user_text_size"
             app:layout_constraintStart_toEndOf="@+id/profileImage"
@@ -73,7 +74,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:text="@{message.time}"
-            tools:text="19h20" />
+            android:text="@{message.sendTimeRepresentation}"
+            tools:text="19h20 (30/01)" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
