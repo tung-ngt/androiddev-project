@@ -29,6 +29,9 @@ public interface ChannelDao {
     @Query("SELECT * FROM channel_entity WHERE server_id = :serverId")
     LiveData<List<ChannelEntity>> getSavedChannelFromServer(Long serverId);
 
+    @Query("SELECT * FROM channel_entity WHERE server_id = :serverId")
+    List<ChannelEntity> getSavedChannelFromServerNow(Long serverId);
+
     @Delete
     void delete(ChannelEntity channel);
 

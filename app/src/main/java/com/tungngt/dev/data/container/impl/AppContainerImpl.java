@@ -8,10 +8,12 @@ import com.tungngt.dev.data.container.AppContainer;
 import com.tungngt.dev.data.repository.AuthenticationRepository;
 import com.tungngt.dev.data.repository.ChatRepository;
 import com.tungngt.dev.data.repository.MainRepository;
+import com.tungngt.dev.data.repository.SearchRepository;
 import com.tungngt.dev.data.repository.ServerRepository;
 import com.tungngt.dev.data.repository.impl.AuthenticationRepositoryImpl;
 import com.tungngt.dev.data.repository.impl.ChatRepositoryImpl;
 import com.tungngt.dev.data.repository.impl.MainRepositoryImpl;
+import com.tungngt.dev.data.repository.impl.SearchRepositoryImpl;
 import com.tungngt.dev.data.repository.impl.ServerRepositoryImpl;
 import com.tungngt.dev.database.AppDatabase;
 import com.tungngt.dev.domain.ChannelEntity;
@@ -22,6 +24,7 @@ import com.tungngt.dev.network.service.impl.IRCServiceImpl;
 import com.tungngt.dev.viewmodel.factory.AuthenticationViewModelFactory;
 import com.tungngt.dev.viewmodel.factory.ChatViewModelFactory;
 import com.tungngt.dev.viewmodel.factory.MainViewModelFactory;
+import com.tungngt.dev.viewmodel.factory.SearchViewModelFactory;
 import com.tungngt.dev.viewmodel.factory.ServerListViewModelFactory;
 
 public class AppContainerImpl implements AppContainer {
@@ -29,6 +32,7 @@ public class AppContainerImpl implements AppContainer {
     private ServerRepository serverRepository;
     private AuthenticationRepository authenticationRepository;
     private MainRepository mainRepository;
+    private SearchRepository searchRepository;
 
     private AppDatabase appDatabase;
     private Application application;
@@ -38,6 +42,7 @@ public class AppContainerImpl implements AppContainer {
     private ServerListViewModelFactory serverListViewModelFactory;
     private AuthenticationViewModelFactory authenticationViewModelFactory;
     private MainViewModelFactory mainViewModelFactory;
+    private SearchViewModelFactory searchViewModelFactory;
 
     private UserEntity loggedInUser;
     private ChannelEntity currentChannel;
@@ -74,6 +79,13 @@ public class AppContainerImpl implements AppContainer {
 
         mainRepository = new MainRepositoryImpl(ircService, getAppDatabase().getChannelDao());
         mainViewModelFactory = new MainViewModelFactory(mainRepository);
+
+        searchRepository = new SearchRepositoryImpl(
+                ircService,
+                appDatabase.getServerDao(),
+                appDatabase.getChannelDao()
+        );
+        searchViewModelFactory = new SearchViewModelFactory(searchRepository);
     }
 
     @Override
@@ -101,6 +113,11 @@ public class AppContainerImpl implements AppContainer {
     }
 
     @Override
+    public SearchRepository getSearchRepository() {
+        return searchRepository;
+    }
+
+    @Override
     public ChatViewModelFactory getChatViewModelFactory() {
         return chatViewModelFactory;
     }
@@ -113,6 +130,11 @@ public class AppContainerImpl implements AppContainer {
     @Override
     public AuthenticationViewModelFactory getAuthenticationViewModelFactory() {
         return authenticationViewModelFactory;
+    }
+
+    @Override
+    public SearchViewModelFactory getSearchViewModelFactory() {
+        return searchViewModelFactory;
     }
 
     @Override

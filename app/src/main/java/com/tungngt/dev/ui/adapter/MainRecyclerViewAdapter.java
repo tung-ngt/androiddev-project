@@ -179,7 +179,7 @@ public class MainRecyclerViewAdapter
 
         ChannelItemViewHolder channelItemViewHolder = (ChannelItemViewHolder) holder;
         channelItemViewHolder.channelItemBinding.setChannel(
-                (MainRecyclerViewItem.Channel) differ.getCurrentList().get(position)
+                ((MainRecyclerViewItem.Channel) differ.getCurrentList().get(position)).channelEntity
         );
 
         channelItemViewHolder.channelItemBinding.getRoot().setOnClickListener( (view) -> {

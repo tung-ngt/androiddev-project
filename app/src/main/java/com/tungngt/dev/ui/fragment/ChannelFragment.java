@@ -73,6 +73,9 @@ public class ChannelFragment extends BaseMainFragment {
 
         rvAdapter.setOnSearchBarClicked(() -> {
             Intent intent = new Intent(requireContext(), SearchActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putInt("searchType", SearchActivity.CHANNEL);
+            intent.putExtras(bundle);
             startActivity(intent);
 
         });
