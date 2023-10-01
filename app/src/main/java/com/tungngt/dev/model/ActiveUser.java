@@ -1,16 +1,18 @@
 package com.tungngt.dev.model;
 
+import android.graphics.Color;
+
 import java.util.Objects;
+import java.util.Random;
 
 public class ActiveUser implements Comparable<ActiveUser> {
     public String username;
-    public String imageUrl;
     public Integer color;
 
-    public ActiveUser(String username, String imageUrl, Integer color) {
+    public ActiveUser(String username) {
         this.username = username;
-        this.imageUrl = imageUrl;
-        this.color = color;
+        Random rnd = new Random();
+        this.color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
     }
 
     @Override
@@ -22,10 +24,6 @@ public class ActiveUser implements Comparable<ActiveUser> {
     }
     @Override
     public int compareTo(ActiveUser o) {
-        if (this.username.compareTo(o.username) == 0) {
-            return this.imageUrl.compareTo(o.imageUrl);
-        }
-
         return this.username.compareTo(o.username);
     }
 }

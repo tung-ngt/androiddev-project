@@ -3,39 +3,28 @@ package com.tungngt.dev.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityOptionsCompat;
-import androidx.core.view.ViewCompat;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.fragment.NavHostFragment;
-
-import androidx.core.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.tungngt.dev.R;
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.util.Pair;
+import androidx.core.view.ViewCompat;
+
 import com.tungngt.dev.databinding.ChannelItemBinding;
 import com.tungngt.dev.databinding.FragmentChannelBinding;
-
-
 import com.tungngt.dev.domain.ChannelEntity;
 import com.tungngt.dev.model.ActiveUser;
 import com.tungngt.dev.model.MainRecyclerViewItem;
 import com.tungngt.dev.ui.activity.ChatActivity;
 import com.tungngt.dev.ui.activity.SearchActivity;
 import com.tungngt.dev.ui.adapter.ActiveUserAdapter;
-
 import com.tungngt.dev.ui.adapter.MainRecyclerViewAdapter;
 import com.tungngt.dev.ui.bottomsheets.AddChannelBottomSheet;
 
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 
 public class ChannelFragment extends BaseMainFragment {
@@ -53,18 +42,18 @@ public class ChannelFragment extends BaseMainFragment {
         ActiveUserAdapter activeUserAdapter = new ActiveUserAdapter();
 
         List<ActiveUser> activeUserList = new ArrayList<>();
-        activeUserList.add(new ActiveUser("Thanh Tung", "123", 0xFF78281F));
-        activeUserList.add(new ActiveUser("Hoai Nhi", "123", 0xFFFF4E50));
-        activeUserList.add(new ActiveUser("Viet Tung", "123", 0xFF07575B));
-        activeUserList.add(new ActiveUser("Xuan Tung", "123", 0xFF727077));
-        activeUserList.add(new ActiveUser("Dang Son", "123", 0xFFE99787));
-        activeUserList.add(new ActiveUser("Minh Tung ", "123", 0xFF90AFC5));
-        activeUserList.add(new ActiveUser("Nguyen Phan Gia Bao", "123", 0xFF76448A));
-        activeUserList.add(new ActiveUser("Ta Quang Sang", "123", 0xFF943128));
-        activeUserList.add(new ActiveUser("Duong", "123", 0xFF78281F));
-        activeUserList.add(new ActiveUser("Minh Vu", "123", 0xFFFF4E50));
-        activeUserList.add(new ActiveUser("Can Trung Hieu", "123", 0xFF07575B));
-        activeUserList.add(new ActiveUser("Chu Bao Minh", "123", 0xFF727077));
+        activeUserList.add(new ActiveUser("Thanh Tung"));
+        activeUserList.add(new ActiveUser("Hoai Nhi"));
+        activeUserList.add(new ActiveUser("Viet Tung"));
+        activeUserList.add(new ActiveUser("Xuan Tung"));
+        activeUserList.add(new ActiveUser("Dang Son"));
+        activeUserList.add(new ActiveUser("Minh Tung "));
+        activeUserList.add(new ActiveUser("Nguyen Phan Gia Bao"));
+        activeUserList.add(new ActiveUser("Ta Quang Sang"));
+        activeUserList.add(new ActiveUser("Duong"));
+        activeUserList.add(new ActiveUser("Minh Vu"));
+        activeUserList.add(new ActiveUser("Can Trung Hieu"));
+        activeUserList.add(new ActiveUser("Chu Bao Minh"));
 
         MainRecyclerViewAdapter rvAdapter = new MainRecyclerViewAdapter(
                 activeUserAdapter

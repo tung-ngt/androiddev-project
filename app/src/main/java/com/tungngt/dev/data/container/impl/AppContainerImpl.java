@@ -7,11 +7,13 @@ import androidx.room.Room;
 import com.tungngt.dev.data.container.AppContainer;
 import com.tungngt.dev.data.repository.AuthenticationRepository;
 import com.tungngt.dev.data.repository.ChatRepository;
+import com.tungngt.dev.data.repository.ChatSettingRepository;
 import com.tungngt.dev.data.repository.MainRepository;
 import com.tungngt.dev.data.repository.SearchRepository;
 import com.tungngt.dev.data.repository.ServerRepository;
 import com.tungngt.dev.data.repository.impl.AuthenticationRepositoryImpl;
 import com.tungngt.dev.data.repository.impl.ChatRepositoryImpl;
+import com.tungngt.dev.data.repository.impl.ChatSettingRepositoryImpl;
 import com.tungngt.dev.data.repository.impl.MainRepositoryImpl;
 import com.tungngt.dev.data.repository.impl.SearchRepositoryImpl;
 import com.tungngt.dev.data.repository.impl.ServerRepositoryImpl;
@@ -22,27 +24,30 @@ import com.tungngt.dev.domain.UserEntity;
 import com.tungngt.dev.network.service.IRCService;
 import com.tungngt.dev.network.service.impl.IRCServiceImpl;
 import com.tungngt.dev.viewmodel.factory.AuthenticationViewModelFactory;
+import com.tungngt.dev.viewmodel.factory.ChatSettingViewModelFactory;
 import com.tungngt.dev.viewmodel.factory.ChatViewModelFactory;
 import com.tungngt.dev.viewmodel.factory.MainViewModelFactory;
 import com.tungngt.dev.viewmodel.factory.SearchViewModelFactory;
 import com.tungngt.dev.viewmodel.factory.ServerListViewModelFactory;
 
 public class AppContainerImpl implements AppContainer {
-    private ChatRepository chatRepository;
-    private ServerRepository serverRepository;
-    private AuthenticationRepository authenticationRepository;
-    private MainRepository mainRepository;
-    private SearchRepository searchRepository;
+    private final ChatRepository chatRepository;
+    private final ServerRepository serverRepository;
+    private final AuthenticationRepository authenticationRepository;
+    private final MainRepository mainRepository;
+    private final SearchRepository searchRepository;
+    private final ChatSettingRepository chatSettingRepository;
 
-    private AppDatabase appDatabase;
-    private Application application;
-    private IRCService ircService;
+    private final AppDatabase appDatabase;
+    private final Application application;
+    private final IRCService ircService;
 
-    private ChatViewModelFactory chatViewModelFactory;
-    private ServerListViewModelFactory serverListViewModelFactory;
-    private AuthenticationViewModelFactory authenticationViewModelFactory;
-    private MainViewModelFactory mainViewModelFactory;
-    private SearchViewModelFactory searchViewModelFactory;
+    private final ChatViewModelFactory chatViewModelFactory;
+    private final ServerListViewModelFactory serverListViewModelFactory;
+    private final AuthenticationViewModelFactory authenticationViewModelFactory;
+    private final MainViewModelFactory mainViewModelFactory;
+    private final SearchViewModelFactory searchViewModelFactory;
+    private final ChatSettingViewModelFactory chatSettingViewModelFactory;
 
     private UserEntity loggedInUser;
     private ChannelEntity currentChannel;
@@ -86,6 +91,8 @@ public class AppContainerImpl implements AppContainer {
                 appDatabase.getChannelDao()
         );
         searchViewModelFactory = new SearchViewModelFactory(searchRepository);
+        chatSettingRepository = new ChatSettingRepositoryImpl(ircService);
+        chatSettingViewModelFactory = new ChatSettingViewModelFactory(chatSettingRepository);
     }
 
     @Override
@@ -110,6 +117,11 @@ public class AppContainerImpl implements AppContainer {
     @Override
     public AuthenticationRepository getAuthenticationRepository() {
         return authenticationRepository;
+    }
+
+    @Override
+    public ChatSettingRepository getChatSettingRepository() {
+        return chatSettingRepository;
     }
 
     @Override
@@ -140,6 +152,11 @@ public class AppContainerImpl implements AppContainer {
     @Override
     public MainViewModelFactory getMainViewModelFactory() {
         return mainViewModelFactory;
+    }
+
+    @Override
+    public ChatSettingViewModelFactory getChatSettingViewModelFactory() {
+        return chatSettingViewModelFactory;
     }
 
     @Override
