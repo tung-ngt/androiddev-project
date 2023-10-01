@@ -7,7 +7,7 @@
 
         <variable
             name="channel"
-            type="com.tungngt.dev.model.MainRecyclerViewItem.Channel" />
+            type="com.tungngt.dev.domain.ChannelEntity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,7 +25,7 @@
             android:layout_width="@dimen/active_user_image_size"
             android:layout_height="@dimen/active_user_image_size"
             android:layout_centerHorizontal="true"
-            android:background="@{channel.channelEntity.color}"
+            android:background="@{channel.color}"
             android:transitionName="@string/channel_image_transition_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -41,7 +41,7 @@
             android:layout_marginTop="5dp"
             android:ellipsize="end"
             android:scrollHorizontally="true"
-            android:text="@{channel.channelEntity.name}"
+            android:text="@{channel.name}"
             android:textAlignment="center"
             android:textSize="@dimen/active_user_text_size"
             android:transitionName="@string/channel_title_transition_name"
@@ -57,7 +57,7 @@
             android:layout_marginStart="@dimen/channel_list_image_margin"
             android:ellipsize="end"
             android:scrollHorizontally="true"
-            android:text="@{channel.channelEntity.handle}"
+            android:text="@{channel.handle}"
             android:textAlignment="center"
             android:textSize="@dimen/active_user_text_size"
             app:layout_constraintBottom_toBottomOf="parent"

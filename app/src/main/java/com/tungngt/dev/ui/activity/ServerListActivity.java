@@ -66,6 +66,9 @@ public class ServerListActivity extends AppCompatActivity {
 
         activityServerListBinding.searchBar.setOnClickListener((view) -> {
             Intent intent = new Intent(this, SearchActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putInt("searchType", SearchActivity.SERVER);
+            intent.putExtras(bundle);
             startActivity(intent);
         });
     }
