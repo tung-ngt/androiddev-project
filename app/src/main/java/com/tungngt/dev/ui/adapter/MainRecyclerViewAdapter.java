@@ -5,9 +5,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.AsyncListDiffer;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
@@ -62,8 +65,10 @@ public class MainRecyclerViewAdapter
 
 
     public class MainItemViewHolder extends RecyclerView.ViewHolder {
+        public ConstraintLayout layoutForeground;
         public MainItemViewHolder(@NonNull View itemView) {
             super(itemView);
+            layoutForeground = itemView.findViewById(R.id.layout_foreground);
         }
     }
     public class SearchBarViewHolder extends MainItemViewHolder {
@@ -182,7 +187,7 @@ public class MainRecyclerViewAdapter
                 ((MainRecyclerViewItem.Channel) differ.getCurrentList().get(position)).channelEntity
         );
 
-        channelItemViewHolder.channelItemBinding.getRoot().setOnClickListener( (view) -> {
+        channelItemViewHolder.channelItemBinding.layoutForeground.setOnClickListener( (view) -> {
                 onItemClicked(channelItem, holder);
         });
     }

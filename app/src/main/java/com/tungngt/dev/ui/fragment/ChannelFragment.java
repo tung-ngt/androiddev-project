@@ -13,6 +13,9 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import androidx.core.util.Pair;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +34,8 @@ import com.tungngt.dev.ui.adapter.ActiveUserAdapter;
 
 import com.tungngt.dev.ui.adapter.MainRecyclerViewAdapter;
 import com.tungngt.dev.ui.bottomsheets.AddChannelBottomSheet;
+import com.tungngt.dev.ui.swipehandler.ItemTouchHelperListener;
+import com.tungngt.dev.ui.swipehandler.RecyclerViewItemTouchHelper;
 
 
 import java.util.ArrayList;
@@ -38,7 +43,7 @@ import java.util.List;
 import java.util.Objects;
 
 
-public class ChannelFragment extends BaseMainFragment {
+public class ChannelFragment extends BaseMainFragment implements ItemTouchHelperListener {
     private FragmentChannelBinding fragmentChannelBinding;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -99,7 +104,8 @@ public class ChannelFragment extends BaseMainFragment {
 
         activeUserAdapter.differ.submitList(activeUserList);
 
-
+        ItemTouchHelper.SimpleCallback simpleCallback = new RecyclerViewItemTouchHelper(0, ItemTouchHelper.LEFT, this);
+        new ItemTouchHelper(simpleCallback).attachToRecyclerView(fragmentChannelBinding.channelList);
 
         return fragmentChannelBinding.getRoot();
     }
@@ -149,5 +155,10 @@ public class ChannelFragment extends BaseMainFragment {
                 color,
                 description
         );
+    }
+
+    @Override
+    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+
     }
 }
