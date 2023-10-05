@@ -6,19 +6,25 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.util.Pair;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.search.SearchBar;
 import com.google.android.material.snackbar.Snackbar;
+import com.tungngt.dev.R;
 import com.tungngt.dev.databinding.ChannelItemBinding;
 import com.tungngt.dev.databinding.FragmentChannelBinding;
+import com.tungngt.dev.databinding.SearchBarBinding;
 import com.tungngt.dev.domain.ChannelEntity;
 import com.tungngt.dev.model.ActiveUser;
 import com.tungngt.dev.model.MainRecyclerViewItem;
@@ -34,6 +40,7 @@ import java.util.List;
 
 public class ChannelFragment extends BaseMainFragment {
     private FragmentChannelBinding fragmentChannelBinding;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -93,8 +100,35 @@ public class ChannelFragment extends BaseMainFragment {
 
         activeUserAdapter.differ.submitList(activeUserList);
 
-
-        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(fragmentChannelBinding.channelList);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchHelperCallback);
+        // if user touch on search bar, disable swipe
+        fragmentChannelBinding.channelList.setOnTouchListener((view, motionEvent) -> {
+            switch (motionEvent.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    itemTouchHelper.attachToRecyclerView(null);
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    // check if user touch on search bar
+                    SearchBar searchBar = fragmentChannelBinding.channelList.findViewById(R.id.search_bar);
+                    ConstraintLayout activeUserBar = fragmentChannelBinding.channelList.findViewById(R.id.active_user_bar);
+                    // if user touch on search bar, disable swipe
+                    if (searchBar != null || activeUserBar != null) {
+                        float x = motionEvent.getX();
+                        float y = motionEvent.getY();
+                        if (x >= 0 && x <= searchBar.getRight()
+                                && y >= searchBar.getTop() && y <= searchBar.getBottom()) {
+                            itemTouchHelper.attachToRecyclerView(null);
+                        }
+                        if (x >= activeUserBar.getLeft() && x <= activeUserBar.getRight()
+                                && y >= activeUserBar.getTop() && y <= activeUserBar.getBottom()) {
+                            itemTouchHelper.attachToRecyclerView(null);
+                        }
+                    }
+                    itemTouchHelper.attachToRecyclerView(fragmentChannelBinding.channelList);
+                    break;
+            }
+            return false;
+        });
 
         return fragmentChannelBinding.getRoot();
     }
@@ -154,8 +188,7 @@ public class ChannelFragment extends BaseMainFragment {
 
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-            int channelItem = ((MainRecyclerViewAdapter.MainItemViewHolder) viewHolder).getItemViewType();
-            if (channelItem == MainRecyclerViewItem.CHANNEL) {
+            if ((viewHolder instanceof MainRecyclerViewAdapter.ChannelItemViewHolder) && (direction == ItemTouchHelper.LEFT)) {
                 MainRecyclerViewAdapter.ChannelItemViewHolder channelItemViewHolder = (MainRecyclerViewAdapter.ChannelItemViewHolder) viewHolder;
                 ChannelEntity channelEntity = channelItemViewHolder.channelItemBinding.getChannel();
                 getMainViewModel().storeChannel(channelEntity);

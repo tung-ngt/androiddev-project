@@ -34,12 +34,12 @@
             android:id="@+id/layout_foreground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
             android:clickable="true"
             android:orientation="horizontal"
             android:paddingStart="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/channel_list_vertical_margin"
             android:paddingEnd="@dimen/activity_horizontal_margin"
-            android:background="@color/white"
             android:paddingBottom="@dimen/channel_list_vertical_margin">
 
             <com.google.android.material.imageview.ShapeableImageView
