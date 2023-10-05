@@ -15,7 +15,13 @@ public class AuthenticationRepositoryImpl implements AuthenticationRepository {
     @Override
     public UserEntity login(Long serverId, String username, String password) {
         // TODO: implement login with password
-        ircService.login(username, username);
+        if(userDao.getUserFromServerWithUsername(serverId, username) == null) {
+            userDao.insertAll(new UserEntity(serverId, username, password, "tung", "Guest", 0xFFFFFFFF));
+            ircService.login(username, username);
+        }
+        else {
+            ircService.login(username, username);
+        }
         return userDao.getUserFromServerWithUsername(serverId, username);
     }
 }
