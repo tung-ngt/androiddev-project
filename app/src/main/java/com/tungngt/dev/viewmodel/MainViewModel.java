@@ -42,4 +42,10 @@ public class MainViewModel extends ViewModel {
             mainRepository.deleteChannel(channelEntity);
         }).start();
     }
+
+    public void restoreChannel(ChannelEntity channelEntity){
+        new Thread(() -> {
+            mainRepository.restoreChannel(channelEntity);
+        }).start();
+    }
 }

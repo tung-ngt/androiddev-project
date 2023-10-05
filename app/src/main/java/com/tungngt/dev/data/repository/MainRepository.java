@@ -11,4 +11,5 @@ public interface MainRepository {
     LiveData<List<MainRecyclerViewItem.Channel>> loadSavedRcChannels(Long serverId);
     void addChannel(Long serverId, String handle, String name, Integer color, String description);
     void deleteChannel(ChannelEntity channelEntity);
+    void restoreChannel(ChannelEntity channelEntity);
 }

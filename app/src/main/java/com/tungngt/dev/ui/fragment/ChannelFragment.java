@@ -165,13 +165,7 @@ public class ChannelFragment extends BaseMainFragment {
                         "Deleted channel " + channelEntity.getName(),
                         Snackbar.LENGTH_LONG
                 ).setAction("Undo", (view) -> {
-                    getMainViewModel().addChannel(
-                            channelEntity.getServerId(),
-                            channelEntity.getHandle(),
-                            channelEntity.getName(),
-                            channelEntity.getColor(),
-                            channelEntity.getDescription()
-                    );
+                    getMainViewModel().restoreChannel(channelEntity);;
                 }).show();
             }
         }
