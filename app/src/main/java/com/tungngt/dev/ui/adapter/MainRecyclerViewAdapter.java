@@ -185,6 +185,9 @@ public class MainRecyclerViewAdapter
         channelItemViewHolder.channelItemBinding.getRoot().setOnClickListener( (view) -> {
                 onItemClicked(channelItem, holder);
         });
+        channelItemViewHolder.channelItemBinding.layoutForeground.setOnClickListener( (view) -> {
+            onItemClicked(channelItem, holder);
+        });
     }
 
     @Override
