@@ -42,4 +42,8 @@ public class MainRepositoryImpl implements MainRepository {
                 description
         ));
     }
+
+    public void deleteChannel(ChannelEntity channelEntity){
+        channelDao.delete(channelEntity);
+    }
 }

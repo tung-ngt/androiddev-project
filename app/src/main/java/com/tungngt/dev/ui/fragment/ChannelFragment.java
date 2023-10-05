@@ -1,8 +1,10 @@
 package com.tungngt.dev.ui.fragment;
 
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +13,10 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.util.Pair;
 import androidx.core.view.ViewCompat;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.tungngt.dev.databinding.ChannelItemBinding;
 import com.tungngt.dev.databinding.FragmentChannelBinding;
 import com.tungngt.dev.domain.ChannelEntity;
@@ -89,6 +94,7 @@ public class ChannelFragment extends BaseMainFragment {
         activeUserAdapter.differ.submitList(activeUserList);
 
 
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(fragmentChannelBinding.channelList);
 
         return fragmentChannelBinding.getRoot();
     }
@@ -139,4 +145,36 @@ public class ChannelFragment extends BaseMainFragment {
                 description
         );
     }
+
+    ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            int channelItem = ((MainRecyclerViewAdapter.MainItemViewHolder) viewHolder).getItemViewType();
+            if (channelItem == MainRecyclerViewItem.CHANNEL) {
+                MainRecyclerViewAdapter.ChannelItemViewHolder channelItemViewHolder = (MainRecyclerViewAdapter.ChannelItemViewHolder) viewHolder;
+                ChannelEntity channelEntity = channelItemViewHolder.channelItemBinding.getChannel();
+                getMainViewModel().storeChannel(channelEntity);
+                getMainViewModel().deleteChannel(channelEntity);
+                Snackbar.make(
+                        fragmentChannelBinding.getRoot(),
+                        "Deleted channel " + channelEntity.getName(),
+                        Snackbar.LENGTH_LONG
+                ).setAction("Undo", (view) -> {
+                    getMainViewModel().addChannel(
+                            channelEntity.getServerId(),
+                            channelEntity.getHandle(),
+                            channelEntity.getName(),
+                            channelEntity.getColor(),
+                            channelEntity.getDescription()
+                    );
+                }).show();
+            }
+
+        }
+    };
 }
