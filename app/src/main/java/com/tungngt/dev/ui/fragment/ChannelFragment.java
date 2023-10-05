@@ -174,7 +174,6 @@ public class ChannelFragment extends BaseMainFragment {
                     );
                 }).show();
             }
-
         }
     };
 }
