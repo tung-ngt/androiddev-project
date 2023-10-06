@@ -14,6 +14,10 @@ public interface IRCService {
         void onActiveUsersReceived(List<String> nicks);
     }
 
+    interface OnActiveUsersServerListener {
+        void onActiveUsersServerReceived(List<String> nicks);
+    }
+
     void login(String username, String realName);
 
     void sendMessage(String message, String receiver);

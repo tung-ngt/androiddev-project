@@ -17,6 +17,7 @@ import com.tungngt.dev.viewmodel.factory.MainViewModelFactory;
 import com.tungngt.dev.viewmodel.factory.SearchViewModelFactory;
 import com.tungngt.dev.viewmodel.factory.ServerListViewModelFactory;
 
+import java.io.Serializable;
 import java.net.DatagramSocket;
 
 public interface AppContainer {
@@ -43,4 +44,5 @@ public interface AppContainer {
     void setCurrentServer(ServerEntity server);
 
     AppDatabase getAppDatabase();
+
 }

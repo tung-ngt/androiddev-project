@@ -63,9 +63,7 @@ public class ChannelEntity implements Comparable<ChannelEntity>, Serializable {
         this.handle = handle;
     }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
 
     public void setName(String name) {
         this.name = name;

@@ -13,20 +13,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 
 
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.tungngt.dev.MyApplication;
 import com.tungngt.dev.R;
 import com.tungngt.dev.data.container.AppContainer;
 import com.tungngt.dev.databinding.ActivityMainBinding;
+import com.tungngt.dev.domain.ChannelEntity;
 import com.tungngt.dev.domain.ServerEntity;
+import com.tungngt.dev.domain.UserEntity;
 import com.tungngt.dev.ui.adapter.ServerListAdapter;
 import com.tungngt.dev.viewmodel.MainViewModel;
+import com.tungngt.dev.viewmodel.ServerListViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding activityMainBinding;
     private MainViewModel mainViewModel;
     private AppContainer appContainer;
+    private ServerListViewModel serverListViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,16 +72,20 @@ public class MainActivity extends AppCompatActivity {
         List<ServerEntity> serverList = new ArrayList<>();
         ServerListAdapter serverListAdapter = new ServerListAdapter();
 
-
-
         RecyclerView recyclerView = activityMainBinding.drawer.getHeaderView(0)
                 .findViewById(R.id.rcServers);
 
-        recyclerView.setAdapter(serverListAdapter);
+        serverListViewModel = new ViewModelProvider(
+                this,
+                appContainer.getServerListViewModelFactory()
+        ).get(ServerListViewModel.class);
 
         serverListAdapter.setOnServerClicked(this::connectToServer);
 
-        serverList.add(new ServerEntity("Libera", 6667, "irc.libera.chat", 0xFF78281F));
+        serverListViewModel.loadServers().observe(this, servers -> {
+            serverListAdapter.differ.submitList(new ArrayList<>(servers));
+        });
+        recyclerView.setAdapter(serverListAdapter);
 
         serverListAdapter.differ.submitList(serverList);
 
@@ -114,8 +124,18 @@ public class MainActivity extends AppCompatActivity {
 
         if (fragmentId == R.id.channelFrag) {
 
-            topAppBar.setTitle(R.string.server_name);
-            topAppBar.setSubtitle(R.string.server_url);
+            Bundle extras = getIntent().getExtras();
+            if (extras != null) {
+                ServerEntity server = (ServerEntity) extras.getSerializable("server");
+
+                if (server != null) {
+                    topAppBar.setTitle(server.getName());
+                    topAppBar.setSubtitle(server.getUrl());
+                }
+            }
+
+//            topAppBar.setTitle(R.string.server_name);
+//            topAppBar.setSubtitle(R.string.server_url);
 //            topAppBar.getMenu().clear();
 //            topAppBar.inflateMenu(R.menu.channels_top_menu);
             activityMainBinding.appbar.setLiftOnScrollTargetViewId(R.id.channelList);
