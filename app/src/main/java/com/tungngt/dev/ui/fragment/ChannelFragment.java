@@ -112,18 +112,18 @@ public class ChannelFragment extends BaseMainFragment {
                     SearchBar searchBar = fragmentChannelBinding.channelList.findViewById(R.id.search_bar);
                     ConstraintLayout activeUserBar = fragmentChannelBinding.channelList.findViewById(R.id.active_user_bar);
                     // if user touch on search bar, disable swipe
-                    if (searchBar != null || activeUserBar != null) {
+//                    if (searchBar != null || activeUserBar != null) {
                         float x = motionEvent.getX();
                         float y = motionEvent.getY();
                         if (x >= 0 && x <= searchBar.getRight()
                                 && y >= searchBar.getTop() && y <= searchBar.getBottom()) {
                             itemTouchHelper.attachToRecyclerView(null);
                         }
-                        if (x >= activeUserBar.getLeft() && x <= activeUserBar.getRight()
+                        if (x >= 0 && x <= activeUserBar.getRight()
                                 && y >= activeUserBar.getTop() && y <= activeUserBar.getBottom()) {
                             itemTouchHelper.attachToRecyclerView(null);
                         }
-                    }
+
                     itemTouchHelper.attachToRecyclerView(fragmentChannelBinding.channelList);
                     break;
             }
