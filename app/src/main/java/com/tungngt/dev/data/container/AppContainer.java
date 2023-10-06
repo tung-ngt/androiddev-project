@@ -17,6 +17,8 @@ import com.tungngt.dev.viewmodel.factory.MainViewModelFactory;
 import com.tungngt.dev.viewmodel.factory.SearchViewModelFactory;
 import com.tungngt.dev.viewmodel.factory.ServerListViewModelFactory;
 
+import java.net.DatagramSocket;
+
 public interface AppContainer {
 
     ChatRepository getChatRepository();

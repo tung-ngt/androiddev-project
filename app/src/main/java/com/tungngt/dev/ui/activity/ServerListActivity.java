@@ -1,20 +1,17 @@
 package com.tungngt.dev.ui.activity;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.util.Pair;
 import androidx.core.view.ViewCompat;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.tungngt.dev.MyApplication;
 import com.tungngt.dev.data.container.AppContainer;
 import com.tungngt.dev.databinding.ActivityServerListBinding;
@@ -22,9 +19,7 @@ import com.tungngt.dev.domain.ServerEntity;
 import com.tungngt.dev.ui.adapter.ServerListAdapter;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import com.tungngt.dev.model.Server;
 import com.tungngt.dev.ui.bottomsheets.AddServerBottomSheet;
 import com.tungngt.dev.viewmodel.ServerListViewModel;
 
@@ -47,8 +42,6 @@ public class ServerListActivity extends AppCompatActivity {
                 this,
                 appContainer.getServerListViewModelFactory()
         ).get(ServerListViewModel.class);
-
-
 
 
         ServerListAdapter serverListAdapter = new ServerListAdapter();

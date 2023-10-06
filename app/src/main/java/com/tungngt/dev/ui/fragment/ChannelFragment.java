@@ -3,6 +3,7 @@ package com.tungngt.dev.ui.fragment;
 
 import android.content.ClipData;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +30,7 @@ import com.tungngt.dev.domain.ChannelEntity;
 import com.tungngt.dev.model.ActiveUser;
 import com.tungngt.dev.model.MainRecyclerViewItem;
 import com.tungngt.dev.ui.activity.ChatActivity;
+import com.tungngt.dev.ui.activity.ChatSettingActivity;
 import com.tungngt.dev.ui.activity.SearchActivity;
 import com.tungngt.dev.ui.adapter.ActiveUserAdapter;
 import com.tungngt.dev.ui.adapter.MainRecyclerViewAdapter;
@@ -46,7 +48,6 @@ public class ChannelFragment extends BaseMainFragment {
                              Bundle savedInstanceState) {
         fragmentChannelBinding = FragmentChannelBinding.inflate(inflater);
         fragmentChannelBinding.addChannel.setOnClickListener((view) -> {
-                // Open the bottom sheet when "addChannel" is clicked
                 showAddChannelBottomSheet();
         });
 
@@ -129,7 +130,6 @@ public class ChannelFragment extends BaseMainFragment {
             }
             return false;
         });
-
         return fragmentChannelBinding.getRoot();
     }
 
