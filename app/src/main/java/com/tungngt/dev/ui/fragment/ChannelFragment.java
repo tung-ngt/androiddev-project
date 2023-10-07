@@ -119,13 +119,14 @@ public class ChannelFragment extends BaseMainFragment {
                         if (x >= 0 && x <= searchBar.getRight()
                                 && y >= searchBar.getTop() && y <= searchBar.getBottom()) {
                             itemTouchHelper.attachToRecyclerView(null);
-                        }
+                        } else
                         if (x >= 0 && x <= activeUserBar.getRight()
                                 && y >= activeUserBar.getTop() && y <= activeUserBar.getBottom()) {
                             itemTouchHelper.attachToRecyclerView(null);
+                        } else {
+                            itemTouchHelper.attachToRecyclerView(fragmentChannelBinding.channelList);
                         }
 
-                    itemTouchHelper.attachToRecyclerView(fragmentChannelBinding.channelList);
                     break;
             }
             return false;
