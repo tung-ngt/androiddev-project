@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.AsyncListDiffer;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
@@ -184,6 +185,9 @@ public class MainRecyclerViewAdapter
 
         channelItemViewHolder.channelItemBinding.getRoot().setOnClickListener( (view) -> {
                 onItemClicked(channelItem, holder);
+        });
+        channelItemViewHolder.channelItemBinding.layoutForeground.setOnClickListener( (view) -> {
+            onItemClicked(channelItem, holder);
         });
     }
 

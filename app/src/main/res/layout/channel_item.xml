@@ -10,59 +10,84 @@
             type="com.tungngt.dev.domain.ChannelEntity" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:orientation="horizontal"
-        android:paddingStart="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/channel_list_vertical_margin"
-        android:paddingEnd="@dimen/activity_horizontal_margin"
-        android:paddingBottom="@dimen/channel_list_vertical_margin">
+        android:layout_height="wrap_content">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/channel_image"
-            android:layout_width="@dimen/active_user_image_size"
-            android:layout_height="@dimen/active_user_image_size"
-            android:layout_centerHorizontal="true"
-            android:background="@{channel.color}"
-            android:transitionName="@string/channel_image_transition_name"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/circle"
-            tools:background="#FF000000" />
-
-        <TextView
-            android:id="@+id/channel_title"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/layout_background"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginStart="@dimen/channel_list_image_margin"
-            android:layout_marginTop="5dp"
-            android:ellipsize="end"
-            android:scrollHorizontally="true"
-            android:text="@{channel.name}"
-            android:textAlignment="center"
-            android:textSize="@dimen/active_user_text_size"
-            android:transitionName="@string/channel_title_transition_name"
-            app:layout_constraintStart_toEndOf="@id/channel_image"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Channel nameeeeeeee" />
+            android:background="@color/red"
+            android:text="Delete"
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="68dp"
+                android:src="@drawable/baseline_delete_24"
+                android:layout_alignParentRight="true"
+                >
+            </ImageView>
+        </RelativeLayout>
 
-        <TextView
-            android:id="@+id/last_message"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_foreground"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginStart="@dimen/channel_list_image_margin"
-            android:ellipsize="end"
-            android:scrollHorizontally="true"
-            android:text="@{channel.handle}"
-            android:textAlignment="center"
-            android:textSize="@dimen/active_user_text_size"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/channel_image"
-            app:layout_constraintTop_toBottomOf="@id/channel_title"
-            tools:text="#handle" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:background="#fcfcff"
+            android:clickable="true"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/channel_list_vertical_margin"
+            android:paddingEnd="@dimen/activity_horizontal_margin"
+            android:paddingBottom="@dimen/channel_list_vertical_margin">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/channel_image"
+                android:layout_width="@dimen/active_user_image_size"
+                android:layout_height="@dimen/active_user_image_size"
+                android:layout_centerHorizontal="true"
+                android:background="@{channel.color}"
+                android:transitionName="@string/channel_image_transition_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/circle"
+                tools:background="#FF000000" />
+
+            <TextView
+                android:id="@+id/channel_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="@dimen/channel_list_image_margin"
+                android:layout_marginTop="5dp"
+                android:ellipsize="end"
+                android:scrollHorizontally="true"
+                android:text="@{channel.name}"
+                android:textAlignment="center"
+                android:textSize="@dimen/active_user_text_size"
+                android:transitionName="@string/channel_title_transition_name"
+                app:layout_constraintStart_toEndOf="@id/channel_image"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Channel nameeeeeeee" />
+
+            <TextView
+                android:id="@+id/last_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="@dimen/channel_list_image_margin"
+                android:ellipsize="end"
+                android:scrollHorizontally="true"
+                android:text="@{channel.handle}"
+                android:textAlignment="center"
+                android:textSize="@dimen/active_user_text_size"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/channel_image"
+                app:layout_constraintTop_toBottomOf="@id/channel_title"
+                tools:text="#handle" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </FrameLayout>
 </layout>

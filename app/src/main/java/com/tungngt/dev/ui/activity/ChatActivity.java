@@ -76,7 +76,10 @@ public class ChatActivity extends AppCompatActivity{
         activityChatBinding.topAppBar.setOnMenuItemClickListener(item -> {
             if (item.getItemId() == R.id.editChanel) {
                 Intent intent = new Intent(this, ChatSettingActivity.class);
-                startActivity(intent);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("channel", appContainer.getCurrentChannel());
+                intent.putExtras(bundle);
+                startActivity(intent, bundle);
             }
             return true;
         });

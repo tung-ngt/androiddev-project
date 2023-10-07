@@ -1,5 +1,6 @@
 package com.tungngt.dev.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -39,6 +40,7 @@ public class AuthenticationActivity extends AppCompatActivity {
 
             }
         }
+
 
         Log.i(TAG, "onCreate: appcontainer " + appContainer);
         Log.i(TAG, "onCreate: viewmodel " + authenticationViewModel);

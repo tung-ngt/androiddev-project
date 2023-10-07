@@ -1,13 +1,22 @@
 package com.tungngt.dev.network.service;
 
 import java.util.Date;
+import java.util.List;
 
 public interface IRCService {
 
     interface OnMessageReceivedListener {
         void onMessageReceived(String sender, String receiver, String message, Date time);
-    };
+    }
 
+
+    interface OnActiveUsersReceivedListener {
+        void onActiveUsersReceived(List<String> nicks);
+    }
+
+    interface OnActiveUsersServerListener {
+        void onActiveUsersServerReceived(List<String> nicks);
+    }
 
     void login(String username, String realName);
 
@@ -34,7 +43,6 @@ public interface IRCService {
 
 //    List<Channel> findChannels();
 //
-//    List<User> showOnlineUsers(Channel channel);
-//
+    void requestActiveUsers(String channelHandle, OnActiveUsersReceivedListener onActiveUsersReceivedListener);
 
 }

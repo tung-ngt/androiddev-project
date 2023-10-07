@@ -38,4 +38,7 @@ public interface ChannelDao {
     @Query("DELETE FROM channel_entity WHERE server_id = :serverId")
     void deleteAllFromServer(Long serverId);
 
+    // When user restore a channel, we need to restore it with the same channel id
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void restoreChannel(ChannelEntity channelEntity);
 }

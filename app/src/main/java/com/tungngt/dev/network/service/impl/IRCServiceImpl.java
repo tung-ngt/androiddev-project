@@ -10,9 +10,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Date;
@@ -33,6 +36,9 @@ public class IRCServiceImpl implements IRCService {
     private static final String TAG = "IRCServiceImpl";
 
     private final Map<String, Map<String, OnMessageReceivedListener>> messageListenerMap = new HashMap<>();
+    private OnActiveUsersReceivedListener onActiveUsersReceivedListener;
+
+    private final List<String> activeUserBuffer = new ArrayList<>();
 
     private Socket socket;
     private BufferedWriter writer;
@@ -146,10 +152,13 @@ public class IRCServiceImpl implements IRCService {
 //        return null;
 //    }
 //
-//    @Override
-//    public List<User> showOnlineUsers(Channel channel) {
-//        return null;
-//    }
+
+
+    @Override
+    public void requestActiveUsers(String channelHandle, OnActiveUsersReceivedListener onActiveUsersReceivedListener) {
+        addToSendQueue("NAMES "+channelHandle);
+        this.onActiveUsersReceivedListener = onActiveUsersReceivedListener;
+    }
 
     private void listenForMessage() {
         String line;
@@ -169,6 +178,17 @@ public class IRCServiceImpl implements IRCService {
                 String sendFrom = parts[0];
                 String command = parts[1];
 
+                // Return names command
+                if (command.equals("353")) {
+                    int secondColonIndex = line.indexOf(":", line.indexOf(":") + 1);
+                    String[] nicks = line.substring(secondColonIndex + 1).split(" ");
+                    activeUserBuffer.addAll(Arrays.asList(nicks));
+                }
+                // finish names command
+                if (command.equals("366")) {
+                    finishActiveUsers();
+                }
+
                 if (command.equals("PRIVMSG")) {
                     String sender = sendFrom.split("!~")[0].substring(1);
                     String receiver = parts[2];
@@ -186,6 +206,18 @@ public class IRCServiceImpl implements IRCService {
             Log.i(TAG, "leaveServer: " + e);
 
         }
+    }
+
+    private void finishActiveUsers() {
+        new Thread(() -> {
+            if (onActiveUsersReceivedListener == null) {
+                activeUserBuffer.clear();
+                return;
+            }
+
+            onActiveUsersReceivedListener.onActiveUsersReceived(activeUserBuffer);
+            activeUserBuffer.clear();
+        }).start();
     }
 
     private void addToSendQueue(String line) {
@@ -226,5 +258,5 @@ public class IRCServiceImpl implements IRCService {
         messageListenerMap.get(receiver).forEach((listenerType, listener) -> {
             listener.onMessageReceived(sender, receiver, message, time);
         });
-    };
+    }
 }

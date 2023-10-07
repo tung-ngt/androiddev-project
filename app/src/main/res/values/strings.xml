@@ -31,8 +31,8 @@
     <string name="search_server">Search server</string>
     <string name="search_servers">Search servers</string>
     <string name="edit_server">Edit server</string>
-    <string name="server_name">Server name</string>
-    <string name="server_url">irc.freenode.net</string>
+    <string name="server_name">Libera Chat</string>
+    <string name="server_url">irc.libera.chat</string>
     <string name="online">Online</string>
     <string name="servers">Servers</string>
     <string name="see_more">See more</string>
